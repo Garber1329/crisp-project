@@ -1,8 +1,10 @@
+import Header from '/src/Components/Header/Header.jsx'
+
 const HomePage = () => {
   return (
-    <div>
-        <h1>Welcome to the Home Page</h1>
-    </div>
+    <>
+    <Header/>
+    </>
     )
 }
 
