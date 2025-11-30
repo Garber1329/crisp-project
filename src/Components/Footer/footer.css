@@ -35,8 +35,8 @@ button {
 
   padding: 65px 0 116px;
 }
-.footer__logo-link {
-}
+/* .footer__logo-link {
+} */
 .footer__list {
   display: flex;
   flex-direction: column;
