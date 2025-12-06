@@ -3,13 +3,16 @@ import ProductCardList from "../../Components/ProductCard/ProductCardList"
 import ProductCardSwiper from "../../Components/ProductCard/ProductCardSwiper"
 import productsData from "../../data/productsData.json"
 import '../../Components/ProductCard/ProductCard.css'
-
+import Hero from "../../Components/Hero/Hero";
+import Header from "../../Components/Header/Header";
+import OfferCard from "../../Components/Offercards/Offer-cards";
 
 const HomePage = () => {
   return (
     <div>
-            <Header/>
-
+        <Header/>
+        <Hero />
+        <OfferCard />
         <ProductCardList title="Featured Items">
             <ProductCardSwiper products={productsData.data} swiperId="featured" /> 
         </ProductCardList>
