@@ -1,3 +1,4 @@
+import Footer from "../../Components/Footer/Footer";
 import ProductCardList from "../../Components/ProductCard/ProductCardList"
 import ProductCardSwiper from "../../Components/ProductCard/ProductCardSwiper"
 import productsData from "../../data/productsData.json"
@@ -15,6 +16,7 @@ const HomePage = () => {
         <ProductCardList title="Most Popular">
             <ProductCardSwiper products={productsData.data} swiperId="popular" />
         </ProductCardList>
+        <Footer />
     </div>
     
     )
