@@ -1,4 +1,4 @@
-import sprite from "../../../public/symbol-defs-hero.svg";
+import sprite from "../../images/HomePage/symbol-defs-hero.svg";
 
 export default function Icon({ name, width, height, className }) {
   return (
