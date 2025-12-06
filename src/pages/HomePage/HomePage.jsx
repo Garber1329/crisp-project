@@ -8,7 +8,7 @@ import '../../Components/ProductCard/ProductCard.css'
 const HomePage = () => {
   return (
     <div>
-        <h1>Welcome to the Home Page</h1>
+            <Header/>
 
         <ProductCardList title="Featured Items">
             <ProductCardSwiper products={productsData.data} swiperId="featured" /> 
@@ -18,7 +18,6 @@ const HomePage = () => {
         </ProductCardList>
         <Footer />
     </div>
-    
     )
 }
 
