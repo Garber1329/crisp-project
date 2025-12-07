@@ -59,6 +59,7 @@ export default function Header() {
                     </div>
                 </div>
                 <div style={{ display: flex }} className="modal-window">
+                    <button onClick={() => setFlex('none')} className='clouse'>clouse</button>
                     <ModalComponent text={arr} />
                     <ModalComponent text={arr} />
                     <ModalComponent text={arr} />

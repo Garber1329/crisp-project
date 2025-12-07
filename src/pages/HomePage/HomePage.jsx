@@ -1,11 +1,12 @@
-import Footer from "../../Components/Footer/Footer";
-import ProductCardList from "../../Components/ProductCard/ProductCardList"
-import ProductCardSwiper from "../../Components/ProductCard/ProductCardSwiper"
+import Footer from "../../Components/Footer/Footer.jsx";
+import ProductCardList from "../../Components/ProductCard/ProductCardList.jsx"
+import ProductCardSwiper from "../../Components/ProductCard/ProductCardSwiper.jsx"
 import productsData from "../../data/productsData.json"
 import '../../Components/ProductCard/ProductCard.css'
+import Header from '/src/Components/Header/Header.jsx'
 import Hero from "../../Components/Hero/Hero";
-import Header from "../../Components/Header/Header";
-import OfferCard from "../../Components/Offercards/Offer-cards";
+import OfferCard from "../../Components/Offercards/Offer-cards.jsx";
+
 
 const HomePage = () => {
   return (
