@@ -1,8 +1,8 @@
 import './Header.css'
-import logo from '/public/logo.png'
-import dandruff from '/public/dandruff.png'
+import logo from '../../images/Header/logo.png'
+import dandruff from '../../images/Header/dandruff.png'
 import { useState } from 'react'
-import modal from '/public/women-modal.png'
+import modal from '../../images/Header/women-modal.png'
 
 const arr = ['Product Page With Sidebar', 'Product Page Without Sidebar', 'Horizontal Thumbnails', 'Vertical Thumbnails', 'Addtocart Sticky', 'Vertical Tabs']  
 

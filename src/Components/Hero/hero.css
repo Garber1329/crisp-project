@@ -1,0 +1,59 @@
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.swiper-pagination-bullet {
+    background: none !important;
+    border: 1px solid rgba(130, 130, 130, 1);
+    border-radius: 0px !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: black !important;
+    border: 1px solid black;
+    width: 25px !important;
+    height: 25px !important;
+}
+
+.swipers {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.swiper-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 45px;
+
+}
+
+.custom-prev {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+.custom-prev:hover {
+    cursor: pointer;
+}
+
+.custom-next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+.custom-next:hover {
+    cursor: pointer;
+}
