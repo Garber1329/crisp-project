@@ -28,16 +28,6 @@ function ModalComponent({ text }) {
 export default function Header() {
   const [color, setColor] = useState("#000");
   const [flex, setFlex] = useState("none");
-  const [value, setValue] = useState(0)
-  console.log(value)
-
-  document.addEventListener("mousedown", () => {
-    if(value === 0){
-        setFlex("none")
-    } else {
-        setFlex('flex')
-    }
-    })
 
   return (
     <>
@@ -94,12 +84,17 @@ export default function Header() {
             </div>
           </div>
         </div>
+        {/* backdrop covers the page to block clicks (e.g. hero/swiper) while modal is open */}
+        <div
+          className={header['modal-backdrop']}
+          onClick={() => setFlex('none')}
+          style={{ display: flex === 'flex' ? 'block' : 'none' }}
+        />
 
         <div
+          onClick={(e) => e.stopPropagation()}
           style={{ display: flex }}
           className={header['modal-window']}
-          onPointerEnter={() => setValue(1)}
-          onPointerLeave={() => setValue(0)}
         >
           <ModalComponent text={arr} />
           <ModalComponent text={arr} />
