@@ -9,7 +9,6 @@ import OfferCard from "../../Components/Offercards/Offer-cards.jsx";
 import Banner1 from "../../Components/Banners/banner1.jsx";
 import Banner2 from "../../Components/Banners/banner2.jsx";
 
-
 const HomePage = () => {
   return (
     <div>
