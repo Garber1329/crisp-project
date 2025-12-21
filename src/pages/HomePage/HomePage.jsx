@@ -1,3 +1,5 @@
+import Blog from "../../Components/Blog/Blog"
+import postsData from "../../data/postsData.json"
 import Footer from "../../Components/Footer/Footer.jsx";
 import ProductCardList from "../../Components/ProductCard/ProductCardList.jsx"
 import ProductCardSwiper from "../../Components/ProductCard/ProductCardSwiper.jsx"
@@ -23,6 +25,7 @@ const HomePage = () => {
         </ProductCardList>
         <Banner1/>
       <Banner2/>
+          <Blog data={postsData ? postsData.data : []} />
         <Footer />
     </div>
     )
