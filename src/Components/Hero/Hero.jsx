@@ -5,8 +5,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./hero-settings.css";
 import styles from "./hero.module.css";
-import Container from "../Container.jsx";
-import styled from "styled-components";
 import Data from "../../data/photos.json";
 
 const Hero = () => {
