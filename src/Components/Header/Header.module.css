@@ -157,6 +157,7 @@ p {
     width: 1195px;
     background-color: white;
     z-index: 20;
+    pointer-events: none;
 }
 
 
