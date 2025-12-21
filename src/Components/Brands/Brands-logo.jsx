@@ -1,24 +1,37 @@
-import "./Brandslogo.css";
+import {
+  BrandsWrapper,
+  BrandsTitle,
+  BrandsLine,
+  BrandsList,
+} from "./Brands-logo.styles";
+
+import image1 from "../../images/HomePage/g2414.png";
+import image2 from "../../images/HomePage/Group.png";
+import image3 from "../../images/HomePage/layer1.png";
+import image4 from "../../images/HomePage/Group (1).png";
+import image5 from "../../images/HomePage/Vector.png";
+import image6 from "../../images/HomePage/Group (2).png";
+import image7 from "../../images/HomePage/Vector (1).png";
 
 const Brandslogo = () => {
   return (
-    <div className="brands">
-      <h1 className="brands-title">CHOOSE YOUR BRAND</h1>
+    <BrandsWrapper>
+      <BrandsTitle>CHOOSE YOUR BRAND</BrandsTitle>
 
-      <div className="brands-line" />
+      <BrandsLine />
 
-      <div className="brands-list">
-        <img src="images/g2414.png" alt="chanel" />
-        <img src="imges/Group.png" alt="burberry" />
-        <img src="imges/layer1.png" alt="dior" />
-        <img src="imges/Group (1).png" alt="fendi" />
-        <img src="imges/Vector.png" alt="versace" />
-        <img src="imges/Group (2).png" alt="gucci" />
-        <img src="imges/Vector (1).png" alt="armani" />
-      </div>
+      <BrandsList>
+        <img src={image1} alt="chanel" />
+        <img src={image2} alt="burberry" />
+        <img src={image3} alt="dior" />
+        <img src={image4} alt="fendi" />
+        <img src={image5} alt="versace" />
+        <img src={image6} alt="gucci" />
+        <img src={image7} alt="armani" />
+      </BrandsList>
 
-      <div className="brands-line" />
-    </div>
+      <BrandsLine />
+    </BrandsWrapper>
   );
 };
 
