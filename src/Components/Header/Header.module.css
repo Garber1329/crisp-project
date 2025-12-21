@@ -157,7 +157,14 @@ p {
     width: 1195px;
     background-color: white;
     z-index: 20;
-    pointer-events: none;
+}
+
+/* full-screen invisible backdrop placed behind modal to block clicks to underlying content */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0); /* keep visually transparent but intercept clicks */
+    z-index: 19;
 }
 
 
