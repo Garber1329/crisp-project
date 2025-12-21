@@ -1,6 +1,6 @@
-const Container = ({children}) => {
+const Container = ({children, className}) => {
     return (
-        <div className="container">
+        <div className={className ? `container ${className}` : `container`}>
         {children}
         </div>
     );
