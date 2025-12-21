@@ -1,10 +1,11 @@
-.icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
+.swiper {
+    padding-bottom: 20px;
+    padding-top: 50px;
+}
+
+.custom-paginate {
+    margin-left: 30px;
+    width: 120px !important;
 }
 
 .swiper-pagination-bullet {
@@ -32,8 +33,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 45px;
-
 }
 
 .custom-prev {
@@ -41,6 +40,7 @@
     justify-content: center;
     align-items: center;
     background-color: black;
+    padding: 15px 20px;
 }
 
 .custom-prev:hover {
@@ -52,6 +52,7 @@
     justify-content: center;
     align-items: center;
     background-color: black;
+    padding: 17px 20px;
 }
 
 .custom-next:hover {
