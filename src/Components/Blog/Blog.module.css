@@ -1,0 +1,68 @@
+.Blog {
+  background-color: #f8f9fb;
+  padding: 46px 0;
+}
+
+.BlogTitle {
+  font-family: 'Oswald';
+  font-weight: 400;
+  font-size: 24px;
+  margin: 0 auto;
+}
+
+.BlogContainer {
+  display: flex;
+  gap: 30px;
+}
+
+.BlogCard {
+  width: 447px;
+  height: 420px;
+  background-color: #ffffff;
+}
+
+.BlogType {
+  font-family: 'Oswald';
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  text-transform: uppercase;
+  color: #BDBDBD;
+  margin: 24px 24px 21px;
+}
+
+.ArticleTitle {
+  font-family: Oswald;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  margin-left: 24px;
+  margin-bottom: 32px;
+}
+
+.ArticleText {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 1%;
+  width: 398px;
+  height: 124px;
+  margin-left: 24px;
+  margin-bottom: 135px;
+}
+
+.ArticleDate {
+  font-family: 'Oswald';
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 37px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: #4F4F4F;
+  border-top: 3px solid black;
+}
