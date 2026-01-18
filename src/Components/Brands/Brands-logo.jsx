@@ -3,6 +3,7 @@ import {
   BrandsTitle,
   BrandsLine,
   BrandsList,
+  
 } from "./Brands-logo.styles";
 
 import image1 from "../../images/HomePage/g2414.png";
