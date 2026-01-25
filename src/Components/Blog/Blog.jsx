@@ -1,47 +1,35 @@
-import './Blog.css'
+import styles from "./Blog.module.css";
 
-const Blog = ({data, limit = 4}) => {
-
-    const limitedPosts = data.slice(0, limit);
+const Blog = ({ data, limit = 4 }) => {
+  const limitedPosts = data.slice(0, limit);
 
   return (
-    <div className="Blog">
-        <h2 className='BlogTitle'>Blog</h2>
-        <div className="BlogContainer">
-            {data && data.slice(0,4).map((post, index) => (
-                  <div className="BlogCard" key={post.id}>
-                <p className="BlogType">{post.id % 2 === 0 ? "Article" : "Tips"}</p>
-                <h3 className="ArticleTitle">{post.title}</h3>
-                <p className="ArticleText">
-                    {post.body.length > 100
-                    ? post.body.slice(0, 100) + "..."
-                    : post.body}
-                </p>
-                <p className="ArticleDate">21 January 2018 by guido</p>
-            </div>
-            
-            ))}
-            {/* <div className="BlogCard">
-                <p className="BlogType">Tips</p>
-                <h3 className="ArticleTitle"></h3>
-                <p className="ArticleText"></p>
-                <p className="ArticleDate">21 January 2018 by guido</p>
-            </div>
-            <div className="BlogCard">
-                <p className="BlogType">Tips</p>
-                <h3 className="ArticleTitle"></h3>
-                <p className="ArticleText"></p>
-                <p className="ArticleDate">21 January 2018 by guido</p>
-            </div>
-            <div className="BlogCard">
-                <p className="BlogType">Article</p>
-                <h3 className="ArticleTitle"></h3>
-                <p className="ArticleText"></p>
-                <p className="ArticleDate">21 January 2018 by guido</p>
-            </div> */}
-        </div>
-    </div>
-    )
-}
+    <div className={styles.Blog}>
+      <h2 className={styles.BlogTitle}>Blog</h2>
 
-export default Blog
+      <div className={styles.BlogContainer}>
+        {limitedPosts.map((post) => (
+          <div className={styles.BlogCard} key={post.id}>
+            <p className={styles.BlogType}>
+              {post.id % 2 === 0 ? "Article" : "Tips"}
+            </p>
+
+            <h3 className={styles.ArticleTitle}>{post.title}</h3>
+
+            <p className={styles.ArticleText}>
+              {post.body.length > 100
+                ? post.body.slice(0, 100) + "..."
+                : post.body}
+            </p>
+
+            <p className={styles.ArticleDate}>
+              21 January 2018 by guido
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Blog;
