@@ -10,7 +10,7 @@ import OfferCard from "../../Components/Offercards/Offer-cards.jsx";
 const HomePage = () => {
     return (
         <div>
-            <Header />
+            <Header/>
             <Hero />
             <OfferCard />
             <ProductCardList title="Featured Items">

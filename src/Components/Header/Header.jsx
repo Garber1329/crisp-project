@@ -2,6 +2,7 @@ import header from './Header.module.css'
 import logo from '../../images/Header/logo.png'
 import dandruff from '../../images/Header/dandruff.png'
 import { useState } from 'react'
+import { PiHandbagBold } from "react-icons/pi";
 import modal from '../../images/Header/women-modal.png'
 
 
@@ -28,16 +29,6 @@ function ModalComponent({ text }) {
 export default function Header() {
   const [color, setColor] = useState("#000");
   const [flex, setFlex] = useState("none");
-  const [value, setValue] = useState(0)
-  console.log(value)
-
-  document.addEventListener("mousedown", () => {
-    if(value === 0){
-        setFlex("none")
-    } else {
-        setFlex('flex')
-    }
-    })
 
   return (
     <>
@@ -76,7 +67,7 @@ export default function Header() {
 
             <svg
               className={header.like}
-              onClick={() => setColor("#ca0505")}
+              onClick={() => color === '#000' ? setColor("#ca0505") : setColor("#000")}
               style={{ fill: color, cursor: "pointer" }}
               viewBox="0 0 22 21"
               xmlns="http://www.w3.org/2000/svg"
@@ -88,18 +79,25 @@ export default function Header() {
               />
             </svg>
 
+            <PiHandbagBold className={header.handbag}/>
+
             <div className={header['header__box-cart']}>
               <p className={header['header__cart-text']}>Shopping Cart</p>
               <p className={header['header__cart-text']}>{"0,00"} EUR</p>
             </div>
           </div>
         </div>
+        {/* backdrop covers the page to block clicks (e.g. hero/swiper) while modal is open */}
+        <div
+          className={header['modal-backdrop']}
+          onClick={() => setFlex('none')}
+          style={{ display: flex === 'flex' ? 'block' : 'none' }}
+        />
 
         <div
+          onClick={(e) => e.stopPropagation()}
           style={{ display: flex }}
           className={header['modal-window']}
-          onPointerEnter={() => setValue(1)}
-          onPointerLeave={() => setValue(0)}
         >
           <ModalComponent text={arr} />
           <ModalComponent text={arr} />
