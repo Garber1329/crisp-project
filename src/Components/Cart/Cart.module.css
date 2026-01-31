@@ -1,0 +1,158 @@
+.cartHeaderRow {
+  padding: 15px 0;
+  text-transform: uppercase;
+  color: #999;
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.headerCell {
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #828282;
+  text-align: left;
+  padding-bottom: 18px;
+}
+
+.cartTBody {
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.cartItemCell {
+  padding: 24px calc(5px + 1vw);
+  vertical-align: middle;
+  text-align: left;
+  font-size: 14px;
+}
+
+.cartItemCell:not(:nth-child(3)) {
+  padding-left: 0;
+}
+
+.cartItemCell:last-child {
+  padding-right: 0;
+  text-align: right;
+}
+
+.itemWrp {
+  display: flex;
+  align-items: top;
+  gap: 15px;
+}
+
+.itemImg {
+  width: 83px;
+  height: 103px;
+  object-fit: cover;
+}
+
+.itemTitle {
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.itemSubtitle {
+  font-size: 12px;
+  color: #888;
+  margin-top: 4px;
+}
+
+.quantityCounter {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.counterBtn {
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.counterBtn:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.quantityValue {
+  padding: 0 15px;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  min-width: 20px;
+  text-align: center;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.totalText {
+  text-align: center;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: none;
+  transition: all 0.5s ease;
+  border: 2px solid transparent;
+  background-color: #e6f1fa;
+  cursor: pointer;
+}
+.iconBtn:hover {
+  border-color: #dbebf8;
+}
+.iconBtn svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.btnWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.cartBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #c4c4c4;
+
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  line-height: 1.2;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #828282;
+  background: #f0f2f2;
+  padding: 8px 24px;
+
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+.cartBtn:hover {
+  border: 2px solid #828282;
+}
