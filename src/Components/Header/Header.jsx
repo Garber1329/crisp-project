@@ -2,6 +2,7 @@ import header from './Header.module.css'
 import logo from '../../images/Header/logo.png'
 import dandruff from '../../images/Header/dandruff.png'
 import { useState } from 'react'
+import { PiHandbagBold } from "react-icons/pi";
 import modal from '../../images/Header/women-modal.png'
 
 
@@ -66,7 +67,7 @@ export default function Header() {
 
             <svg
               className={header.like}
-              onClick={() => setColor("#ca0505")}
+              onClick={() => color === '#000' ? setColor("#ca0505") : setColor("#000")}
               style={{ fill: color, cursor: "pointer" }}
               viewBox="0 0 22 21"
               xmlns="http://www.w3.org/2000/svg"
@@ -77,6 +78,8 @@ export default function Header() {
                 strokeWidth="2.4"
               />
             </svg>
+
+            <PiHandbagBold className={header.handbag}/>
 
             <div className={header['header__box-cart']}>
               <p className={header['header__cart-text']}>Shopping Cart</p>
