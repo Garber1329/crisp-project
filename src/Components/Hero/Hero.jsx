@@ -17,8 +17,7 @@ const Hero = () => {
       WINTER COLLECTION GET <span className={styles.discount}>40% OFF</span>
     </>,
     <>
-      CASUAL STYLE Comfort{" "}
-      <span className={styles.discount}>Up to 40% OFF</span>
+      CASUAL STYLE Comfort <span className={styles.discount}>Up to 40% OFF</span>
     </>,
     <>
       HOLIDAY SALE Get <span className={styles.discount}>30% off now!</span>
@@ -73,7 +72,7 @@ const Hero = () => {
         <div className="swiper-buttons">
           <div className="custom-paginate"></div>
           <div className="swipers">
-            <button className="custom-next">
+            <button className="custom-prev">
               <svg
                 width="10"
                 height="16"
@@ -88,7 +87,7 @@ const Hero = () => {
                 />
               </svg>
             </button>
-            <button className="custom-prev">
+            <button className="custom-next">
               <svg
                 width="10"
                 height="16"
