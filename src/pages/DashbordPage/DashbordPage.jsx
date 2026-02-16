@@ -12,6 +12,7 @@ import {
   ContentFlex,
   Card
 } from "./DashboardPage.styles";
+import EditAccount from '../../Components/EditAccount/EditAccount.jsx'
 
 class DashbordPage extends Component {
   state = {
@@ -67,6 +68,9 @@ class DashbordPage extends Component {
   renderContent() {
     if (this.state.mode === "addressForm") {
       return this.renderAddressForm();
+    }
+    if (this.state.mode === "account") {
+      return <EditAccount />
     }
 
     return this.renderDashboardContent();
