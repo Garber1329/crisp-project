@@ -12,20 +12,28 @@
 9. Картки Офери - Олександра
 
 ## Catalog Page - Максим Богатов
+(https://fakestoreapiserver.reactbd.org/api/products)
 
 ## Product Page - Олександра
+(https://fakestoreapiserver.reactbd.org/api/products/1)
 
 ## LogIn Page - Роман Сидоренко
+(https://fakestoreapiserver.reactbd.org/api/categories)
 
 ## Register - Андрій Матвійчук
+(https://fakestoreapiserver.reactbd.org/api/reviews)
 
 ## My Dashboard (Add New Address) - Женя Карпов
+(https://fakestoreapiserver.reactbd.org/api/orders)
 
 ## My Dashboard (Edit Account Information, My Wishlist) - Максим Шамрай
+(https://fakestoreapiserver.reactbd.org/api/wishlists)
 
 ## Shopping Cart (second page)- Кирил Ковальчук
+(https://fakestoreapiserver.reactbd.org/api/products/1)
 
 ## Shopping Cart (first page) - Єлизавета Ганношина
+(https://fakestoreapiserver.reactbd.org/api/cart)
 
 
 
