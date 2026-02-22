@@ -14,7 +14,7 @@ export default class ShopBoard extends Component {
           {categories.map((category) => {
             const uniqueId = nanoid();
             return (
-              <label key={category} htmlFor={uniqueId} className={styles.clothType}>
+              <label key={category._id} htmlFor={uniqueId} className={styles.clothType}>
                 <input
                   type="checkbox"
                   id={uniqueId}
