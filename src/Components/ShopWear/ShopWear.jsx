@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import data from '../../data/productsData.json';
 import Container from '../Container.jsx';
 import ShopItems from './ShopItems.jsx';
 import clsx from 'clsx';
@@ -10,7 +9,6 @@ import axios from 'axios';
 export default class ShopWear extends Component {
   state = {
     filters: [],
-    categories: [],
     products: [],
     error: null,
   };
@@ -26,26 +24,24 @@ export default class ShopWear extends Component {
   };
   async componentDidMount() {
     try {
-      const categoriesGet = await axios.get(
-        'https://fakestoreapiserver.reactbd.org/api/categories',
-      );
-      const categories = categoriesGet.data.data;
-
-      const productsRes = await axios.get('https://fakestoreapiserver.reactbd.org/api/products');
-      const products = productsRes.data.data;
+      const productsGet = await axios.get('https://fakestoreapiserver.reactbd.org/api/products');
+      const products = productsGet.data.data;
 
       this.setState({
-        categories: categories,
-        products: products,
+        products,
       });
     } catch (err) {
       this.setState({ error: err.message });
+      console.log(`error in line: ${err}`);
     }
   }
   render() {
-    const { filters = [], categories = [], products = [] } = this.state;
+    const { filters, products } = this.state;
+    const categories = [...new Set(products.map((item) => item.type))];
     const filteredData =
-      filters.length > 0 ? products.filter((item) => filters.includes(item.category)).slice(0, 8) : products.slice(0, 8);
+      filters.length > 0
+        ? products.filter((item) => filters.includes(item.type)).slice(0, 8)
+        : products.slice(0, 8);
     return (
       <section className={clsx(styles.shopwear)}>
         <div className={clsx(styles.shopwearContent)}>
