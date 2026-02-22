@@ -29,6 +29,7 @@ export default class ShopWear extends Component {
 
       this.setState({
         products,
+        error: null
       });
     } catch (err) {
       this.setState({ error: err.message });
