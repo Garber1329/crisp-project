@@ -1,15 +1,16 @@
 import { Component } from 'react';
-import data from '../../data/productsData.json';
 import Container from '../Container.jsx';
 import ShopItems from './ShopItems.jsx';
 import clsx from 'clsx';
 import styles from './shopwear.module.css';
-import ShopBoard from './SideBar.jsx';
-import LoginMain from '../LoginPage/LoginPageContent.jsx';
+import ShopBoard from './ShopBoard.jsx';
+import axios from 'axios';
 
 export default class ShopWear extends Component {
   state = {
     filters: [],
+    products: [],
+    error: null,
   };
   handleCheckboxChange = (category) => {
     this.setState((prevState) => {
@@ -21,13 +22,26 @@ export default class ShopWear extends Component {
       };
     });
   };
+  async componentDidMount() {
+    try {
+      const productsGet = await axios.get('https://fakestoreapiserver.reactbd.org/api/products');
+      const products = productsGet.data.data;
+
+      this.setState({
+        products,
+      });
+    } catch (err) {
+      this.setState({ error: err.message });
+      console.log(`error in line: ${err}`);
+    }
+  }
   render() {
-    const { filters } = this.state;
-    const categories = [...new Set(data.data.map((item) => item.type))];
+    const { filters, products } = this.state;
+    const categories = [...new Set(products.map((item) => item.type))];
     const filteredData =
       filters.length > 0
-        ? data.data.filter((item) => filters.includes(item.type)).slice(0, 8)
-        : data.data.slice(0, 8);
+        ? products.filter((item) => filters.includes(item.type)).slice(0, 8)
+        : products.slice(0, 8);
     return (
       <section className={clsx(styles.shopwear)}>
         <div className={clsx(styles.shopwearContent)}>
