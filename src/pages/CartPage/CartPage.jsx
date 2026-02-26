@@ -1,4 +1,5 @@
 import { Component } from "react";
+import axios from "axios";
 import Header from "/src/Components/Header/Header.jsx";
 import CartTable from "../../Components/Cart/CartTable.jsx";
 import CartBtn from "../../Components/Cart/CartBtn";
@@ -53,7 +54,8 @@ const initialItems = [
 
 class CartPage extends Component {
   state = {
-    cartItems: initialItems,
+    cartItems: [],
+    error: null,
     openShipping: false,
     country: "USA",
     city: "",
@@ -71,6 +73,40 @@ class CartPage extends Component {
       "Perth",
       "Sydney",
     ],
+  };
+
+    getCartItems = async () => {
+    const response = await axios.get("https://fakestoreapiserver.reactbd.org/api/cart/1");
+    return response.data.products; 
+  }; 
+
+  componentDidMount() {
+    this.fetchCartItems();
+  }
+
+  fetchCartItems = async () => {
+    try {
+      const cartData = await this.getCartItems();
+
+      const Example = cartData.map((item) => {
+      return {
+        _id: item.productId, 
+        quantity: item.quantity, 
+        title: `Product ID: ${item.productId}`, // Заглушка 
+        price: 25.00, // Заглушка
+        
+      };
+    });
+
+      this.setState({
+        cartItems: Example,
+        error: null
+      })
+    } catch (error) {
+      console.error("Помилка завантаження даних:", error);
+      console.error("Помилка завантаження даних:", error);
+      this.setState({ error: "Не вдалося завантажити товари. Спробуйте оновити сторінку." });
+    }
   };
 
   toggleShipping = () => {
@@ -104,7 +140,7 @@ class CartPage extends Component {
   };
 
   render() {
-    const { cartItems, openShipping, country, city } = this.state;
+    const { cartItems, error, openShipping, country, city } = this.state;
 
     return (
       <>
@@ -114,6 +150,7 @@ class CartPage extends Component {
           <CartPageTitle>Shopping Cart</CartPageTitle>
           <CartContentWrp>
             <CartTableWrp>
+              {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
               <CartTable
                 items={cartItems}
                 onUpdate={this.handleUpdateQuantity}
