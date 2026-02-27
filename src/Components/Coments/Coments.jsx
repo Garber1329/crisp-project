@@ -23,11 +23,6 @@ class Comentar extends Component {
 
 export default class Coments extends Component {
     state = {
-        coment: '',
-        reting: 0,
-        nameUser: [],
-        data: '',
-        userId: 0,
         all: [],
         complate: false,
         all2: [],
@@ -50,7 +45,7 @@ export default class Coments extends Component {
     }
 
     render() {
-        const { all, complate, all2 } = this.state
+        const { all } = this.state
 
         return (
             <>
