@@ -50,10 +50,7 @@ export default class Coments extends Component {
     }
 
     render() {
-        const { reting, nameUser, data, userId, all, complate, all2 } = this.state
-        console.log(all)
-        console.log(complate)
-        console.log(all2)
+        const { all, complate, all2 } = this.state
 
         return (
             <>
