@@ -19,7 +19,6 @@ export default function ProductPage() {
 
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
-  const [selectedColor, setSelectedColor] = useState("black");
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
 
@@ -95,7 +94,6 @@ export default function ProductPage() {
 
     console.log({
       product: productData.title,
-      color: selectedColor,
       size: selectedSize,
       quantity,
       totalPrice
