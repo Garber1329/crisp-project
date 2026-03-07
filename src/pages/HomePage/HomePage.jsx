@@ -8,8 +8,7 @@ import Header from '/src/Components/Header/Header.jsx'
 import Hero from "../../Components/Hero/Hero";
 import OfferCard from "../../Components/Offercards/Offer-cards.jsx";
 import Brands from '../../Components/Brands/Brands-logo.jsx';
-
-
+import ShopWear from "../../Components/ShopWear/ShopWear.jsx";
 import Banner1 from "../../Components/Banners/banner1.jsx";
 import Banner2 from "../../Components/Banners/banner2.jsx";
 
@@ -20,6 +19,7 @@ const HomePage = () => {
         <Hero />
         <Brands />
         <OfferCard />
+        <ShopWear />
         <ProductCardList title="Featured Items">
             <ProductCardSwiper products={productsData.data} swiperId="featured" /> 
         </ProductCardList>
