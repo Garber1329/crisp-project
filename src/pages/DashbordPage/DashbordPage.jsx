@@ -13,6 +13,7 @@ import {
   Card
 } from "./DashboardPage.styles";
 import EditAccount from '../../Components/EditAccount/EditAccount.jsx'
+import MyWishlist from "../../Components/MyWishlist/MyWishlist.jsx";
 
 class DashbordPage extends Component {
   state = {
@@ -71,6 +72,9 @@ class DashbordPage extends Component {
     }
     if (this.state.mode === "account") {
       return <EditAccount />
+    }
+    if (this.state.mode === "wishlist") {
+      return <MyWishlist />
     }
 
     return this.renderDashboardContent();
