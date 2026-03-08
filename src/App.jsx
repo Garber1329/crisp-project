@@ -14,8 +14,7 @@ function App() {
     <HomePage />
     <DashbordPage />
     <CartPage/>
-    <Coments/>
-    <ProductPage/>
+    <Coments id={4}/>
     </>
   )
 }
