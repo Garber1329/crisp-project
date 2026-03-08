@@ -93,43 +93,281 @@
 }
 
 /* Обробка помилок завантаження зображень */
-.gallery-thumbs img,
+/* Загальна сторінка */
+.product-page {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 40px 60px;
+  background: #fff;
+  color: #111;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.breadcrumb a {
+  text-decoration: none;
+  color: #777;
+}
+
+.separator {
+  margin: 0 6px;
+}
+
+/* Контейнер продукту */
+.product-container {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+}
+
+/* ===== ГАЛЕРЕЯ ===== */
+
+.product-gallery-wrapper {
+  display: flex;
+  gap: 15px;
+}
+
+/* Мініатюри */
+.gallery-thumbs {
+  width: 90px;
+  height: 600px;
+}
+
+.gallery-thumbs .swiper-slide {
+  height: 120px !important;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.gallery-thumbs .swiper-slide-thumb-active {
+  opacity: 1;
+  border: 2px solid #000;
+}
+
+.gallery-thumbs img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Основне фото */
+.gallery-main {
+  width: 520px;
+  height: 600px;
+}
+
 .gallery-main img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
-  background: #f0f0f0;
 }
 
+/* ===== ІНФОРМАЦІЯ ===== */
 
-/* Адаптив для мобільних */
-@media (max-width: 768px) {
-  .gallery-container {
-    flex-direction: column;
-    gap: 20px;
-    padding: 10px;
-  }
+.product-info-wrapper {
+  width: 420px;
+}
 
-  .gallery-thumbs {
-    width: 100%;
-    height: 100px;
-    order: 2;
-  }
+/* Бренд */
+.brand-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-  .gallery-thumbs .swiper-wrapper {
-    flex-direction: row;
-  }
+.brand {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  background: #eee;
+  padding: 3px 8px;
+}
 
-  .gallery-thumbs .swiper-slide {
-    width: 80px !important;
-    height: 100px !important;
-    margin-right: 10px !important;
-  }
+.new-badge {
+  font-size: 11px;
+  background: #000;
+  color: #fff;
+  padding: 3px 6px;
+}
 
-  .gallery-main {
-    width: 100%;
-    height: 400px;
-    order: 1;
-  }
+/* Назва */
+.product-title {
+  font-size: 34px;
+  font-weight: 700;
+  margin: 20px 0 30px;
+  line-height: 1.2;
+}
+
+/* Опис */
+.description {
+  color: #555;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+/* Секції */
+.info-section {
+  margin-bottom: 25px;
+}
+
+.section-title {
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+/* ===== РОЗМІРИ ===== */
+
+.size-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.size-btn {
+  width: 48px;
+  height: 36px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  font-size: 12px;
+  color: #777;
+  transition: all 0.2s ease;
+}
+
+.size-btn:hover {
+  border-color: black;
+  color: black;
+}
+
+.size-btn.selected {
+  background: black;
+  color: white;
+  border-color: black;
+}
+
+/* ===== КІЛЬКІСТЬ ===== */
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-btn {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #000000;
+  background: white;
+  cursor: pointer;
+  font-size: 18px;
+  color: #777;
+  transition: all 0.2s ease;
+  justify-content: center;
+}
+
+.quantity-btn:hover {
+  color: black;
+}
+
+.quantity-value {
+  font-size: 16px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.stock-info {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #777;
+}
+
+/* ===== ЦІНА ===== */
+
+.price-section {
+  margin: 30px 0;
+}
+
+.price-label {
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 5px;
+}
+
+.price-value {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #999;
+  margin-right: 10px;
+}
+
+.current-price {
+  color: #000;
+  margin-right: 8px;
+}
+
+.discount-badge {
+  background: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+}
+
+/* ===== КНОПКИ ===== */
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.add-to-bag {
+  flex: 1;
+  background: black;
+  color: white;
+  border: none;
+  height: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.add-to-bag:hover {
+  background: #222;
+}
+
+.save-btn {
+  width: 120px;
+  border: 1px solid #000000;
+  background: white;
+  cursor: pointer;
+  color: #777;
+  transition: all 0.2s ease;
+}
+
+.save-btn:hover {
+  border-color: black;
+  color: black;
+}
+
+/* ===== LOADING ===== */
+
+.loading-container,
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+
+.loading-spinner {
+  font-size: 18px;
 }
