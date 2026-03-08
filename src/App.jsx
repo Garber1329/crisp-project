@@ -13,7 +13,7 @@ function App() {
     <HomePage />
     <DashbordPage />
     <CartPage/>
-    <Coments/>
+    <Coments id={4}/>
     </>
   )
 }
