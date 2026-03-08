@@ -9,17 +9,15 @@ import "swiper/css/free-mode";
 
 import "./ProductPage.css";
 
-import photos from "../../data/photos.json";
-import productsData from "../../data/productsData.json";
-
-// Локальні SVG заглушки (замість via.placeholder.com)
+// Локальні SVG заглушки
 const placeholderImage = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='800' viewBox='0 0 600 800'%3E%3Crect width='600' height='800' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%23999'%3ENo Image%3C/text%3E%3C/svg%3E";
 
 const errorImage = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='800' viewBox='0 0 600 800'%3E%3Crect width='600' height='800' fill='%23ffeeee'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%23ff4444'%3EError%3C/text%3E%3C/svg%3E";
 
 export default function ProductPage() {
+  // 1. Розбиваємо state на окремі хуки useState
   const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   
@@ -43,52 +41,65 @@ export default function ProductPage() {
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        setLoading(true);
+  // Функція для отримання продукту
+  const fetchArticles = async () => {
+    setLoading(true);
+    setError(null);
 
-        // Завантажуємо дані з photos.json
-        let productImages = [];
-        
-        if (photos && photos.data) {
-          const product = photos.data.find((item) => item._id === 20);
-          if (product && product.urls && product.urls.length > 0) {
-            productImages = product.urls;
-          }
-        }
-        
-        // Якщо немає зображень, використовуємо локальну заглушку
-        setImages(productImages.length > 0 ? productImages : [placeholderImage]);
-
-        // Завантажуємо дані з productsData.json
-        if (productsData) {
-          let productInfo = null;
-          
-          if (Array.isArray(productsData)) {
-            productInfo = productsData.find((item) => item._id === 20);
-          } else if (productsData.data && Array.isArray(productsData.data)) {
-            productInfo = productsData.data.find((item) => item._id === 20);
-          } else if (productsData.products && Array.isArray(productsData.products)) {
-            productInfo = productsData.products.find((item) => item._id === 20);
-          }
-          
-          if (productInfo) {
-            setProductData(productInfo);
-          }
-        }
-
-        setError(null);
-      } catch (err) {
-        console.error("Помилка завантаження:", err);
-        setError("Не вдалося завантажити дані");
-        setImages([errorImage]);
-      } finally {
-        setLoading(false);
+    try {
+      // Використовуємо fetch замість axios
+      const response = await fetch('https://fakestoreapiserver.reactbd.org/api/products/20');
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
+      
+      const product = await response.json();
 
-    loadData();
+      // Маппінг даних з API на структуру нашого компоненту
+      const mappedProduct = {
+        _id: product._id,
+        brand: product.brand || "FENDI",
+        title: product.title || "Women Black Checked Fit and Flare Dress",
+        price: product.price || 0,
+        oldPrice: product.oldPrice || "",
+        discountedPrice: product.discountedPrice || null,
+        description: product.description || "",
+        category: product.category || "",
+        type: product.type || "",
+        stock: product.stock || 10,
+        size: product.size || ['XS', 'S', 'M', 'L', 'XL'],
+        image: product.image || "",
+        rating: product.rating || 4,
+        isNew: product.isNew || false
+      };
+
+      setProductData(mappedProduct);
+
+      // Обробка зображень
+      let productImages = [];
+      if (mappedProduct.image) {
+        productImages = [mappedProduct.image];
+      }
+      
+      // Додаємо додаткові зображення, якщо вони є
+      if (product.additionalImages && Array.isArray(product.additionalImages)) {
+        productImages = [...productImages, ...product.additionalImages];
+      }
+
+      setImages(productImages.length > 0 ? productImages : [placeholderImage]);
+
+    } catch (err) {
+      setError(err.message);
+      console.error("Error fetching product:", err);
+      setImages([errorImage]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchArticles();
   }, []);
 
   const handleQuantityChange = (type) => {
@@ -100,7 +111,6 @@ export default function ProductPage() {
     }
   };
 
-  // Функція для обробки помилок завантаження зображень
   const handleImageError = (e) => {
     e.target.src = placeholderImage;
   };
@@ -109,7 +119,7 @@ export default function ProductPage() {
   const totalPrice = (displayPrice * quantity).toFixed(2);
 
   const handleAddToBag = () => {
-    if (!selectedSize) {
+    if (!selectedSize && productData.size && productData.size.length > 0) {
       alert("Please select size");
       return;
     }
@@ -138,20 +148,17 @@ export default function ProductPage() {
   };
 
   const renderSizes = () => {
-    if (!productData.size) return null;
+    if (!productData.size || !Array.isArray(productData.size)) return null;
     
-    if (Array.isArray(productData.size)) {
-      return productData.size.map((size, index) => (
-        <button
-          key={index}
-          className={`size-btn ${selectedSize === size ? "selected" : ""}`}
-          onClick={() => setSelectedSize(size)}
-        >
-          {size}
-        </button>
-      ));
-    }
-    return null;
+    return productData.size.map((size, index) => (
+      <button
+        key={index}
+        className={`size-btn ${selectedSize === size ? "selected" : ""}`}
+        onClick={() => setSelectedSize(size)}
+      >
+        {size}
+      </button>
+    ));
   };
 
   if (loading) {
@@ -165,7 +172,10 @@ export default function ProductPage() {
   if (error) {
     return (
       <div className="error-container">
-        <div className="error-message">{error}</div>
+        <div className="error-message">Помилка: {error}</div>
+        <button onClick={fetchArticles} className="retry-btn">
+          Спробувати знову
+        </button>
       </div>
     );
   }
@@ -228,31 +238,25 @@ export default function ProductPage() {
 
         {/* Info */}
         <div className="product-info-wrapper">
-          {/* Бренд та статус NEW */}
           <div className="brand-header">
-            <div className="brand">{productData.brand || "FENDI"}</div>
+            <div className="brand">{productData.brand}</div>
             {productData.isNew && <span className="new-badge">NEW</span>}
           </div>
 
-          <h1 className="product-title">
-            {productData.title || "Women Black Checked Fit and Flare Dress"}
-          </h1>
+          <h1 className="product-title">{productData.title}</h1>
 
-          {/* Рейтинг */}
           {productData.rating > 0 && (
             <div className="rating">
-              {"★".repeat(productData.rating)}
-              {"☆".repeat(5 - productData.rating)}
+              {"★".repeat(Math.floor(productData.rating))}
+              {"☆".repeat(5 - Math.floor(productData.rating))}
               <span>({productData.rating})</span>
             </div>
           )}
 
-          {/* Опис */}
           {productData.description && (
             <p className="description">{productData.description}</p>
           )}
 
-          {/* Розміри */}
           {productData.size && productData.size.length > 0 && (
             <div className="info-section">
               <h3 className="section-title">SELECT SIZE</h3>
@@ -262,7 +266,6 @@ export default function ProductPage() {
             </div>
           )}
 
-          {/* Кількість */}
           <div className="info-section">
             <h3 className="section-title">QUANTITY</h3>
             <div className="quantity-control">
@@ -285,7 +288,6 @@ export default function ProductPage() {
             )}
           </div>
 
-          {/* Ціна */}
           <div className="price-section">
             <div className="price-label">PRICE TOTAL</div>
             <div className="price-value">
@@ -305,7 +307,6 @@ export default function ProductPage() {
             </div>
           </div>
 
-          {/* Кнопки */}
           <div className="action-buttons">
             <button 
               className="add-to-bag" 
@@ -317,6 +318,60 @@ export default function ProductPage() {
             <button className="save-btn" onClick={handleSave}>
               SAVE
             </button>
+          </div>
+        </div>
+      </div>
+    
+      <div className="prodact-pages-section2">
+        <div className="accordion" id="accordionExample">
+          <div className="accordion-item">
+            <h2 className="accordion-header">
+              <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Product Details
+              </button>
+            </h2>
+            <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+              <div className="accordion-body">
+                <strong>Product description:</strong> {productData.description || "No description available."}
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header">
+              <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Size Guide
+              </button>
+            </h2>
+            <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div className="accordion-body">
+                Available sizes: {productData.size && Array.isArray(productData.size) ? productData.size.join(', ') : 'Standard sizes apply'}
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header">
+              <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Shipping & Returns
+              </button>
+            </h2>
+            <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div className="accordion-body">
+                Free shipping on orders over 50 EUR. Returns accepted within 30 days.
+              </div>
+            </div>
+          </div>
+           <div className="accordion-item">
+            <h2 className="accordion-header">
+              <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                Comments
+              </button>
+            </h2>
+            <div id="collapseFour" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+              <div className="accordion-body">
+                <strong>Comments:</strong> 
+                {/* ...тут підключити коментарі */}
+              </div>
+            </div>
           </div>
         </div>
       </div>
