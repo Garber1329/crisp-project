@@ -4,6 +4,7 @@ import DashbordPage from './pages/DashbordPage/DashbordPage.jsx'
 import CartPage from './pages/CartPage/CartPage.jsx'
 import RegisterPage from './pages/RegisterPage/RegisterPage.jsx'
 import Coments from  './Components/Coments/Coments.jsx'
+import ProductPage from './pages/ProductPage/ProductPage.jsx'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
     <DashbordPage />
     <CartPage/>
     <Coments/>
+    <ProductPage/>
     </>
   )
 }
