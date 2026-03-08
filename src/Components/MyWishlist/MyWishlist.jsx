@@ -1,40 +1,34 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import "./MyWishlist.css";
 
-const WISHLIST_URL = "https://fakestoreapiserver.reactbd.org/api/wishlists/6";
+const WISHLIST_URL = "https://fakestoreapiserver.reactbd.org/api/wishlists/1";
 const PRODUCTS_URL = "https://fakestoreapiserver.reactbd.org/api/products";
 
-class MyWishlist extends Component {
-  state = {
-    products: [],
-    loading: true
-  }
+function MyWishlist() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  async componentDidMount() {
-    try {
-    const getWishlist = await axios.get(WISHLIST_URL);
-    const productIds = getWishlist.data.productIds;
+  useEffect(() =>{
+    const fetchWishlist = async () => {
+      try {
+        const wishlistResponse = await axios.get(WISHLIST_URL);
+        const productIds = wishlistResponse.data.productIds;
 
-    const promises = productIds.map((id) => axios.get(`${PRODUCTS_URL}/${id}`));
-
-    const responses = await Promise.all(promises);
-
-    const selectedProducts = responses.map((response) => response.data);
-
-    this.setState({
-        products: selectedProducts,
-        loading: false,
-      });
-
-    } catch (error) {
+        const promises = productIds.map((id) => axios.get(`${PRODUCTS_URL}/${id}`));
+        const responses = await Promise.all(promises);
+        const selectedProducts = responses.map((response) => response.data);
+        
+        setProducts(selectedProducts);
+      } catch (error) {
       console.error("Помилка завантаження:", error);
-      this.setState({ loading: false });
-    }
-  }
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchWishlist();
+  });
 
-    render () {
-      const { products, loading } = this.state;
       if (loading) return <p>Loading...</p>;
 
         return (
@@ -66,7 +60,6 @@ class MyWishlist extends Component {
             </div>
         </div>
   );
-    }
 }
 
 export default MyWishlist;

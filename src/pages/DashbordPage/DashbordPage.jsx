@@ -67,13 +67,13 @@ class DashbordPage extends Component {
 
 
   renderContent() {
-    if (this.state.mode === "addressForm") {
+    if (this.state.activeSection === "addressForm") {
       return this.renderAddressForm();
     }
-    if (this.state.mode === "account") {
+    if (this.state.activeSection === "account") {
       return <EditAccount />
     }
-    if (this.state.mode === "wishlist") {
+    if (this.state.activeSection === "wishlist") {
       return <MyWishlist />
     }
 
