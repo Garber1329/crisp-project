@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs, FreeMode } from "swiper/modules";
+import Coments from '/src/Components/Coments/Coments.jsx'
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -369,7 +370,7 @@ export default function ProductPage() {
             <div id="collapseFour" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
               <div className="accordion-body">
                 <strong>Comments:</strong> 
-                {/* ...тут підключити коментарі */}
+                <Coments id={4}/>
               </div>
             </div>
           </div>

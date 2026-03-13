@@ -3,7 +3,6 @@ import HomePage from './pages/HomePage/HomePage.jsx'
 import DashbordPage from './pages/DashbordPage/DashbordPage.jsx'
 import CartPage from './pages/CartPage/CartPage.jsx'
 import RegisterPage from './pages/RegisterPage/RegisterPage.jsx'
-import Coments from  './Components/Coments/Coments.jsx'
 import ProductPage from './pages/ProductPage/ProductPage.jsx'
 
 function App() {
@@ -14,7 +13,7 @@ function App() {
     <HomePage />
     <DashbordPage />
     <CartPage/>
-    <Coments id={4}/>
+    <ProductPage/>
     </>
   )
 }
