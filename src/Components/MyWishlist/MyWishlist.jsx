@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { GrEdit } from "react-icons/gr";
 import "./MyWishlist.css";
 
 const WISHLIST_URL = "https://fakestoreapiserver.reactbd.org/api/wishlists/1";
@@ -38,7 +39,7 @@ function MyWishlist() {
               <div key={product._id} className="wishlist-card">
                 <div className="image-wrapper">
                   <img src={product.image} alt={product.title} />
-                  <button className="change-btn"><img src="/images/MyWishlist.svg" alt="" /></button>
+                  <button className="change-btn"><GrEdit size={10} /></button>
                   <button className="delete-btn">✕</button>
                 </div>
 
