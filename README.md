@@ -14,25 +14,25 @@
 ## Catalog Page - Максим Богатов
 (https://fakestoreapiserver.reactbd.org/api/products)
 
-## Product Page - Олександра
+## Product Page - Олександра (невідображено на сторінці)
 (https://fakestoreapiserver.reactbd.org/api/products/1)
 
-## LogIn Page - Роман Сидоренко
+## LogIn Page - Роман Сидоренко (виконано класові http)
 (https://fakestoreapiserver.reactbd.org/api/categories)
 
-## Register - Андрій Матвійчук
+## Register - Андрій Матвійчук (виконано класові http)
 (https://fakestoreapiserver.reactbd.org/api/reviews)
 
-## My Dashboard (Add New Address) - Женя Карпов
+## My Dashboard (Add New Address) - Женя Карпов (недороблено oredes)
 (https://fakestoreapiserver.reactbd.org/api/orders)
 
-## My Dashboard (Edit Account Information, My Wishlist) - Максим Шамрай
+## My Dashboard (Edit Account Information, My Wishlist) - Максим Шамрай (невідображено на сторінці wishlists)
 (https://fakestoreapiserver.reactbd.org/api/wishlists)
 
-## Shopping Cart (second page)- Кирил Ковальчук
+## Shopping Cart (second page)- Кирил Ковальчук (не виконано products in cart)
 (https://fakestoreapiserver.reactbd.org/api/products/1)
 
-## Shopping Cart (first page) - Єлизавета Ганношина
+## Shopping Cart (first page) - Єлизавета Ганношина (виконано класові http)
 (https://fakestoreapiserver.reactbd.org/api/cart)
 
 
