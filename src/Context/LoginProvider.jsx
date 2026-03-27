@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { LoginContext } from './LoginContext';
 
-export const LoginProvider = ({ children }) => {
+export default function LoginProvider({ children }) {
   const [isSignIn, setIsSignIn] = useState(false);
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
