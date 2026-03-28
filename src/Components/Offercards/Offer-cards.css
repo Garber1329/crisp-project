@@ -2,6 +2,7 @@
 .offerSection {
 
   display: flex;
+   gap: 20px; /* 🔥 ДОДАЛА: відступ між 1 і 2 карткою */
   grid-template-columns: 1.2fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 24px;
@@ -20,6 +21,7 @@ flex-direction: column;
   border-radius: 8px;
   overflow: hidden;
   display: flex;
+   height: 800px;
 }
 
 /* Ліва велика */
@@ -31,6 +33,8 @@ flex-direction: column;
 /* Права верхня */
 .offerCard--second {
   background: linear-gradient(to right, #F7E0D5, #F3DCD2, #f3dcd2);
+ margin-top: 20px;
+ 
 }
 
 /* Права нижня */
@@ -46,12 +50,23 @@ flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding: 40px;
+  margin-right: 20px;
+}
+.offerCard__inner {
+  display: flex;
+  gap: 20px; /* 🔥 ДОДАЛА: відступ між фото і текстом */
 }
 
+
 /* Контент */
+
 .offerCard__content {
   max-width: 45%;
+  display: flex;
+  flex-direction: column;
+
 }
+
 
 /* Заголовки */
 .offerCard__title {
@@ -88,6 +103,6 @@ flex-direction: column;
 
 /* Картинка */
 .offerCard__image {
-  max-height: 320px;
+height: auto;
   object-fit: contain;
 }
