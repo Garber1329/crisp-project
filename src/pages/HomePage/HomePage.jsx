@@ -11,6 +11,7 @@ import Brands from '../../Components/Brands/Brands-logo.jsx';
 import ShopWear from "../../Components/ShopWear/ShopWear.jsx";
 import Banner1 from "../../Components/Banners/banner1.jsx";
 import Banner2 from "../../Components/Banners/banner2.jsx";
+import CartPage2 from "../CartPage/CartPage2.jsx";
 
 const HomePage = () => {
   return (
@@ -18,6 +19,7 @@ const HomePage = () => {
         <Header/>
         <Hero />
         <Brands />
+         <CartPage2 />
         <OfferCard />
         <ShopWear />
         <ProductCardList title="Featured Items">
@@ -28,6 +30,7 @@ const HomePage = () => {
         </ProductCardList>
         <Banner1/>
       <Banner2/>
+     
           <Blog data={postsData ? postsData.data : []} />
         <Footer />
     </div>

@@ -1,0 +1,100 @@
+.checkout-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.checkout-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-group label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+input,
+select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.note {
+  font-size: 13px;
+  color: gray;
+}
+
+.login-actions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn.black {
+  background: black;
+  color: white;
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid #ccc;
+}
+
+.link {
+  background: none;
+  border: none;
+  color: #0F6DB1;
+  cursor: pointer;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.section-title {
+  margin-top: 20px;
+}
+
+.shipping-box {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.shipping-option {
+  display: grid;
+  grid-template-columns: 20px 80px 1fr 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}

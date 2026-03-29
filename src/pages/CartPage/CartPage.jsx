@@ -13,44 +13,44 @@ import {
   CartContentWrp,
 } from "./CartPage.styles.js";
 
-const initialItems = [
-  {
-    _id: 3,
-    title: "Compact fashion t-shirt",
-    isNew: true,
-    oldPrice: "70",
-    price: 55.99,
-    discountedPrice: 50.39,
-    description:
-      "Lorem ipsumドル sit amet, consectetur adipisicing elit. Nulla non magni facili blanditiis molestias soluta eveniet illum accusantium eius mollitia eligendi, ex iste doloribus magnam.",
-    category: "women",
-    type: "t-shirt",
-    stock: 100,
-    brand: "TrendyTees",
-    size: "M",
-    image: "https://images.pexels.com/photos/2752045/pexels-photo-2752045.jpeg",
-    rating: 3,
-    quantity: 1,
-  },
-  {
-    _id: 4,
-    title: "Blue jins",
-    isNew: true,
-    oldPrice: "70",
-    price: 50,
-    discountedPrice: 45,
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla non magni facili blanditiis molestias soluta eveniet illum accusantium eius mollitia eligendi, ex iste doloribus magnam.",
-    category: "women",
-    type: "jeans",
-    stock: 75,
-    brand: "DenimCo",
-    size: "32",
-    image: "https://images.pexels.com/photos/1485031/pexels-photo-1485031.jpeg",
-    rating: 3,
-    quantity: 1,
-  },
-];
+// const initialItems = [
+//   {
+//     _id: 3,
+//     title: "Compact fashion t-shirt",
+//     isNew: true,
+//     oldPrice: "70",
+//     price: 55.99,
+//     discountedPrice: 50.39,
+//     description:
+//       "Lorem ipsumドル sit amet, consectetur adipisicing elit. Nulla non magni facili blanditiis molestias soluta eveniet illum accusantium eius mollitia eligendi, ex iste doloribus magnam.",
+//     category: "women",
+//     type: "t-shirt",
+//     stock: 100,
+//     brand: "TrendyTees",
+//     size: "M",
+//     image: "https://images.pexels.com/photos/2752045/pexels-photo-2752045.jpeg",
+//     rating: 3,
+//     quantity: 1,
+//   },
+//   {
+//     _id: 4,
+//     title: "Blue jins",
+//     isNew: true,
+//     oldPrice: "70",
+//     price: 50,
+//     discountedPrice: 45,
+//     description:
+//       "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla non magni facili blanditiis molestias soluta eveniet illum accusantium eius mollitia eligendi, ex iste doloribus magnam.",
+//     category: "women",
+//     type: "jeans",
+//     stock: 75,
+//     brand: "DenimCo",
+//     size: "32",
+//     image: "https://images.pexels.com/photos/1485031/pexels-photo-1485031.jpeg",
+//     rating: 3,
+//     quantity: 1,
+//   },
+// ];
 
 class CartPage extends Component {
   state = {
@@ -75,10 +75,10 @@ class CartPage extends Component {
     ],
   };
 
-    getCartItems = async () => {
-    const response = await axios.get("https://fakestoreapiserver.reactbd.org/api/cart/1");
-    return response.data.products; 
-  }; 
+  getCartItems = async () => {
+    const response = await axios.get("https://fakestoreapiserver.reactbd.org/api/cart/2");
+    return response.data.products;
+  };
 
   componentDidMount() {
     this.fetchCartItems();
@@ -88,18 +88,35 @@ class CartPage extends Component {
     try {
       const cartData = await this.getCartItems();
 
-      const Example = cartData.map((item) => {
-      return {
-        _id: item.productId, 
-        quantity: item.quantity, 
-        title: `Product ID: ${item.productId}`, // Заглушка 
-        price: 25.00, // Заглушка
-        
-      };
-    });
+      const promises = cartData.map((item) => {
+
+        return axios.get(`https://fakestoreapiserver.reactbd.org/api/products/${item.productId}`);
+
+      });
+
+      const responses = await Promise.all(promises);
+      const productInfo = responses.map((response, index) => {
+        return {
+          _id: response.data._id,
+          title: response.data.title,
+          price: response.data.price,
+          image: response.data.image,
+          quantity: cartData[index].quantity
+        };
+      });
+
+      // const Example = cartData.map((item) => {
+      //   return {
+      //     _id: item.productId,
+      //     quantity: item.quantity,
+      //     title: `Product ID: ${item.productId}`, // Заглушка 
+      //     price: 25.00, // Заглушка
+
+      //   };
+      // });
 
       this.setState({
-        cartItems: Example,
+        cartItems: productInfo,
         error: null
       })
     } catch (error) {
@@ -241,7 +258,7 @@ class CartPage extends Component {
                 <button className="checkout-btn">PROCEED TO CHECKOUT</button>
               </div>
             </div>
-            
+
           </CartContentWrp>
         </CartPageWrp>
         <Footer />
