@@ -1,7 +1,7 @@
 import coment from './Coments.module.css'
 import { IoStarSharp } from "react-icons/io5";
 import { FaCircleUser } from "react-icons/fa6";
-import { useEffect, useState } from 'react'
+import { useEffect, useState, memo } from 'react'
 import axios from 'axios'
 
 const Comentar = ({ name, reting, comentar, data }) => {
@@ -18,7 +18,7 @@ const Comentar = ({ name, reting, comentar, data }) => {
     )
 }
 
-export default function Coments({ id }) {
+const Coments = memo(function Coments({ id }) {
     const [isAll, setAll] = useState([])
     const [isComplate, setComplate] = useState(false)
     const [isAll2, setAll2] = useState([])
@@ -46,7 +46,7 @@ export default function Coments({ id }) {
         setInfoComent([info])
         console.log(infoComent)
 
-        if(infoComent.length > 0) {
+        if (infoComent.length > 0) {
             setComplate(true)
         }
     }, [isAll])
@@ -66,3 +66,6 @@ export default function Coments({ id }) {
         </>
     )
 }
+)  
+
+export default  Coments
