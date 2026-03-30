@@ -16,10 +16,8 @@ header {
     font-size: 14px;
     text-transform: uppercase;
     color: #fff;
-    height: 28px;
     background-color: #000;
     border: 0px;
-    text-decoration: none;
 }
 
 .header__link:hover {

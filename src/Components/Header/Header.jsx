@@ -1,9 +1,10 @@
 import header from './Header.module.css'
 import logo from '../../images/Header/logo.png'
 import dandruff from '../../images/Header/dandruff.png'
-import { useState } from 'react'
+import { memo, useState, useContext } from 'react'
 import { PiHandbagBold } from "react-icons/pi";
 import modal from '../../images/Header/women-modal.png'
+import { LoginContext } from '../../Context/LoginContext';
 
 
 const arr = [
@@ -15,7 +16,7 @@ const arr = [
   'Vertical Tabs'
 ]
 
-function ModalComponent({ text }) {
+const ModalComponent = memo( function ModalComponent({ text }) {
   return (
     <div className={header['modal-block-text']}>
       <h5>Menu Category List</h5>
@@ -24,11 +25,12 @@ function ModalComponent({ text }) {
       ))}
     </div>
   )
-}
+})
 
 export default function Header() {
   const [color, setColor] = useState("#000");
   const [flex, setFlex] = useState("none");
+  const {loginPages, registerPages, allProjects } = useContext(LoginContext)
 
   return (
     <>
@@ -37,7 +39,7 @@ export default function Header() {
           <img src={logo} alt="" className={header.logo} />
 
           <nav className={header['header__nav']}>
-            <button onMouseUp={() => setFlex('flex')} className={header['header__link']}>home</button>
+            <button onClick={() => allProjects()} onMouseUp={() => setFlex('flex')} className={header['header__link']}>home</button>
             <button onMouseUp={() => setFlex('flex')} className={header['header__link']}>Shop</button>
             <button onMouseUp={() => setFlex('flex')} className={header['header__link']}>blog</button>
             <button onMouseUp={() => setFlex('flex')} className={header['header__link']}>Sale</button>
@@ -61,8 +63,8 @@ export default function Header() {
 
           <div className={header['header__acount-box']}>
             <div className={header['header__acount-box-link']}>
-              <a href="" className={header['header__link']}>SIGN IN</a>
-              <a href="" className={header['header__link']}>CREATE AN ACCOUNT</a>
+              <button className={header['header__link']} onClick={() => loginPages()}>SIGN IN</button>
+              <button className={header['header__link']} onClick={() => registerPages()}>CREATE AN ACCOUNT</button>
             </div>
 
             <svg

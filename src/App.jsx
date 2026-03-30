@@ -4,16 +4,26 @@ import DashbordPage from './pages/DashbordPage/DashbordPage.jsx'
 import CartPage from './pages/CartPage/CartPage.jsx'
 import RegisterPage from './pages/RegisterPage/RegisterPage.jsx'
 import ProductPage from './pages/ProductPage/ProductPage.jsx'
+import LoginMain from '/src/Components/LoginPage/LoginPageContent.jsx'
+import { LoginContext } from "./Context/LoginContext.jsx";
+import { useContext } from "react";
 
 function App() {
 
+  const { loginPage, registerPage, allProject } = useContext(LoginContext)
+  // console.log();
+
+
   return (
     <>
-     <RegisterPage/>
-    <HomePage />
-    <DashbordPage />
-    <CartPage/>
-    <ProductPage/>
+      {registerPage && <RegisterPage />}
+      {loginPage && <LoginMain />}
+      {allProject && <div>
+        <HomePage />
+        <DashbordPage />
+        <CartPage />
+        <ProductPage />
+      </div>}
     </>
   )
 }
