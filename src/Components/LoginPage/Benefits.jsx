@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import styles from './loginPage.module.css';
 import clsx from 'clsx';
 import Container from '../Container';
