@@ -1,9 +1,9 @@
-.shopwear {
+.ShopFilters {
     padding-top: 30px;
     padding-bottom: 25px;
 }
 
-.shopwearContent {
+.ShopFiltersContent {
     display: flex;
     align-items: flex-start;
 }
