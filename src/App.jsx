@@ -6,24 +6,28 @@ import RegisterPage from './pages/RegisterPage/RegisterPage.jsx'
 import ProductPage from './pages/ProductPage/ProductPage.jsx'
 import LoginMain from '/src/Components/LoginPage/LoginPageContent.jsx'
 import { LoginContext } from "./Context/LoginContext.jsx";
-import { useContext } from "react";
+import { Routes, Route } from 'react-router-dom'
 
 function App() {
 
-  const { loginPage, registerPage, allProject } = useContext(LoginContext)
-  // console.log();
-
-
   return (
     <>
-      {registerPage && <RegisterPage />}
-      {loginPage && <LoginMain />}
-      {allProject && <div>
-        <HomePage />
-        <DashbordPage />
-        <CartPage />
-        <ProductPage />
-      </div>}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/dashboard" element={<DashbordPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/login" element={<LoginMain />} />
+        </Routes>
+      {/* <RegisterPage />
+      <LoginMain />
+
+      <HomePage />
+      <DashbordPage />
+      <CartPage />
+      <ProductPage /> */}
+
     </>
   )
 }
