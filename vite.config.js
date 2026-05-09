@@ -10,5 +10,5 @@ export default defineConfig({
       },
     }),
   ],
-  base: '/crisp-project/',
+  base: '/',
 })
