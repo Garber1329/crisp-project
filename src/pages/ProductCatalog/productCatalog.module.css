@@ -1,0 +1,19 @@
+.productCatalogWrapper {
+  display: flex;
+  padding: 72px;
+}
+
+.productCatalogMain {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.sortingWrapper {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 0;
+  padding-right: 34px;
+}

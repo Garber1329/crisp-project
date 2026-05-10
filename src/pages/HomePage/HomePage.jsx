@@ -1,6 +1,8 @@
 import Blog from "../../Components/Blog/Blog"
 import postsData from "../../data/postsData.json"
 import Footer from "../../Components/Footer/Footer.jsx";
+import "../../Components/ProductCard/ProductCard.css";
+import ProductCatalog from "../ProductCatalog/ProductCatalog.jsx";
 import ProductCardList from "../../Components/ProductCard/ProductCardList.jsx"
 import ProductCardSwiper from "../../Components/ProductCard/ProductCardSwiper.jsx"
 import productsData from "../../data/productsData.json"
@@ -34,7 +36,7 @@ const HomePage = () => {
           <Blog data={postsData ? postsData.data : []} />
         <Footer />
     </div>
-    )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

@@ -5,8 +5,7 @@ import App from './App.jsx'
 import LoginProvider from './Context/LoginProvider.jsx'
 import { BrowserRouter } from 'react-router-dom'
 
-
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <LoginProvider>
       <BrowserRouter>
@@ -14,4 +13,4 @@ createRoot(document.getElementById('root')).render(
       </BrowserRouter>
     </LoginProvider>
   </StrictMode>,
-)
+);
