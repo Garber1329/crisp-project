@@ -1,3 +1,9 @@
+.container {
+  width: 1920px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
 .productCatalogWrapper {
   display: flex;
   padding: 72px;
