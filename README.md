@@ -1,3 +1,42 @@
+# Реалізація сторінок
+
+## Homapage Page
+1. Header - Андрій Матвійчук
+2. Hero - Роман Сидоренко
+3. Footer - Максим Богатов
+4. 2 Банери - Женя Карпов
+5. Товари 1 - Роман Сидоренко
+6. Товари 2 - Єлизавета Ганношина
+7. Блог - Максим Шамрай
+8. Бренди - Кирил Ковальчук
+9. Картки Офери - Олександра
+
+## Catalog Page - Максим Богатов
+(https://fakestoreapiserver.reactbd.org/api/products)
+
+## Product Page - Олександра (невідображено на сторінці)
+(https://fakestoreapiserver.reactbd.org/api/products/1)
+
+## LogIn Page - Роман Сидоренко (виконано класові http)
+(https://fakestoreapiserver.reactbd.org/api/categories)
+
+## Register - Андрій Матвійчук (виконано класові http)
+(https://fakestoreapiserver.reactbd.org/api/reviews)
+
+## My Dashboard (Add New Address) - Женя Карпов (недороблено oredes)
+(https://fakestoreapiserver.reactbd.org/api/orders)
+
+## My Dashboard (Edit Account Information, My Wishlist) - Максим Шамрай (невідображено на сторінці wishlists)
+(https://fakestoreapiserver.reactbd.org/api/wishlists)
+
+## Shopping Cart (second page)- Кирил Ковальчук (не виконано products in cart)
+(https://fakestoreapiserver.reactbd.org/api/products/1)
+
+## Shopping Cart (first page) - Єлизавета Ганношина (виконано класові http)
+(https://fakestoreapiserver.reactbd.org/api/cart)
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -16,14 +55,3 @@ Note: This will impact Vite dev & build performances.
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-
-## Homapage
-1. Header - Андрій Матвійчук
-2. Hero - Роман Сидоренко
-3. Footer - Максим Богатов
-4. 2 Банери - Женя Карпов
-5. Товари 1 - Вероніка Мартинчук
-6. Товари 2 - Єлизавета Ганношина
-7. Блог - Максим Шамрай
-8. Бренди - Кирил
-9. Картки Офери - Олександра

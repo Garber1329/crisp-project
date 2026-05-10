@@ -1,0 +1,109 @@
+.checkout {
+  width: 360px;
+  margin: 30px auto;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+}
+
+.block {
+  background: #f0f0f0;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.block h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.block input,
+.block select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  font-size: 13px;
+}
+
+.block button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+  background: #e6e6e6;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.block button:hover {
+  background: #ddd;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.shipping-form {
+  margin-top: 10px;
+}
+
+.shipping-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.shipping-methods {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.shipping-methods p {
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+.shipping-methods label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.summary {
+  padding: 15px;
+  background: #f9f9f9;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.row.total {
+  font-weight: bold;
+  font-size: 14px;
+  border-top: 1px solid #ccc;
+  padding-top: 8px;
+}
+
+.checkout-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  background: black;
+  color: white;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.checkout-btn:hover {
+  background: #222;
+}

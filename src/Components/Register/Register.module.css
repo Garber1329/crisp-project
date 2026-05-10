@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+form>* {
+    font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+p,
+span {
+    margin: 0px;
+}
+
+.new-register-link {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 486%;
+    color: #828282;
+}
+
+.title {
+    font-family: "Oswald", sans-serif;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 142%;
+    text-align: center;
+    color: #000;
+    padding: 0px 0px 24px;
+}
+
+.date-title {
+    font-family: "Oswald", sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 283%;
+    color: #000;
+    height: 46px;
+}
+
+.name-input,
+.email-input,
+.password-input {
+    border: 1px solid #c4c4c4;
+    padding: 11.5px 114px 11.5px 16px;
+}
+
+.date-email-input-box,
+.date-name-input-box,
+.date-email-password-input-box {
+    display: flex;
+    align-items: center;
+    width: 606px;
+    justify-content: space-between;
+}
+
+.date-email-password-input-box {
+    align-items: baseline;
+}
+
+.name-form,
+.email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.register-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.creat,
+.back {
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.creat {
+    padding: 17px 70px;
+    background-color: #000;
+    color: white;
+}
+
+.back {
+    padding: 17px 130px;
+    background-color: white;
+    color: #828282;
+}
+
+.account-date,
+.persone-date {
+    display: flex;
+    flex-direction: column;
+    gap: 39px;
+}
+
+.personal-data-box {
+    display: flex;
+    flex-direction: column;
+    gap: 29px;
+}
+
+.checkbox-input {
+    width: 10px;
+    height: 10px;
+    margin: 0px;
+}
+
+.date-check-input-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.date-check-input-box>a {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 143%;
+    color: #828282;
+}
+
+.item-box {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.item-box>p {
+    font-family: "Oswald", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #000;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+}
+
+.items-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 203px;
+    width: 100%;
+    height: 100px;
+    background: #e6f1fa;
+    margin: 59px 0px 0px;
+}
+
+.personal-forms {
+    display: flex;
+    flex-direction: column;
+    gap: 61px;
+    padding: 103px 424px;
+    border: 1px solid #c4c4c4;
+}
+
+.password-control-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.password-control-box>span {
+    display: none;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 143%;
+    color: #3f3f3f;
+    padding: 9.5px 0px 9.5px 16px;
+    background: #f0f2f2;
+}
+
+.marker::after {
+ content: '*';
+ color: red;
+}
