@@ -1,4 +1,6 @@
 import { Component } from "react";
+import AddAddress from "../AddAddress/AddAddress";
+import MyOrders from "../MyOrders/MyOrders";
 import {
   DashboardWrapper,
   PageTitle,
@@ -8,6 +10,7 @@ import {
   SidebarItem,
   Content,
   ContentTitle,
+  ContentContact,
   ContentText,
   ContentFlex,
   Card
@@ -16,6 +19,7 @@ import {
 class DashbordPage extends Component {
   state = {
     activeSection: "dashboard",
+    mode: "dashboard",
   };
 
   handleMenuClick = (section) => {
@@ -32,9 +36,11 @@ class DashbordPage extends Component {
   <ContentFlex>
     <Card>
       <ContentTitle>Account Information</ContentTitle>
+      <ContentContact>Contact Information</ContentContact>
       <ContentText>Alex Driver</ContentText>
       <ContentText>ExampeAdress@gmail.com</ContentText>
-      <button>Add</button>
+      <button>Edit</button>
+      <button>Change password</button>
     </Card>
 
     <Card>
@@ -66,11 +72,20 @@ class DashbordPage extends Component {
 
   renderContent() {
     if (this.state.mode === "addressForm") {
-      return this.renderAddressForm();
+      return (
+        <AddAddress
+          onCancel={() => this.setState({ mode: "dashboard" })}
+        />
+      );
     }
-
+  
+    if (this.state.activeSection === "orders") {
+      return <MyOrders />;
+    }
+  
     return this.renderDashboardContent();
   }
+  
 
   render() {
     const { activeSection } = this.state;
@@ -126,7 +141,7 @@ class DashbordPage extends Component {
             </SidebarList>
           </Sidebar>
 
-          <Content>{this.renderContent()}</Content>
+         {this.renderContent()}
         </DashboardLayout>
       </DashboardWrapper>
     );
