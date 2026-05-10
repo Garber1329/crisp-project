@@ -1,7 +1,7 @@
 import coment from './Coments.module.css'
 import { IoStarSharp } from "react-icons/io5";
 import { FaCircleUser } from "react-icons/fa6";
-import { useEffect, useState } from 'react'
+import { useEffect, useState, memo } from 'react'
 import axios from 'axios'
 
 const Comentar = ({ name, reting, comentar, data }) => {
@@ -18,23 +18,38 @@ const Comentar = ({ name, reting, comentar, data }) => {
     )
 }
 
-export default function Coments() {
+const Coments = memo(function Coments({ id }) {
     const [isAll, setAll] = useState([])
     const [isComplate, setComplate] = useState(false)
     const [isAll2, setAll2] = useState([])
+    const [infoComent, setInfoComent] = useState([])
 
     useEffect(() => {
         const fetchData = async () => {
-            const comentInfo = await axios.get('https://fakestoreapiserver.reactbd.org/api/reviews')
-            const userInfo = await axios.get('https://fakestoreapiserver.reactbd.org/api/users')
+            try {
+                const comentInfo = await axios.get('https://fakestoreapiserver.reactbd.org/api/reviews')
+                const userInfo = await axios.get('https://fakestoreapiserver.reactbd.org/api/users')
 
-            setAll(comentInfo.data.data)
-            setAll2(userInfo.data.data)
-            setComplate(true)
+                setAll(comentInfo.data.data)
+                setAll2(userInfo.data.data)
+            } catch (e) {
+                console.log(`Помилка`, e)
+            }
         }
 
         fetchData()
     }, [])
+
+    useEffect(() => {
+        const info = isAll.find(e => e._id === id)
+
+        setInfoComent([info])
+        console.log(infoComent)
+
+        if (infoComent.length > 0) {
+            setComplate(true)
+        }
+    }, [isAll])
 
     const nameUser = (id) => {
         const finalArr = isAll2.find(e => e._id === id)
@@ -44,10 +59,13 @@ export default function Coments() {
     return (
         <>
             <section className={coment.section}>
-                {isComplate && isAll.map(e => (
-                    <Comentar name={nameUser(e._id)} reting={e.rating} comentar={e.comment} data={e.createdAt} />
+                {isComplate && infoComent.map(e => (
+                    <Comentar name={nameUser(id)} reting={e.rating} comentar={e.comment} data={e.createdAt} />
                 ))}
             </section>
         </>
     )
 }
+)  
+
+export default  Coments

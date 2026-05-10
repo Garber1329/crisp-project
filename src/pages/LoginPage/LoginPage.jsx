@@ -1,7 +1,7 @@
 import LoginMain from "../../Components/LoginPage/LoginPageContent";
 
 const LoginPage = () => {
-    return(
+    return (
        <LoginMain />
     );
 }

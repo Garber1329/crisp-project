@@ -1,6 +1,7 @@
 import register from './Register.module.css'
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { IoMdCheckmark } from "react-icons/io";
+import { LoginContext } from '../../Context/LoginContext';
 
 const itemsArr = ['Duties and Taxes Guaranteed', 'Free Express Shipping', 'Customer Love', 'Easy Returns', 'Secure Payment']
 
@@ -16,6 +17,7 @@ const Item = ({ information }) => {
 }
 
 export default function Register() {
+    const {login, allProjects} = useContext(LoginContext)
     const [formDate, setFormDate] = useState({
         ConfirmPassword: '',
         Email: '',
@@ -98,8 +100,8 @@ export default function Register() {
                         </div>
                     </div>
                     <div className={register['button-box']}>
-                        <button style={formDate.Password != formDate.ConfirmPassword || formDate.Password.length < 5 || formDate.FirstName.length < 1 || formDate.LastName.length < 1 || formDate.Checked != true || !emailPattern.test(formDate.Email) ? {pointerEvents: 'none'} : {pointerEvents: 'auto'}} className={register.creat} form='accontForm'>create an account</button>
-                        <button className={register.back}>Back</button>
+                        <button onClick={() => login()} style={formDate.Password != formDate.ConfirmPassword || formDate.Password.length < 5 || formDate.FirstName.length < 1 || formDate.LastName.length < 1 || formDate.Checked != true || !emailPattern.test(formDate.Email) ? {pointerEvents: 'none'} : {pointerEvents: 'auto'}} className={register.creat} form='accontForm'>create an account</button>
+                        <button onClick={() => allProjects()} className={register.back}>Back</button>
                     </div>
                 </div>
             </div>
