@@ -1,0 +1,33 @@
+name: Build and deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main] # Запускати при кожному пуші в main
+
+permissions:
+  contents: write # Потрібно для того, щоб екшен міг пушити в гілку gh-pages
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # Вкажіть версію, яку використовуєте
+          cache: 'npm'
+
+      - name: Install and build 🔧
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist # Для Vite це зазвичай 'dist', для Create React App — 'build'
+          branch: gh-pages # Гілка, куди будуть залиті зібрані файли

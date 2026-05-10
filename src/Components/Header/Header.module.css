@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
 .like {
     width: 20px;
     height: 20px;
@@ -9,14 +11,13 @@ header {
 }
 
 .header__link {
+    font-family: "Oswald", sans-serif;
     font-weight: 600;
     font-size: 14px;
     text-transform: uppercase;
     color: #fff;
-    height: 28px;
     background-color: #000;
     border: 0px;
-    text-decoration: none;
 }
 
 .header__link:hover {
@@ -27,6 +28,8 @@ header {
     display: flex;
     align-items: baseline;
     gap: 28px;
+    position: relative;
+    left: 130px;
 }
 
 .header__search {
@@ -94,6 +97,7 @@ header {
     align-items: anchor-center;
     height: 115px;
     gap: 20px;
+    z-index: 3;
 }
 
 .header__cart-text {
@@ -159,6 +163,14 @@ p {
     z-index: 20;
 }
 
+/* full-screen invisible backdrop placed behind modal to block clicks to underlying content */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0); /* keep visually transparent but intercept clicks */
+    z-index: 19;
+}
+
 
 .modal-window>img {
     position: relative;
@@ -166,12 +178,8 @@ p {
     z-index: -1;
 }
 
-.clouse {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    padding: 5px 20px;
-    background-color: black;
-    color: white;
-    border-radius: 5px;
+.handbag {
+    fill: #fff;
+    width: 20px;
+    height: 20px;
 }

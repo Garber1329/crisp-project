@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import ProductCard from "./ProductCard";
+import styles from "./ProductCard.module.css";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -28,10 +29,10 @@ const ProductCardSwiper = ({ products, swiperId }) => {
     };
 
     return (
-        <div className="product-card__swiper">
-            <div className="product-card__nav">
-                <button  className={`product-card__btn-prev ${prevClass} `}>{`<`}</button>
-                <button  className={`product-card__btn-next ${nextClass} `}>{`>`}</button>
+        <div className={styles["product-card__swiper"]}>
+            <div className={styles["product-card__nav"]}>
+                <button  className={`${styles["product-card__btn-prev"]} ${prevClass} `}>{`<`}</button>
+                <button  className={`${styles["product-card__btn-next"]} ${nextClass} `}>{`>`}</button>
             </div>
 
             <Swiper {...defaultSettings}>

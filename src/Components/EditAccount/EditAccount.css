@@ -1,0 +1,64 @@
+.account-form {
+  max-width: 600px;
+  font-family: Arial, sans-serif;
+}
+
+.account-form h1 {
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  color: #000;
+}
+
+.form-group span {
+  color: red;
+}
+
+.form-group input[type="text"] {
+  margin-top: 6px;
+  padding: 12px 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.form-group input[type="text"]:focus {
+  border-color: #000;
+}
+
+.checkbox-group {
+  margin: 20px 0;
+}
+
+.checkbox-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.checkbox-group input {
+  margin-right: 8px;
+}
+
+.save-btn {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 14px 40px;
+  font-size: 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.save-btn:hover {
+  opacity: 0.85;
+}
