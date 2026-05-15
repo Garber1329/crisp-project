@@ -3,6 +3,7 @@ import './Offer-cards.css';
 import image_3 from '../../images/HomePage/image_3.svg';
 import image_4 from '../../images/HomePage/image_4.svg';
 import image_5 from '../../images/HomePage/image_5.svg';
+import { Link } from 'react-router-dom';
 
 
 const OfferCard = () => {
@@ -19,7 +20,7 @@ const OfferCard = () => {
                 choose <br /> your look
               </h1>
               <p className="offerCard__text">See our clothing collections</p>
-              <button className="offerCard__button">shop now</button>
+              <Link to='/shop'><button className="offerCard__button">shop now</button></Link>
             </div>
           </div>
         </div>
@@ -29,7 +30,7 @@ const OfferCard = () => {
             <div className="offerCard__content">
               <h1 className="offerCard__title">brand new style</h1>
               <p className="offerCard__text">Popular clothing brands</p>
-              <button className="offerCard__button">shop now</button>
+              <Link to='/shop'><button className="offerCard__button">shop now</button></Link>
             </div>
 
             <img className="offerCard__image" src={image_4} />
@@ -45,7 +46,7 @@ const OfferCard = () => {
                 Up to <br /> 40% off
               </h1>
               <p className="offerCard__text">Special offers and great deals</p>
-              <button className="offerCard__button">shop now</button>
+              <Link to='/shop'><button className="offerCard__button">shop now</button></Link>
             </div>
 
             <img className="offerCard__image" src={image_5} />
