@@ -14,7 +14,6 @@ import CartPage2 from './pages/CartPage/CartPage2.jsx'
 import BlogPages from './pages/BlogPages/BlogPage.jsx'
 
 function App() {
-
   return (
     <>
       <Routes>
@@ -38,9 +37,8 @@ function App() {
       <DashbordPage />
       <CartPage />
       <ProductPage /> */}
-
     </>
-  )
+  );
 }
 
-export default App
+export default App;
