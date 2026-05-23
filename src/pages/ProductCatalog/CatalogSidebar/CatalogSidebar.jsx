@@ -12,12 +12,22 @@ import Typography from "@mui/material/Typography";
 import plusIcon from "../../../images/ProductCatalog/+.svg";
 import minusIcon from "../../../images/ProductCatalog/-.svg";
 
-export default function CatalogSidebar({ products = [], onFilterChange }) {
+export default function CatalogSidebar({
+  products = [],
+  onFilterChange,
+  currentFilters,
+}) {
   const [expandedPanel, setExpandedPanel] = useState(false);
-  const [price, setPrice] = useState([20, 800]);
-  const [selectedBrands, setSelectedBrands] = useState([]);
-  const [selectedTypes, setSelectedTypes] = useState([]);
-  const [selectedSizes, setSelectedSizes] = useState([]);
+  const [selectedBrands, setSelectedBrands] = useState(
+    currentFilters.brands || [],
+  );
+  const [selectedTypes, setSelectedTypes] = useState(
+    currentFilters.types || [],
+  );
+  const [selectedSizes, setSelectedSizes] = useState(
+    currentFilters.sizes || [],
+  );
+  const [price, setPrice] = useState(currentFilters.price || [20, 800]);
 
   const handleChangePrice = (event, newValue) => {
     setPrice(newValue);
@@ -25,7 +35,12 @@ export default function CatalogSidebar({ products = [], onFilterChange }) {
 
   const handleChangePriceCommitted = (event, newValue) => {
     if (onFilterChange) {
-      onFilterChange({ brands: selectedBrands, types: selectedTypes, sizes: selectedSizes, price: newValue });
+      onFilterChange({
+        brands: selectedBrands,
+        types: selectedTypes,
+        sizes: selectedSizes,
+        price: newValue,
+      });
     }
   };
 
@@ -34,19 +49,30 @@ export default function CatalogSidebar({ products = [], onFilterChange }) {
     let newTypes = selectedTypes;
     let newSizes = selectedSizes;
 
-    if (filterType === 'brand') {
-      newBrands = selectedBrands.includes(value) ? selectedBrands.filter((item) => item !== value) : [...selectedBrands, value];
+    if (filterType === "brand") {
+      newBrands = selectedBrands.includes(value)
+        ? selectedBrands.filter((item) => item !== value)
+        : [...selectedBrands, value];
       setSelectedBrands(newBrands);
-    } else if (filterType === 'type') {
-      newTypes = selectedTypes.includes(value) ? selectedTypes.filter((item) => item !== value) : [...selectedTypes, value];
+    } else if (filterType === "type") {
+      newTypes = selectedTypes.includes(value)
+        ? selectedTypes.filter((item) => item !== value)
+        : [...selectedTypes, value];
       setSelectedTypes(newTypes);
-    } else if (filterType === 'size') {
-      newSizes = selectedSizes.includes(value) ? selectedSizes.filter((item) => item !== value) : [...selectedSizes, value];
+    } else if (filterType === "size") {
+      newSizes = selectedSizes.includes(value)
+        ? selectedSizes.filter((item) => item !== value)
+        : [...selectedSizes, value];
       setSelectedSizes(newSizes);
     }
 
     if (onFilterChange) {
-      onFilterChange({ brands: newBrands, types: newTypes, sizes: newSizes, price });
+      onFilterChange({
+        brands: newBrands,
+        types: newTypes,
+        sizes: newSizes,
+        price,
+      });
     }
   };
 
@@ -126,12 +152,12 @@ export default function CatalogSidebar({ products = [], onFilterChange }) {
             {brands.map((brand) => {
               return (
                 <label className={css.brandsBrandWrapper} key={brand}>
-                  <input 
-                    type="checkbox" 
-                    className={css.checkbox} 
-                    id={brand} 
+                  <input
+                    type="checkbox"
+                    className={css.checkbox}
+                    id={brand}
                     checked={selectedBrands.includes(brand)}
-                    onChange={() => handleCheckboxChange('brand', brand)}
+                    onChange={() => handleCheckboxChange("brand", brand)}
                   />
                   <span className={css.checkmark}></span>
                   <label htmlFor={brand} className={css.brandsBrandLabel}>
@@ -169,12 +195,12 @@ export default function CatalogSidebar({ products = [], onFilterChange }) {
             {types.map((type) => {
               return (
                 <label className={css.typesTypeWrapper} key={type}>
-                  <input 
-                    type="checkbox" 
-                    className={css.checkbox} 
-                    id={type} 
+                  <input
+                    type="checkbox"
+                    className={css.checkbox}
+                    id={type}
                     checked={selectedTypes.includes(type)}
-                    onChange={() => handleCheckboxChange('type', type)}
+                    onChange={() => handleCheckboxChange("type", type)}
                   />
                   <span className={css.checkmark}></span>
                   <label htmlFor={type} className={css.typesTypeLabel}>
@@ -212,12 +238,12 @@ export default function CatalogSidebar({ products = [], onFilterChange }) {
             {sizes.map((size) => {
               return (
                 <label className={css.sizesSizeWrapper} key={size}>
-                  <input 
-                    type="checkbox" 
-                    className={css.sizesSize} 
-                    id={size} 
+                  <input
+                    type="checkbox"
+                    className={css.sizesSize}
+                    id={size}
                     checked={selectedSizes.includes(size)}
-                    onChange={() => handleCheckboxChange('size', size)}
+                    onChange={() => handleCheckboxChange("size", size)}
                   />
                   <label htmlFor={size} className={css.sizesSizeLabel}>
                     {size}

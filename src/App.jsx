@@ -8,6 +8,7 @@ import LoginMain from "/src/Components/LoginPage/LoginPageContent.jsx";
 import { LoginContext } from "./Context/LoginContext.jsx";
 import { Routes, Route } from "react-router-dom";
 import ProductCatalog from "./pages/ProductCatalog/ProductCatalog.jsx";
+import Blog from "./Components/Blog/Blog.jsx";
 
 function App() {
   return (
