@@ -203,3 +203,33 @@ button {
   text-align: left;
   text-transform: uppercase;
 }
+
+
+.item-box {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.item-box>p {
+    font-family: "Oswald", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #000;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+}
+
+.items-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 203px;
+    width: 100%;
+    height: 100px;
+    background: #e6f1fa;
+    margin: 59px 0px 0px;
+}

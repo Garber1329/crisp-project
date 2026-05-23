@@ -1,10 +1,10 @@
 import header from './Header.module.css'
 import logo from '../../images/Header/logo.png'
 import dandruff from '../../images/Header/dandruff.png'
-import { memo, useState, useContext } from 'react'
+import { memo, useState} from 'react'
 import { PiHandbagBold } from "react-icons/pi";
 import modal from '../../images/Header/women-modal.png'
-import { LoginContext } from '../../Context/LoginContext';
+import { Link} from 'react-router-dom'
 
 
 const arr = [
@@ -30,19 +30,18 @@ const ModalComponent = memo( function ModalComponent({ text }) {
 export default function Header() {
   const [color, setColor] = useState("#000");
   const [flex, setFlex] = useState("none");
-  const {loginPages, registerPages, allProjects } = useContext(LoginContext)
 
   return (
     <>
       <header>
         <div className={header['header__container']}>
-          <img src={logo} alt="" className={header.logo} />
+          <Link to='/dashboard'><img src={logo} alt="" className={header.logo} /></Link>
 
           <nav className={header['header__nav']}>
-            <button onClick={() => allProjects()} onMouseUp={() => setFlex('flex')} className={header['header__link']}>home</button>
-            <button onMouseUp={() => setFlex('flex')} className={header['header__link']}>Shop</button>
-            <button onMouseUp={() => setFlex('flex')} className={header['header__link']}>blog</button>
-            <button onMouseUp={() => setFlex('flex')} className={header['header__link']}>Sale</button>
+            <Link to='/' onClick={() => allProjects()} onMouseUp={() => setFlex('flex')} className={header['header__link']}>home</Link>
+            <Link to='/shop' onMouseUp={() => setFlex('flex')} className={header['header__link']}>Shop</Link>
+            <Link to='/blog' onMouseUp={() => setFlex('flex')} className={header['header__link']}>blog</Link>
+            <Link to='/sale' onMouseUp={() => setFlex('flex')} className={header['header__link']}>Sale</Link>
             <button
               onMouseUp={() => setFlex('flex')}
               className={header['header__link']}
@@ -63,8 +62,8 @@ export default function Header() {
 
           <div className={header['header__acount-box']}>
             <div className={header['header__acount-box-link']}>
-              <button className={header['header__link']} onClick={() => loginPages()}>SIGN IN</button>
-              <button className={header['header__link']} onClick={() => registerPages()}>CREATE AN ACCOUNT</button>
+              <Link to='/login' className={header['header__link']}>SIGN IN</Link>
+              <Link to='/register' className={header['header__link']}>CREATE AN ACCOUNT</Link>
             </div>
 
             <svg
@@ -81,7 +80,7 @@ export default function Header() {
               />
             </svg>
 
-            <PiHandbagBold className={header.handbag}/>
+            <Link to='cart'><PiHandbagBold className={header.handbag}/></Link>
 
             <div className={header['header__box-cart']}>
               <p className={header['header__cart-text']}>Shopping Cart</p>
@@ -89,7 +88,7 @@ export default function Header() {
             </div>
           </div>
         </div>
-        {/* backdrop covers the page to block clicks (e.g. hero/swiper) while modal is open */}
+
         <div
           className={header['modal-backdrop']}
           onClick={() => setFlex('none')}

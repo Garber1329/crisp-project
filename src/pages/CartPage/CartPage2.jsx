@@ -1,6 +1,4 @@
 import React, { useState, useCallback } from "react";
-import Header from "/src/Components/Header/Header.jsx";
-import Footer from "../../Components/Footer/Footer.jsx";
 import "./CartPage2.css";
 
 function CartPage2() {
@@ -35,8 +33,6 @@ function CartPage2() {
 
   return (
     <>
-      <Header />
-
       <div className="checkout-container">
         <h2 className="checkout-title">Shipping Address</h2>
 
@@ -179,8 +175,6 @@ function CartPage2() {
           </div>
         </form>
       </div>
-
-      <Footer />
     </>
   );
 }

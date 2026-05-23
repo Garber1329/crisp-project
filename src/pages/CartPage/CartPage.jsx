@@ -1,10 +1,8 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Header from "/src/Components/Header/Header.jsx";
 import CartTable from "../../Components/Cart/CartTable.jsx";
 import CartBtn from "../../Components/Cart/CartBtn";
-import Footer from "../../Components/Footer/Footer.jsx";
 
 import "./CartPage.css";
 import {
@@ -162,8 +160,6 @@ class CartPage extends Component {
 
     return (
       <>
-        <Header />
-
         <CartPageWrp>
           <CartPageTitle>Shopping Cart</CartPageTitle>
           <CartContentWrp>
@@ -265,7 +261,6 @@ class CartPage extends Component {
 
           </CartContentWrp>
         </CartPageWrp>
-        <Footer />
       </>
     );
   }
