@@ -7,9 +7,6 @@ export default function LoginProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [loginPage, setLoginPage] = useState(false)
-  const [registerPage, setRegisterPage] = useState(false)
-  const [allProject, setAllProject] = useState(true)
 
   const login = async () => {
     setIsLoading(true);
@@ -31,26 +28,8 @@ export default function LoginProvider({ children }) {
     setUser(null);
   };
 
-  const loginPages = () => {
-    setLoginPage(true)
-    setRegisterPage(false)
-    setAllProject(false)
-  }
-
-  const registerPages = () => {
-    setLoginPage(false)
-    setRegisterPage(true)
-    setAllProject(false)
-  }
-
-  const allProjects = () => {
-    setLoginPage(false)
-    setRegisterPage(false)
-    setAllProject(true)
-  }
-
   return (
-    <LoginContext.Provider value={{ isSignIn, user, isLoading, error, login, logout, loginPages, loginPage, registerPages, registerPage, allProjects, allProject }}>
+    <LoginContext.Provider value={{ isSignIn, user, isLoading, error, login, logout}}>
       {children}
     </LoginContext.Provider>
   );
