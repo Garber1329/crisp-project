@@ -94,7 +94,7 @@ export default function ProductCatalog() {
   const visibleProducts = getProcessedProducts();
 
   return (
-    <div className="container">
+    <div className={css.container}>
       <div className={css.productCatalogWrapper}>
         <CatalogSidebar
           products={products}

@@ -237,29 +237,3 @@
 .formBtnLink:hover {
     background-color: rgba(235, 87, 87, 1);
 }
-
-.benefits {
-    background: rgba(230, 241, 250, 1);
-}
-
-.benefitsContent {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 35px;
-    padding-top: 35px;
-}
-
-.benefitCard {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.benefitCardTitle {
-    color: rgba(0, 0, 0, 1);
-    font-family: 'Oswald';
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0%;
-}
