@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Header from "/src/Components/Header/Header.jsx";
 import CartTable from "../../Components/Cart/CartTable.jsx";
@@ -255,7 +256,10 @@ class CartPage extends Component {
                   <span>XXX EUR</span>
                 </div>
 
-                <button className="checkout-btn">PROCEED TO CHECKOUT</button>
+                <Link to="/checkout">
+                  <button className="checkout-btn">PROCEED TO CHECKOUT</button>
+                </Link>
+
               </div>
             </div>
 
