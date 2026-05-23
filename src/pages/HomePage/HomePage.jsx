@@ -17,11 +17,9 @@ import CartPage2 from '../CartPage/CartPage2.jsx';
 
 const HomePage = () => {
   return (
-    <div>
-      <Header />
+    <>
       <Hero />
       <Brands />
-      <CartPage2 />
       <OfferCard />
       <ShopFilters />
       <Banner1 />
@@ -31,12 +29,9 @@ const HomePage = () => {
       <ProductCardList title="Most Popular">
         <ProductCardSwiper products={productsData.data} swiperId="popular" />
       </ProductCardList>
-
       <Banner2 />
-
       <Blog data={postsData ? postsData.data : []} />
-      <Footer />
-    </div>
+    </>
   );
 };
 
