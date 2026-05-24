@@ -22,9 +22,9 @@ const ShopFilters = () => {
     const fetchUsers = async () => {
       try {
         const productsGet = await axios.get('https://fakestoreapiserver.reactbd.org/api/products');
-        const fetchedProducts = Array.isArray(productsGet.data) ? productsGet.data : productsGet.data?.data || [];
+        const products = productsGet.data.data;
 
-        setProducts(fetchedProducts);
+        setProducts(products);
         setError(null);
       } catch (err) {
         setError(err.message);
