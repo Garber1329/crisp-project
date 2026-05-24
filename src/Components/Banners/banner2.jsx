@@ -5,6 +5,7 @@ import {
   BannerImage,
 } from "./banner.styles";
 import banner2 from "../../images/Banners/banner2.jpg"
+import { Link } from "react-router-dom";
 
 export default function Banner2() {
   return (
@@ -19,7 +20,7 @@ export default function Banner2() {
           You can choose the best option for you, and it does not matter whether
           you are in Prague or San Francisco.
         </p>
-        <BannerButton>SHOP NOW</BannerButton>
+         <Link to='/shop'><BannerButton>SHOP NOW</BannerButton></Link>
       </BannerContent>
     </Banner>
   );

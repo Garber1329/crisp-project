@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom'
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <LoginProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/crisp-project/">
         <App />
       </BrowserRouter>
     </LoginProvider>

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import Container from '../Container.jsx';
 import ShopItems from './ShopItems.jsx';
 import clsx from 'clsx';
-import styles from './shopfilters.module.css';
+import styles from './shopFilters.module.css';
 import ShopBoard from './ShopBoard.jsx';
 import axios from 'axios';
 
@@ -13,9 +13,9 @@ const ShopFilters = () => {
 
   const categories = useMemo(() => [...new Set(products.map((item) => item.category))], [products]);
   const filteredData = useMemo(() => {
-   return filters.length > 0
-      ? products.filter((item) => filters.includes(item.category)).slice(0, 8)
-      : products.slice(0, 8);
+    return filters.length > 0
+      ? products.filter((item) => filters.includes(item.type)).slice(0, 9)
+      : products.slice(0, 9);
   }, [filters, products]);
 
   useEffect(() => {
