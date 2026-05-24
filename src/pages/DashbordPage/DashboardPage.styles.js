@@ -55,12 +55,19 @@ export const Content = styled.main`
 
 export const ContentTitle = styled.h2`
   font-size: 22px;
-  margin-bottom: 20px;
+  margin-bottom: 29px;
+`;
+
+export const ContentContact = styled.h2`
+  font-size: 22px;
+  margin-bottom: 11px;
+  color: #3F3F3F;
 `;
 
 export const ContentText = styled.p`
   font-size: 14px;
   color: #555;
+  margin-bottom: 4px;
 `;
 export const ContentFlex = styled.div`
   display: flex;
