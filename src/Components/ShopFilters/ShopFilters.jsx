@@ -11,10 +11,10 @@ const ShopFilters = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
 
-  const categories = useMemo(() => [...new Set(products.map((item) => item.type))], [products]);
+  const categories = useMemo(() => [...new Set(products.map((item) => item.category))], [products]);
   const filteredData = useMemo(() => {
    return filters.length > 0
-      ? products.filter((item) => filters.includes(item.type)).slice(0, 8)
+      ? products.filter((item) => filters.includes(item.category)).slice(0, 8)
       : products.slice(0, 8);
   }, [filters, products]);
 
@@ -22,9 +22,9 @@ const ShopFilters = () => {
     const fetchUsers = async () => {
       try {
         const productsGet = await axios.get('https://fakestoreapiserver.reactbd.org/api/products');
-        const products = productsGet.data.data;
+        const fetchedProducts = Array.isArray(productsGet.data) ? productsGet.data : productsGet.data?.data || [];
 
-        setProducts(products);
+        setProducts(fetchedProducts);
         setError(null);
       } catch (err) {
         setError(err.message);
