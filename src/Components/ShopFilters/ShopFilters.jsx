@@ -11,7 +11,7 @@ const ShopFilters = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
 
-  const categories = useMemo(() => [...new Set(products.map((item) => item.category))], [products]);
+  const categories = useMemo(() => [...new Set(products.map((item) => item.type))], [products]);
   const filteredData = useMemo(() => {
     return filters.length > 0
       ? products.filter((item) => filters.includes(item.type)).slice(0, 9)
