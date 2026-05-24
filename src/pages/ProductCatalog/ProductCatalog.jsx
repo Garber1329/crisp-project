@@ -6,16 +6,45 @@ import Sorting from "./Sorting/Sorting";
 import CatalogProducts from "./CatalogProducts/CatalogProducts";
 import CatalogSidebar from "./CatalogSidebar/CatalogSidebar";
 
+import { useSearchParams } from "react-router-dom";
+
 export default function ProductCatalog() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [products, setProducts] = useState([]);
-  const [sortBy, setSortBy] = useState("desc");
-  const [itemsToShow, setItemsToShow] = useState("10");
+  const [sortBy, setSortBy] = useState(searchParams.get("sortBy") || "desc");
+  const [itemsToShow, setItemsToShow] = useState(
+    searchParams.get("itemsToShow") || "10",
+  );
   const [filters, setFilters] = useState({
-    brands: [],
-    types: [],
-    sizes: [],
-    price: [20, 800],
+    brands: searchParams.get("brands")
+      ? searchParams.get("brands").split(",")
+      : [],
+
+    types: searchParams.get("types")
+      ? searchParams.get("types").split(",")
+      : [],
+
+    sizes: searchParams.get("sizes")
+      ? searchParams.get("sizes").split(",")
+      : [],
+
+    price: searchParams.get("price")
+      ? searchParams.get("price").split(",").map(Number) 
+      : [20, 800],
   });
+
+  const updateSearchParams = (newQuery) => {
+    const newParams = new URLSearchParams(searchParams);
+    Object.entries(newQuery).forEach(([key, value]) => {
+      if (value) {
+        newParams.set(key, value);
+      } else {
+        newParams.delete(key);
+      }
+    });
+    setSearchParams(newParams);
+  };
 
   useEffect(() => {
     async function getItems() {
@@ -33,14 +62,17 @@ export default function ProductCatalog() {
 
   const handleSortChange = (newSortValue) => {
     setSortBy(newSortValue);
+    updateSearchParams({ sortBy: newSortValue });
   };
 
   const handleShowChange = (newSortValue) => {
     setItemsToShow(newSortValue);
+    updateSearchParams({ itemsToShow: newSortValue });
   };
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
+    updateSearchParams(newFilters);
   };
 
   const getProcessedProducts = () => {
@@ -99,6 +131,7 @@ export default function ProductCatalog() {
         <CatalogSidebar
           products={products}
           onFilterChange={handleFilterChange}
+          currentFilters={filters}
         />
 
         <div className={css.productCatalogMain}>

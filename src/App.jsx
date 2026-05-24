@@ -6,12 +6,16 @@ import Register from './Components/Register/Register.jsx'
 import ProductPage from './pages/ProductPage/ProductPage.jsx'
 import LoginPageContent from './Components/LoginPage/LoginPageContent.jsx'
 import { LoginContext } from "./Context/LoginContext.jsx";
+
+import ProductCatalog from "./pages/ProductCatalog/ProductCatalog.jsx";
+import Blog from "./Components/Blog/Blog.jsx";
 import { Routes, Route, Router } from 'react-router-dom'
 import Layout from './Components/Layout.jsx'
 import ShopPage from './pages/ShopPage/ShopPage.jsx'
 import SalePage from './pages/SalePge/SalePage.jsx'
 import CartPage2 from './pages/CartPage/CartPage2.jsx'
 import BlogPages from './pages/BlogPages/BlogPage.jsx'
+
 
 function App() {
   return (
