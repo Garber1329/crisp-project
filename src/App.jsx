@@ -32,6 +32,7 @@ function App() {
           <Route path='/sale' element={<SalePage/>}/>
           <Route path='/cart2' element={<CartPage2/>}/>
           <Route path='/blog' element={<BlogPages/>}/>
+          <Route path='/catalog' element={<ProductCatalog/>}/>
         </Route>
       </Routes>
       {/* <RegisterPage />
