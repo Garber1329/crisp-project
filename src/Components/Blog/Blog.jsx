@@ -81,8 +81,9 @@ export default function Blog() {
         const response = await axios.get(
           "https://fakestoreapiserver.reactbd.org/api/posts",
         );
-        setPosts(response.data.data.slice(0, 10));
-        console.log(response.data);
+        
+        const fetchedPosts = Array.isArray(response.data) ? response.data : response.data?.data || [];
+        setPosts(fetchedPosts.slice(0, 10));
       } catch (error) {
         console.log(error);
       }
