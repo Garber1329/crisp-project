@@ -17,7 +17,7 @@ const productIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 21, 22, 23, 24, 25, 2
 async function getProductsByIds() {
   try {
     const promises = productIds.map(id =>
-      axios.get(`https://fakestoreapiserver.reactbd.org/api/products/${id}`)
+      axios.get(`https://crisp-project-server.onrender.com/products/${id}`)
     );
 
     const responses = await Promise.all(promises);

@@ -81,8 +81,13 @@ export default function CatalogSidebar({
     return [...new Set(brands)];
   };
 
+  const getCategoryValue = (category) => {
+    if (typeof category === "string") return category;
+    return category?.slug || category?.name || "";
+  };
+
   const getTypes = () => {
-    const types = products.map((item) => item.category);
+    const types = products.map((item) => getCategoryValue(item.category));
     return [...new Set(types)];
   };
 

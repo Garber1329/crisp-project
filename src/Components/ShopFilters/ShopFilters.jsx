@@ -22,7 +22,7 @@ const ShopFilters = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const productsGet = await axios.get('https://fakestoreapiserver.reactbd.org/api/products');
+        const productsGet = await axios.get('https://crisp-project-server.onrender.com/products');
         if (productsGet.data && Array.isArray(productsGet.data.data)) {
           const products = productsGet.data.data;
           setProducts(products);

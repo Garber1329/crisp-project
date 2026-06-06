@@ -50,9 +50,9 @@ export default function ProductCatalog() {
     async function getItems() {
       try {
         const response = await axios.get(
-          "https://fakestoreapiserver.reactbd.org/api/products",
+          "https://crisp-project-server.onrender.com/products",
         );
-        setProducts(response.data.data);
+        setProducts(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -75,6 +75,11 @@ export default function ProductCatalog() {
     updateSearchParams(newFilters);
   };
 
+  const getCategoryValue = (category) => {
+    if (typeof category === "string") return category;
+    return category?.slug || category?.name || "";
+  };
+
   const getProcessedProducts = () => {
     let sortedProducts = [...products];
 
@@ -87,7 +92,7 @@ export default function ProductCatalog() {
       }
       if (
         filters.types.length > 0 &&
-        !filters.types.includes(product.category)
+        !filters.types.includes(getCategoryValue(product.category))
       ) {
         return false;
       }

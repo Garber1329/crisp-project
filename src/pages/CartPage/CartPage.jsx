@@ -75,7 +75,7 @@ class CartPage extends Component {
   };
 
   getCartItems = async () => {
-    const response = await axios.get("https://fakestoreapiserver.reactbd.org/api/cart/2");
+    const response = await axios.get("https://crisp-project-server.onrender.com/cart/2");
     return response.data.products;
   };
 
@@ -89,7 +89,7 @@ class CartPage extends Component {
 
       const promises = cartData.map((item) => {
 
-        return axios.get(`https://fakestoreapiserver.reactbd.org/api/products/${item.productId}`);
+        return axios.get(`https://crisp-project-server.onrender.com/products/${item.productId}`);
 
       });
 
