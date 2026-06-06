@@ -12,28 +12,28 @@
 9. Картки Офери - Олександра
 
 ## Catalog Page - Максим Богатов
-(https://fakestoreapiserver.reactbd.org/api/products)
+(https://crisp-project-server.onrender.com/products)
 
 ## Product Page - Олександра (невідображено на сторінці)
-(https://fakestoreapiserver.reactbd.org/api/products/1)
+(https://crisp-project-server.onrender.com/products/1)
 
 ## LogIn Page - Роман Сидоренко (виконано класові http)
-(https://fakestoreapiserver.reactbd.org/api/categories)
+(https://crisp-project-server.onrender.com/categories)
 
 ## Register - Андрій Матвійчук (виконано класові http)
-(https://fakestoreapiserver.reactbd.org/api/reviews)
+(https://crisp-project-server.onrender.com/reviews)
 
 ## My Dashboard (Add New Address) - Женя Карпов (недороблено oredes)
-(https://fakestoreapiserver.reactbd.org/api/orders)
+(https://crisp-project-server.onrender.com/orders)
 
 ## My Dashboard (Edit Account Information, My Wishlist) - Максим Шамрай (невідображено на сторінці wishlists)
-(https://fakestoreapiserver.reactbd.org/api/wishlists)
+(https://crisp-project-server.onrender.com/wishlists)
 
 ## Shopping Cart (second page)- Кирил Ковальчук (не виконано products in cart)
-(https://fakestoreapiserver.reactbd.org/api/products/1)
+(https://crisp-project-server.onrender.com/products/1)
 
 ## Shopping Cart (first page) - Єлизавета Ганношина (виконано класові http)
-(https://fakestoreapiserver.reactbd.org/api/cart)
+(https://crisp-project-server.onrender.com/cart)
 
 
 

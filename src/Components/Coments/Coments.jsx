@@ -27,8 +27,8 @@ const Coments = memo(function Coments({ id }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const comentInfo = await axios.get('https://fakestoreapiserver.reactbd.org/api/reviews')
-                const userInfo = await axios.get('https://fakestoreapiserver.reactbd.org/api/users')
+                const comentInfo = await axios.get('https://crisp-project-server.onrender.com/reviews')
+                const userInfo = await axios.get('https://crisp-project-server.onrender.com/users')
 
                 setAll(comentInfo.data.data)
                 setAll2(userInfo.data.data)
