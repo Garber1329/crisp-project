@@ -27,19 +27,26 @@ export default function CatalogSidebar({
   const [selectedSizes, setSelectedSizes] = useState(
     currentFilters.sizes || [],
   );
-  const [price, setPrice] = useState(currentFilters.price || [20, 800]);
+
+  const prices = products.map((p) => p.price).filter((p) => typeof p === "number");
+  const minPrice = prices.length ? Math.floor(Math.min(...prices)) : 0;
+  const maxPrice = prices.length ? Math.ceil(Math.max(...prices)) : 1000;
+
+  const [price, setPrice] = useState(currentFilters.price?.length ? currentFilters.price : null);
+  const displayPrice = price || [minPrice, maxPrice];
 
   const handleChangePrice = (event, newValue) => {
     setPrice(newValue);
   };
 
   const handleChangePriceCommitted = (event, newValue) => {
+    const isDefault = newValue[0] === minPrice && newValue[1] === maxPrice;
     if (onFilterChange) {
       onFilterChange({
         brands: selectedBrands,
         types: selectedTypes,
         sizes: selectedSizes,
-        price: newValue,
+        price: isDefault ? [] : newValue,
       });
     }
   };
@@ -71,13 +78,15 @@ export default function CatalogSidebar({
         brands: newBrands,
         types: newTypes,
         sizes: newSizes,
-        price,
+        price: price || [],
       });
     }
   };
 
   const getBrands = () => {
-    const brands = products.map((item) => item.brand);
+    const brands = products
+      .map((item) => item.brand)
+      .filter((brand) => brand != null && brand !== ""); 
     return [...new Set(brands)];
   };
 
@@ -87,7 +96,9 @@ export default function CatalogSidebar({
   };
 
   const getTypes = () => {
-    const types = products.map((item) => getCategoryValue(item.category));
+    const types = products
+      .map((item) => getCategoryValue(item.category))
+      .filter((type) => type != null && type !== ""); 
     return [...new Set(types)];
   };
 
@@ -283,15 +294,15 @@ export default function CatalogSidebar({
         <AccordionDetails>
           <Box>
             <Typography className={css.priceLabels}>
-              <span className={css.priceValue}>{price[0]} EUR</span>
-              <span className={css.priceValue}>{price[1]} EUR</span>
+              <span className={css.priceValue}>{displayPrice[0]} EUR</span>
+              <span className={css.priceValue}>{displayPrice[1]} EUR</span>
             </Typography>
             <Slider
-              value={price}
+              value={displayPrice}
               onChange={handleChangePrice}
               onChangeCommitted={handleChangePriceCommitted}
-              min={20}
-              max={800}
+              min={minPrice}
+              max={maxPrice}
               disableSwap
               className={css.priceSlider}
             />
