@@ -51,8 +51,6 @@ export default function Header() {
             </button>
 
             {/* Additional routes from App.jsx (kept alongside existing links) */}
-            <Link to='/register' onMouseUp={() => setFlex('flex')} className={header['header__link']}>Register</Link>
-            <Link to='/login' onMouseUp={() => setFlex('flex')} className={header['header__link']}>Login</Link>
             <Link to='/dashboard' onMouseUp={() => setFlex('flex')} className={header['header__link']}>Dashboard</Link>
             <Link to='/cart' onMouseUp={() => setFlex('flex')} className={header['header__link']}>Cart</Link>
             <Link to='/cart2' onMouseUp={() => setFlex('flex')} className={header['header__link']}>Cart 2</Link>
