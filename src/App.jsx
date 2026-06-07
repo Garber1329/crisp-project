@@ -1,10 +1,14 @@
-import './App.css'
-import HomePage from './pages/HomePage/HomePage.jsx'
-import DashbordPage from './pages/DashbordPage/DashbordPage.jsx'
-import CartPage from './pages/CartPage/CartPage.jsx'
-import Register from './Components/Register/Register.jsx'
-import ProductPage from './pages/ProductPage/ProductPage.jsx'
-import LoginPageContent from './Components/LoginPage/LoginPageContent.jsx'
+import { Routes, Route, NavLink, Navigate } from 'react-router-dom'
+import AddAddress from './pages/AddAddress/AddAddress.jsx'
+import MyOrders from './pages/MyOrders/MyOrders.jsx'
+
+import "./App.css";
+import HomePage from "./pages/HomePage/HomePage.jsx";
+import DashbordPage from "./pages/DashbordPage/DashbordPage.jsx";
+import CartPage from "./pages/CartPage/CartPage.jsx";
+import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
+import ProductPage from "./pages/ProductPage/ProductPage.jsx";
+import LoginMain from "/src/Components/LoginPage/LoginPageContent.jsx";
 import { LoginContext } from "./Context/LoginContext.jsx";
 
 import ProductCatalog from "./pages/ProductCatalog/ProductCatalog.jsx";
