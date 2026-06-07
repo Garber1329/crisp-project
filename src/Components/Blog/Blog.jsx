@@ -79,7 +79,7 @@ export default function Blog() {
     async function getItems() {
       try {
         const response = await axios.get(
-          "https://fakestoreapiserver.reactbd.org/api/posts",
+          "https://crisp-project-server.onrender.com/posts",
         );
         
         const fetchedPosts = Array.isArray(response.data) ? response.data : response.data?.data || [];

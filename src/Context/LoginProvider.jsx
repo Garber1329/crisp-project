@@ -12,7 +12,7 @@ export default function LoginProvider({ children }) {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get('https://fakestoreapiserver.reactbd.org/api/users/1');
+      const response = await axios.get('https://crisp-project-server.onrender.com/users/1');
       setUser(response.data);
       setIsSignIn(true);
     } catch (err) {
