@@ -10,6 +10,27 @@ import {
   Status
 } from "./MyOrders.styles";
 
+
+const productIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 21, 22, 23, 24, 25, 26, 27, 28];
+
+async function getProductsByIds() {
+  try {
+    const promises = productIds.map(id =>
+      axios.get(`https://crisp-project-server.onrender.com/products/${id}`)
+    );
+
+    const responses = await Promise.all(promises);
+
+    const selectedProducts = responses.map(response => response.data);
+
+    console.log(selectedProducts);
+    return selectedProducts;
+  } catch (error) {
+    console.error("Помилка завантаження товарів:", error);
+  }
+}
+
+
 class MyOrders extends Component {
   state = {
     myOrders: [],

@@ -6,6 +6,7 @@ import "swiper/css/pagination";
 import "./hero-settings.css";
 import styles from "./hero.module.css";
 import Data from "../../data/photos.json";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const titles = [
@@ -51,7 +52,7 @@ const Hero = () => {
               <div className={`${styles.swiperBlock} container`}>
                 <div className={styles.swiperCardContent}>
                   <h2 className={styles.swiperCardTitle}>{titles[index]}</h2>
-                  <button className={styles.swiperCardBtn}>Shop now</button>
+                  <Link to='/shop' className={styles.swiperCardBtn}>Shop now</Link>
                 </div>
                 <div className={styles.photos}>
                   <img

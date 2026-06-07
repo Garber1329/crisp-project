@@ -16,6 +16,11 @@ const placeholderImage = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/200
 const errorImage = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='800' viewBox='0 0 600 800'%3E%3Crect width='600' height='800' fill='%23ffeeee'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%23ff4444'%3EError%3C/text%3E%3C/svg%3E";
 
 export default function ProductPage() {
+  const getCategoryValue = (category) => {
+    if (typeof category === "string") return category;
+    return category?.slug || category?.name || "";
+  };
+
   // 1. Розбиваємо state на окремі хуки useState
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -49,7 +54,7 @@ export default function ProductPage() {
 
     try {
       // Використовуємо fetch замість axios
-      const response = await fetch('https://fakestoreapiserver.reactbd.org/api/products/20');
+      const response = await fetch('https://crisp-project-server.onrender.com/products/40');
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -66,7 +71,7 @@ export default function ProductPage() {
         oldPrice: product.oldPrice || "",
         discountedPrice: product.discountedPrice || null,
         description: product.description || "",
-        category: product.category || "",
+        category: getCategoryValue(product.category),
         type: product.type || "",
         stock: product.stock || 10,
         size: product.size || ['XS', 'S', 'M', 'L', 'XL'],
@@ -370,7 +375,7 @@ export default function ProductPage() {
             <div id="collapseFour" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
               <div className="accordion-body">
                 <strong>Comments:</strong> 
-                <Coments id={4}/>
+                {/* <Coments id={4}/> */}
               </div>
             </div>
           </div>

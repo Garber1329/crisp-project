@@ -2,8 +2,8 @@ import { Component } from "react";
 import axios from "axios";
 import "./MyWishlist.css";
 
-const WISHLIST_URL = "https://fakestoreapiserver.reactbd.org/api/wishlists/6";
-const PRODUCTS_URL = "https://fakestoreapiserver.reactbd.org/api/products";
+const WISHLIST_URL = "https://crisp-project-server.onrender.com/wishlists/6";
+const PRODUCTS_URL = "https://crisp-project-server.onrender.com/products";
 
 class MyWishlist extends Component {
   state = {

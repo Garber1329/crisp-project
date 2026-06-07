@@ -1,9 +1,8 @@
 import { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import Header from "/src/Components/Header/Header.jsx";
 import CartTable from "../../Components/Cart/CartTable.jsx";
 import CartBtn from "../../Components/Cart/CartBtn";
-import Footer from "../../Components/Footer/Footer.jsx";
 
 import "./CartPage.css";
 import {
@@ -76,7 +75,7 @@ class CartPage extends Component {
   };
 
   getCartItems = async () => {
-    const response = await axios.get("https://fakestoreapiserver.reactbd.org/api/cart/2");
+    const response = await axios.get("https://crisp-project-server.onrender.com/cart/2");
     return response.data.products;
   };
 
@@ -90,7 +89,7 @@ class CartPage extends Component {
 
       const promises = cartData.map((item) => {
 
-        return axios.get(`https://fakestoreapiserver.reactbd.org/api/products/${item.productId}`);
+        return axios.get(`https://crisp-project-server.onrender.com/products/${item.productId}`);
 
       });
 
@@ -161,8 +160,6 @@ class CartPage extends Component {
 
     return (
       <>
-        <Header />
-
         <CartPageWrp>
           <CartPageTitle>Shopping Cart</CartPageTitle>
           <CartContentWrp>
@@ -255,13 +252,15 @@ class CartPage extends Component {
                   <span>XXX EUR</span>
                 </div>
 
-                <button className="checkout-btn">PROCEED TO CHECKOUT</button>
+                <Link to="/checkout">
+                  <button className="checkout-btn">PROCEED TO CHECKOUT</button>
+                </Link>
+
               </div>
             </div>
 
           </CartContentWrp>
         </CartPageWrp>
-        <Footer />
       </>
     );
   }
