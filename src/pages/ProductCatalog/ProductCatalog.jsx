@@ -30,7 +30,7 @@ export default function ProductCatalog() {
       : [],
 
     price: searchParams.get("price")
-      ? searchParams.get("price").split(",").map(Number) 
+      ? searchParams.get("price").split(",").map(Number)
       : [20, 800],
   });
 
@@ -52,7 +52,11 @@ export default function ProductCatalog() {
         const response = await axios.get(
           "https://crisp-project-server.onrender.com/products",
         );
-        setProducts(response.data);
+        const fetchedProducts = Array.isArray(response.data)
+          ? response.data
+          : response.data?.data || [];
+        setProducts(fetchedProducts);
+        console.log(fetchedProducts);
       } catch (error) {
         console.log(error);
       }
@@ -81,7 +85,7 @@ export default function ProductCatalog() {
   };
 
   const getProcessedProducts = () => {
-    let sortedProducts = [...products];
+    let sortedProducts = Array.isArray(products) ? [...products] : [];
 
     sortedProducts = sortedProducts.filter((product) => {
       if (
