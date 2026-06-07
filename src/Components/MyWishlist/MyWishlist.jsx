@@ -3,8 +3,8 @@ import axios from "axios";
 import { GrEdit } from "react-icons/gr";
 import "./MyWishlist.css";
 
-const WISHLIST_URL = "https://fakestoreapiserver.reactbd.org/api/wishlists/1";
-const PRODUCTS_URL = "https://fakestoreapiserver.reactbd.org/api/products";
+const WISHLIST_URL = "https://crisp-project-server.onrender.com/wishlists/1";
+const PRODUCTS_URL = "https://crisp-project-server.onrender.com/products";
 
 function MyWishlist() {
   const [products, setProducts] = useState([]);

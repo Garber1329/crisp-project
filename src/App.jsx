@@ -5,7 +5,7 @@ import { MyOrders } from './pages/MyOrders/MyOrders.jsx'
 
 import "./App.css";
 import HomePage from "./pages/HomePage/HomePage.jsx";
-import DashbordPage from "./pages/DashbordPage/DashbordPage.jsx";
+// import DashbordPage from "./pages/DashbordPage/DashbordPage.jsx";
 import CartPage from "./pages/CartPage/CartPage.jsx";
 import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
 import ProductPage from "./pages/ProductPage/ProductPage.jsx";
@@ -26,9 +26,9 @@ function App() {
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/login" element={<LoginMain />} />
         <Route path="/productCatalog" element={<ProductCatalog />} />
-          <Route path='/dashbord' element={<DashbordPage />}>
-      <Route path='/addaddres' element={<AddAddress />} />
-      <Route path='/myorders' element={<MyOrders />} />
+        <Route path='/dashbord' element={<DashbordPage />} />
+        <Route path='/addaddres' element={<AddAddress />} />
+        <Route path='/myorders' element={<MyOrders />} />
       </Routes>
       {/* <RegisterPage />
       <LoginMain />
