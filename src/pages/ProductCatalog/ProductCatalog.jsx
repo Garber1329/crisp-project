@@ -31,13 +31,13 @@ export default function ProductCatalog() {
 
     price: searchParams.get("price")
       ? searchParams.get("price").split(",").map(Number)
-      : [20, 800],
+      : [],
   });
 
   const updateSearchParams = (newQuery) => {
     const newParams = new URLSearchParams(searchParams);
     Object.entries(newQuery).forEach(([key, value]) => {
-      if (value) {
+      if (value && (!Array.isArray(value) || value.length > 0)) {
         newParams.set(key, value);
       } else {
         newParams.delete(key);
