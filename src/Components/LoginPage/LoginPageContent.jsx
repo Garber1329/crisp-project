@@ -40,6 +40,7 @@ const LoginMain = () => {
       setErrors(errors);
       if (Object.keys(errors).length === 0) {
         console.log('Form submitted:', { email, password, agree });
+        localStorage.setItem('userInfoAccount', JSON.stringify(email))
         setEmail('');
         setPassword('');
         setAgree(false);

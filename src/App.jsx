@@ -21,6 +21,7 @@ import BlogPages from './pages/BlogPages/BlogPage.jsx'
 
 
 function App() {
+  
   return (
     <>
       <Routes>
@@ -38,13 +39,6 @@ function App() {
           <Route path='/catalog' element={<ProductCatalog/>}/>
         </Route>
       </Routes>
-      {/* <RegisterPage />
-      <LoginMain />
-
-      <HomePage />
-      <DashbordPage />
-      <CartPage />
-      <ProductPage /> */}
     </>
   );
 }

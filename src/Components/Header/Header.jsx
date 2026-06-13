@@ -1,28 +1,23 @@
 import header from './Header.module.css'
 import logo from '../../images/Header/logo.png'
 import dandruff from '../../images/Header/dandruff.png'
-import { memo, useState} from 'react'
+import { memo, useState } from 'react'
 import { PiHandbagBold } from "react-icons/pi";
 import modal from '../../images/Header/women-modal.png'
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-
-const arr = [
-  'Product Page With Sidebar',
-  'Product Page Without Sidebar',
-  'Horizontal Thumbnails',
-  'Vertical Thumbnails',
-  'Addtocart Sticky',
-  'Vertical Tabs'
-]
-
-const ModalComponent = memo( function ModalComponent({ text }) {
+const ModalComponent = memo(function ModalComponent() {
   return (
     <div className={header['modal-block-text']}>
       <h5>Menu Category List</h5>
-      {text.map((elem, index) => (
-        <a href="" key={index}>{elem}</a>
-      ))}
+      <div className={header.modalLinkBox}>
+        <Link to='/register' className={header['header__link']}>Register</Link>
+        <Link to='/login' className={header['header__link']}>Login</Link>
+        <Link to='/dashboard' className={header['header__link']}>Dashboard</Link>
+        <Link to='/cart' className={header['header__link']}>Cart</Link>
+        <Link to='/catalog' className={header['header__link']}>Catalog</Link>
+        <Link to='/product/1' className={header['header__link']}>Product</Link>
+      </div>
     </div>
   )
 })
@@ -38,24 +33,14 @@ export default function Header() {
           <Link to='/dashboard'><img src={logo} alt="" className={header.logo} /></Link>
 
           <nav className={header['header__nav']}>
-            <Link to='/' onClick={() => allProjects()} onMouseUp={() => setFlex('flex')} className={header['header__link']}>home</Link>
-            <Link to='/shop' onMouseUp={() => setFlex('flex')} className={header['header__link']}>Shop</Link>
-            <Link to='/blog' onMouseUp={() => setFlex('flex')} className={header['header__link']}>blog</Link>
-            <Link to='/sale' onMouseUp={() => setFlex('flex')} className={header['header__link']}>Sale</Link>
-            <button
-              onMouseUp={() => setFlex('flex')}
-              className={header['header__link']}
-              style={{ width: "110px" }}
+            <Link to='/' onClick={() => setFlex('none')} onMouseEnter={() => setFlex('flex')} className={header['header__link']}>home</Link>
+            <Link to='/shop' onClick={() => setFlex('none')} onMouseEnter={() => setFlex('flex')} className={header['header__link']}>Shop</Link>
+            <Link to='/blog' onClick={() => setFlex('none')} onMouseEnter={() => setFlex('flex')} className={header['header__link']}>blog</Link>
+            <Link to='/sale' onClick={() => setFlex('none')} onMouseEnter={() => setFlex('flex')} className={header['header__link']}>Sale</Link>
+            <button onClick={() => setFlex('none')} onMouseEnter={() => setFlex('flex')} className={header['header__link']} style={{ width: "110px" }}
             >
               contact us
             </button>
-
-            {/* Additional routes from App.jsx (kept alongside existing links) */}
-            <Link to='/dashboard' onMouseUp={() => setFlex('flex')} className={header['header__link']}>Dashboard</Link>
-            <Link to='/cart' onMouseUp={() => setFlex('flex')} className={header['header__link']}>Cart</Link>
-            <Link to='/cart2' onMouseUp={() => setFlex('flex')} className={header['header__link']}>Cart 2</Link>
-            <Link to='/catalog' onMouseUp={() => setFlex('flex')} className={header['header__link']}>Catalog</Link>
-            <Link to='/product/1' onMouseUp={() => setFlex('flex')} className={header['header__link']}>Product</Link>
 
             <div className={header['header__box-search']}>
               <input
@@ -87,7 +72,7 @@ export default function Header() {
               />
             </svg>
 
-            <Link to='cart'><PiHandbagBold className={header.handbag}/></Link>
+            <Link to='cart'><PiHandbagBold className={header.handbag} /></Link>
 
             <div className={header['header__box-cart']}>
               <p className={header['header__cart-text']}>Shopping Cart</p>
@@ -107,9 +92,9 @@ export default function Header() {
           style={{ display: flex }}
           className={header['modal-window']}
         >
-          <ModalComponent text={arr} />
-          <ModalComponent text={arr} />
-          <ModalComponent text={arr} />
+          <ModalComponent />
+          <ModalComponent />
+          <ModalComponent />
           <img src={modal} alt="" />
         </div>
       </header>

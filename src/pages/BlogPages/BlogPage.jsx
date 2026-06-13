@@ -3,11 +3,12 @@ import { useSearchParams } from 'react-router-dom'
 import blog from './BlogPages.module.css'
 import adverstising from '/src/images/BlogPage/adverstising.png'
 import adverstising2 from '/src/images/BlogPage/adverstising2.png'
-import dresses from '/src/images/BlogPage/dreses.png'
+import shopOption from '/src/data/productsData.json'
+import bd from '/src/data/bd.json'
 import axios from 'axios'
 
 export default function BlogPages({ clouses = 'dress' }) {
-    const [blogData, setBlogData] = useState([])
+    const [blogData, setBlogData] = useState()
     const [blogSearch, setBlogSearch] = useState()
     const [searchParams, setSerchParams] = useSearchParams()
     const [productData, setProductData] = useState([])
@@ -22,22 +23,19 @@ export default function BlogPages({ clouses = 'dress' }) {
     }
 
     useEffect(() => {
-        const fetchRecuaest = async () => {
-            searchValue()
-            const fetch = await axios.get(`https://newsapi.org/v2/everything?q=${blogSearch}&apiKey=9d7ffabbae414e4e8a76d9dde2662f4b`)
-            const fetchProducts = await axios.get(`https://dummyjson.com/products/search`)
-            setProductData(fetchProducts)
-            setBlogData(fetch.data.articles)
-        }
+        searchValue()
+        const data = bd.filter(e => e.type === blogSearch)
+        const shopOptions = shopOption.data.slice(0, 4)
 
-        fetchRecuaest()
+        setProductData(shopOptions)
+        if (data.length) {
+            setBlogData(data)
+        } else {
+            setBlogData(bd.filter(e => e.type === 'dress'))
+        }
     }, [blogSearch])
 
-    // console.log(blogSearch)
-    // console.log(blogData)
-    // console.log(clouses)
     console.log(productData)
-
     return (
         <>
             {blogData && <>
@@ -54,21 +52,13 @@ export default function BlogPages({ clouses = 'dress' }) {
                 <section className={blog.blogSectionContent}>
                     <div className={blog.blogContent}>
                         <div className={blog.contentTitle}>
-                            <h1 className={blog.title}>The {blogSearch}</h1>
-                            <div className={blog.contentBox}>
-                                {blogData.slice(0, 11).map((data, index) => (
-                                    <p key={index}>{data.description}</p>
-                                ))}
-                            </div>
+                            <h1 className={blog.title}>{blogData[0].title}</h1>
+                            <p>{blogData[0].firstDescription}</p>
                         </div>
-                        <img src={dresses} alt="" />
+                        <img src={blogData[0].imageUrl} alt="" />
                         <div className={blog.contentTitle}>
-                            <h1 className={blog.title}>The {blogSearch}</h1>
-                            <div className={blog.contentBox}>
-                                {blogData.slice(0, 11).map((data, index) => (
-                                    <p key={index}>{data.description}</p>
-                                ))}
-                            </div>
+                            <h1 className={blog.title}>{blogData[0].title}</h1>
+                            <p>{blogData[0].secondDescription}</p>
                         </div>
                     </div>
                     <div className={blog.adverstisingBox}>
@@ -77,17 +67,19 @@ export default function BlogPages({ clouses = 'dress' }) {
                     </div>
                 </section></>}
             <section className={blog.otherItems}>
-                <h1>You May Also Like</h1>
-                {/* <div>
-                    {arr.map((info, index) => (
-                        <div className={blog.itemBox}>
-                            <img src="" alt="" className={blog.image} />
-                            <p className={blog.categoryItem}></p>
-                            <p className={blog.description}></p>
-                            <h2 className={blog.prise}></h2>
-                        </div>
-                    ))}
-                </div> */}
+                <div>
+                    <h1 className={blog.bonusTitle}>You May Also Like</h1>
+                    <div className={blog.boxCard}>
+                        {productData.map((info, index) => (
+                            <div className={blog.itemBox}>
+                                <img src={info.image} alt="" className={blog.image} />
+                                <p className={blog.categoryItem}>top clouthes</p>
+                                <p className={blog.description}>{info.title}</p>
+                                <h2 className={blog.price}>{info.price},00 EUR </h2>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </section>
         </>
     )
