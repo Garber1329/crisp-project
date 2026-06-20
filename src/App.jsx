@@ -4,7 +4,7 @@ import MyOrders from './pages/MyOrders/MyOrders.jsx'
 
 import "./App.css";
 import HomePage from "./pages/HomePage/HomePage.jsx";
-import DashbordPage from "./pages/DashbordPage/DashbordPage.jsx";
+// import DashbordPage from "./pages/DashbordPage/DashbordPage.jsx";
 import CartPage from "./pages/CartPage/CartPage.jsx";
 import Register from "./Components/Register/Register.jsx";
 import ProductPage from "./pages/ProductPage/ProductPage.jsx";
