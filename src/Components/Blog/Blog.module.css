@@ -1,20 +1,24 @@
 .blog {
   background-color: #f8f9fb;
   padding: 46px 0;
-
   width: 100%;
   overflow: hidden;
 }
-
 .content {
   display: flex;
   flex-direction: column;
   gap: 30px;
-
   width: 100%;
   min-width: 0;
 }
-
+.BlogCard {
+  background: #fff;
+  padding: 24px;
+  flex: 1;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+}
 .title {
   color: #000000;
   font-family: "Oswald";
@@ -23,7 +27,6 @@
   line-height: 68px;
   text-align: left;
 }
-
 .article {
   background-color: #ffffff;
   height: 420px;
@@ -32,16 +35,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  
 }
-
 .top {
   display: flex;
   flex-direction: column;
   gap: 21px;
 }
-
 .subArticle {
   color: #bdbdbd;
   font-family: "Oswald";
@@ -52,13 +51,11 @@
   text-align: left;
   text-transform: uppercase;
 }
-
 .main {
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
-
 .articleTitle {
   color: #000000;
   font-family: "Oswald";
@@ -67,28 +64,25 @@
   line-height: 39px;
   text-align: left;
 }
-
 .articleText {
   color: #000000;
   font-family: "Roboto Light";
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
+  color: #4F4F4F;
   letter-spacing: 1%;
   text-align: left;
 }
-
 .articleFooter {
   display: flex;
   flex-direction: column;
 }
-
 .hr {
   height: 2.5px;
   width: 100%;
   background-color: #000000;
 }
-
 .date {
   color: #4f4f4f;
   font-family: "Oswald";
@@ -96,5 +90,9 @@
   font-size: 13px;
   font-weight: 300;
   line-height: 37px;
+  color: #4F4F4F;
+  border-top: 3px solid #000;
+  padding-top: 10px;
+  margin-top: auto;
   text-align: left;
 }

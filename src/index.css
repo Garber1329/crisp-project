@@ -19,3 +19,15 @@ body {
   padding: 0px 15px;
   margin: 0px auto;
 }
+
+.pageLoader {
+  color: black;
+  font-family: 'Oswald';
+  font-weight: 700;
+  font-size: 27px;
+  text-align: center;
+  margin: 0px;
+  padding-top: 150px;
+  padding-bottom: 150px;
+  text-transform: uppercase;
+}

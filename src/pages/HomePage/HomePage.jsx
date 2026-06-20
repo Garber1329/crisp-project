@@ -1,4 +1,4 @@
-import Blog from '../../Components/Blog/Blog';
+// import Blog from '../../Components/Blog/Blog';
 import postsData from '../../data/postsData.json';
 import Footer from '../../Components/Footer/Footer.jsx';
 import '../../Components/ProductCard/ProductCard.css';
@@ -26,7 +26,7 @@ const HomePage = () => {
       <ProductCardList title="Most Popular">
         <ProductCardSwiper products={productsData.data} swiperId="popular" />
       </ProductCardList>
-      <Blog data={postsData ? postsData.data : []} />
+      {/* <Blog data={postsData ? postsData.data : []} /> */}
     </>
   );
 };

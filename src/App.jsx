@@ -1,21 +1,22 @@
+import { lazy } from 'react';
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
-import AddAddress from './pages/AddAddress/AddAddress.jsx';
-import MyOrders from './pages/MyOrders/MyOrders.jsx';
+const AddAddress = lazy(() => import('./pages/AddAddress/AddAddress.jsx'));
+const MyOrders = lazy(() => import('./pages/MyOrders/MyOrders.jsx'));
 import './App.css';
 import HomePage from './pages/HomePage/HomePage.jsx';
-import DashbordPage from './pages/DashbordPage/DashbordPage.jsx';
-import CartPage from './pages/CartPage/CartPage.jsx';
-import Register from './Components/Register/Register.jsx';
-import ProductPage from './pages/ProductPage/ProductPage.jsx';
-import LoginMain from './Components/LoginPage/LoginPageContent.jsx';
+const DashbordPage = lazy(() => import('./pages/DashbordPage/DashbordPage.jsx'));
+const CartPage = lazy(() => import('./pages/CartPage/CartPage.jsx'));
+const Register = lazy(() => import('./Components/Register/Register.jsx'));
+const ProductPage = lazy(() => import('./pages/ProductPage/ProductPage.jsx'));
+const LoginMain = lazy(() => import('./Components/LoginPage/LoginPageContent.jsx'));
+const ProductCatalog = lazy(() => import('./pages/ProductCatalog/ProductCatalog.jsx'));
 import { LoginContext } from './Context/LoginContext.jsx';
-import ProductCatalog from './pages/ProductCatalog/ProductCatalog.jsx';
-import Blog from './Components/Blog/Blog.jsx';
+const Blog = lazy(() => import('./Components/Blog/Blog.jsx'));
 import Layout from './Components/Layout.jsx';
-import ShopPage from './pages/ShopPage/ShopPage.jsx';
-import SalePage from './pages/SalePge/SalePage.jsx';
-import CartPage2 from './pages/CartPage/CartPage2.jsx';
-import BlogPages from './pages/BlogPages/BlogPage.jsx';
+const ShopPage = lazy(() => import('./pages/ShopPage/ShopPage.jsx'));
+const SalePage = lazy(() => import('./pages/SalePge/SalePage.jsx'));
+const CartPage2 = lazy(() => import('./pages/CartPage/CartPage2.jsx'));
+const BlogPages = lazy(() => import('./pages/BlogPages/BlogPage.jsx'));
 
 function App() {
   return (
