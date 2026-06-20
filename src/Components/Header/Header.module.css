@@ -97,9 +97,7 @@ header {
 .header__acount-box {
     display: flex;
     align-items: anchor-center;
-    height: 115px;
     gap: 20px;
-    z-index: 3;
 }
 
 .header__cart-text {
