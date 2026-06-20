@@ -1,17 +1,26 @@
 import styles from "./Cart.module.css";
 import { BiHeart, BiPencil } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
+import { Link } from "react-router-dom";
 
 const CartItem = ({ item, onUpdate, onRemove }) => {
   const total = (item.price * item.quantity).toFixed(2);
+
+  const productId = item.id || item._id;
+
   return (
     <tr className={styles.tableRow}>
       <td className={styles.cartItemCell}>
         <div className={styles.itemWrp}>
-          <img src={item.image} alt={item.title} className={styles.itemImg} />
+          <Link to={`/product/${productId}`}>
+            <img src={item.image} alt={item.title} className={styles.itemImg} />
+          </Link>
+
           <div className={styles.itemInfo}>
-            <div className={styles.itemTitle}>{item.title}</div>
-            <div className={styles.itemSubtitle}>SLIM BLACK USED</div>
+            <Link to={`/product/${productId}`} className={styles.itemTitleLink}>
+              <div className={styles.itemTitle}>{item.title}</div>
+            </Link>
+            <div className={styles.itemSubtitle}></div>
           </div>
         </div>
       </td>
@@ -24,7 +33,7 @@ const CartItem = ({ item, onUpdate, onRemove }) => {
         <div className={styles.quantityCounter}>
           <button
             className={styles.counterBtn}
-            onClick={() => onUpdate(item._id, item.quantity - 1)}
+            onClick={() => onUpdate(item._id || item.id, item.quantity - 1)}
             disabled={item.quantity <= 1}
           >
             –
@@ -34,7 +43,7 @@ const CartItem = ({ item, onUpdate, onRemove }) => {
 
           <button
             className={styles.counterBtn}
-            onClick={() => onUpdate(item._id, item.quantity + 1)}
+            onClick={() => onUpdate(item._id || item.id, item.quantity + 1)}
           >
             +
           </button>
@@ -53,7 +62,10 @@ const CartItem = ({ item, onUpdate, onRemove }) => {
           <button className={styles.iconBtn}>
             <BiPencil size={18} />
           </button>
-          <button className={styles.iconBtn} onClick={() => onRemove(item._id)}>
+          <button
+            className={styles.iconBtn}
+            onClick={() => onRemove(item.id)}
+          >
             <RxCross2 size={20} />
           </button>
         </div>

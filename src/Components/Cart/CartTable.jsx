@@ -17,7 +17,7 @@ const CartTable = ({ items, onUpdate, onRemove }) => {
         <tbody className={styles.cartTBody}>
           {items.map((item) => (
             <CartItem
-              key={item._id}
+              key={item.id}
               item={item}
               onUpdate={onUpdate}
               onRemove={onRemove}
