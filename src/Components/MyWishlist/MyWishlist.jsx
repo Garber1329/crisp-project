@@ -3,7 +3,7 @@ import axios from "axios";
 import { GrEdit } from "react-icons/gr";
 import "./MyWishlist.css";
 
-const WISHLIST_URL = "https://crisp-project-server.onrender.com/wishlists/1";
+const WISHLIST_URL = "https://crisp-project-server.onrender.com/wishlists/6";
 const PRODUCTS_URL = "https://crisp-project-server.onrender.com/products";
 
 function MyWishlist() {

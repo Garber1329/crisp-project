@@ -1,10 +1,8 @@
 import { useCallback, useState } from 'react';
 import styles from './loginPage.module.css';
 import clsx from 'clsx';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import Benefits from './Benefits';
 import Container from '../Container';
+import { Link } from 'react-router-dom';
 
 const LoginMain = () => {
   const [email, setEmail] = useState('');
@@ -42,6 +40,7 @@ const LoginMain = () => {
       setErrors(errors);
       if (Object.keys(errors).length === 0) {
         console.log('Form submitted:', { email, password, agree });
+        localStorage.setItem('userInfoAccount', JSON.stringify(email))
         setEmail('');
         setPassword('');
         setAgree(false);
@@ -51,7 +50,6 @@ const LoginMain = () => {
   );
   return (
     <>
-      <Header />
       <main className={clsx(styles.main)}>
         <section className={styles.loginPage}>
           <Container className={clsx(styles.loginPageContent)}>
@@ -167,16 +165,14 @@ const LoginMain = () => {
                 <button type="submit" className={clsx(styles.formBtnSubmit)}>
                   SIGN IN
                 </button>
-                <a href="#" className={clsx(styles.formBtnLink)}>
+                <Link to='/register' href="#" className={clsx(styles.formBtnLink)}>
                   CREATE AN ACCOUNT
-                </a>
+                </Link>
               </div>
             </form>
           </Container>
         </section>
-        <Benefits />
       </main>
-      <Footer />
     </>
   );
 };

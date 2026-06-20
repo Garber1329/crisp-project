@@ -4,13 +4,17 @@ import './index.css'
 import App from './App.jsx'
 import LoginProvider from './Context/LoginProvider.jsx'
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import store from './store'
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <LoginProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </LoginProvider>
+    <Provider store={store}>
+      <LoginProvider>
+        <BrowserRouter basename="/crisp-project/">
+          <App />
+        </BrowserRouter>
+      </LoginProvider>
+    </Provider>
   </StrictMode>,
 );

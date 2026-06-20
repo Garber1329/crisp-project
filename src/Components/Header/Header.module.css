@@ -18,6 +18,8 @@ header {
     color: #fff;
     background-color: #000;
     border: 0px;
+    padding: 0px 0px 5px;
+    z-index: 20;
 }
 
 .header__link:hover {
@@ -95,9 +97,7 @@ header {
 .header__acount-box {
     display: flex;
     align-items: anchor-center;
-    height: 115px;
     gap: 20px;
-    z-index: 3;
 }
 
 .header__cart-text {
@@ -167,7 +167,8 @@ p {
 .modal-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0); /* keep visually transparent but intercept clicks */
+    background: rgba(0, 0, 0, 0);
+    /* keep visually transparent but intercept clicks */
     z-index: 19;
 }
 
@@ -182,4 +183,18 @@ p {
     fill: #fff;
     width: 20px;
     height: 20px;
+}
+
+.modalLinkBox {
+    display: flex;
+    flex-direction: column;
+
+    a {
+        background-color: rgba(0, 0, 0, 0);
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 214%;
+        color: #3f3f3f;
+        width: fit-content;
+    }
 }

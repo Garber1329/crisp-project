@@ -6,24 +6,57 @@ import Sorting from "./Sorting/Sorting";
 import CatalogProducts from "./CatalogProducts/CatalogProducts";
 import CatalogSidebar from "./CatalogSidebar/CatalogSidebar";
 
+import { useSearchParams } from "react-router-dom";
+
 export default function ProductCatalog() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [products, setProducts] = useState([]);
-  const [sortBy, setSortBy] = useState("desc");
-  const [itemsToShow, setItemsToShow] = useState("10");
+  const [sortBy, setSortBy] = useState(searchParams.get("sortBy") || "desc");
+  const [itemsToShow, setItemsToShow] = useState(
+    searchParams.get("itemsToShow") || "10",
+  );
   const [filters, setFilters] = useState({
-    brands: [],
-    types: [],
-    sizes: [],
-    price: [20, 800],
+    brands: searchParams.get("brands")
+      ? searchParams.get("brands").split(",")
+      : [],
+
+    types: searchParams.get("types")
+      ? searchParams.get("types").split(",")
+      : [],
+
+    sizes: searchParams.get("sizes")
+      ? searchParams.get("sizes").split(",")
+      : [],
+
+    price: searchParams.get("price")
+      ? searchParams.get("price").split(",").map(Number)
+      : [],
   });
+
+  const updateSearchParams = (newQuery) => {
+    const newParams = new URLSearchParams(searchParams);
+    Object.entries(newQuery).forEach(([key, value]) => {
+      if (value && (!Array.isArray(value) || value.length > 0)) {
+        newParams.set(key, value);
+      } else {
+        newParams.delete(key);
+      }
+    });
+    setSearchParams(newParams);
+  };
 
   useEffect(() => {
     async function getItems() {
       try {
         const response = await axios.get(
-          "https://fakestoreapiserver.reactbd.org/api/products",
+          "https://crisp-project-server.onrender.com/products",
         );
-        setProducts(response.data.data);
+        const fetchedProducts = Array.isArray(response.data)
+          ? response.data
+          : response.data?.data || [];
+        setProducts(fetchedProducts);
+        console.log(fetchedProducts);
       } catch (error) {
         console.log(error);
       }
@@ -33,18 +66,26 @@ export default function ProductCatalog() {
 
   const handleSortChange = (newSortValue) => {
     setSortBy(newSortValue);
+    updateSearchParams({ sortBy: newSortValue });
   };
 
   const handleShowChange = (newSortValue) => {
     setItemsToShow(newSortValue);
+    updateSearchParams({ itemsToShow: newSortValue });
   };
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
+    updateSearchParams(newFilters);
+  };
+
+  const getCategoryValue = (category) => {
+    if (typeof category === "string") return category;
+    return category?.slug || category?.name || "";
   };
 
   const getProcessedProducts = () => {
-    let sortedProducts = [...products];
+    let sortedProducts = Array.isArray(products) ? [...products] : [];
 
     sortedProducts = sortedProducts.filter((product) => {
       if (
@@ -55,7 +96,7 @@ export default function ProductCatalog() {
       }
       if (
         filters.types.length > 0 &&
-        !filters.types.includes(product.category)
+        !filters.types.includes(getCategoryValue(product.category))
       ) {
         return false;
       }
@@ -99,6 +140,7 @@ export default function ProductCatalog() {
         <CatalogSidebar
           products={products}
           onFilterChange={handleFilterChange}
+          currentFilters={filters}
         />
 
         <div className={css.productCatalogMain}>

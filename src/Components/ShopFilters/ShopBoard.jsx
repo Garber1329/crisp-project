@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import styles from './shopfilters.module.css';
+import styles from './shopFilters.module.css';
 
 const ShopBoard = ({ categories, filters, onChange }) => {
   return (

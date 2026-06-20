@@ -3,7 +3,7 @@ import axios from "axios";
 export const getProductsByIds = async (productIds) => {
   try {
     const promises = productIds.map((id) =>
-      axios.get(`https://fakestoreapiserver.reactbd.org/api/products/${id}`)
+      axios.get(`https://crisp-project-server.onrender.com/products/${id}`)
     );
     const responses = await Promise.all(promises);
 
