@@ -1,40 +1,35 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { GrEdit } from "react-icons/gr";
 import "./MyWishlist.css";
 
 const WISHLIST_URL = "https://crisp-project-server.onrender.com/wishlists/6";
 const PRODUCTS_URL = "https://crisp-project-server.onrender.com/products";
 
-class MyWishlist extends Component {
-  state = {
-    products: [],
-    loading: true
-  }
+function MyWishlist() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  async componentDidMount() {
-    try {
-    const getWishlist = await axios.get(WISHLIST_URL);
-    const productIds = getWishlist.data.productIds;
+  useEffect(() =>{
+    const fetchWishlist = async () => {
+      try {
+        const wishlistResponse = await axios.get(WISHLIST_URL);
+        const productIds = wishlistResponse.data.productIds;
 
-    const promises = productIds.map((id) => axios.get(`${PRODUCTS_URL}/${id}`));
-
-    const responses = await Promise.all(promises);
-
-    const selectedProducts = responses.map((response) => response.data);
-
-    this.setState({
-        products: selectedProducts,
-        loading: false,
-      });
-
-    } catch (error) {
+        const promises = productIds.map((id) => axios.get(`${PRODUCTS_URL}/${id}`));
+        const responses = await Promise.all(promises);
+        const selectedProducts = responses.map((response) => response.data);
+        
+        setProducts(selectedProducts);
+      } catch (error) {
       console.error("Помилка завантаження:", error);
-      this.setState({ loading: false });
-    }
-  }
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchWishlist();
+  });
 
-    render () {
-      const { products, loading } = this.state;
       if (loading) return <p>Loading...</p>;
 
         return (
@@ -44,7 +39,7 @@ class MyWishlist extends Component {
               <div key={product._id} className="wishlist-card">
                 <div className="image-wrapper">
                   <img src={product.image} alt={product.title} />
-                  <button className="change-btn"><img src="/images/MyWishlist.svg" alt="" /></button>
+                  <button className="change-btn"><GrEdit size={10} /></button>
                   <button className="delete-btn">✕</button>
                 </div>
 
@@ -66,7 +61,6 @@ class MyWishlist extends Component {
             </div>
         </div>
   );
-    }
 }
 
 export default MyWishlist;

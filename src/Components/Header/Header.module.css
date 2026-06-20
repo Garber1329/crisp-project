@@ -131,7 +131,6 @@ header {
     align-items: center;
     height: 115px;
     gap: 20px;
-    z-index: 3;
 }
 
 .headerAccountBoxLink {
