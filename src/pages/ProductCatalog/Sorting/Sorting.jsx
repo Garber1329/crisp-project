@@ -1,6 +1,6 @@
-import css from "./Sorting.module.css";
-import { Component } from "react";
-import { Formik, Form, Field } from "formik";
+import css from './Sorting.module.css';
+import { Component } from 'react';
+import { Formik, Form, Field } from 'formik';
 
 export default class Sorting extends Component {
   render() {

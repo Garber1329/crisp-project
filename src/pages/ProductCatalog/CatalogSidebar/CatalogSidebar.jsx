@@ -1,34 +1,24 @@
-import css from "./catalogSidebar.module.css";
-import { useState } from "react";
+import css from './catalogSidebar.module.css';
+import { useState } from 'react';
 
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
 
-import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
-import Typography from "@mui/material/Typography";
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+import Typography from '@mui/material/Typography';
 
-import plusIcon from "../../../images/ProductCatalog/+.svg";
-import minusIcon from "../../../images/ProductCatalog/-.svg";
+import plusIcon from '../../../images/ProductCatalog/+.svg';
+import minusIcon from '../../../images/ProductCatalog/-.svg';
 
-export default function CatalogSidebar({
-  products = [],
-  onFilterChange,
-  currentFilters,
-}) {
+export default function CatalogSidebar({ products = [], onFilterChange, currentFilters }) {
   const [expandedPanel, setExpandedPanel] = useState(false);
-  const [selectedBrands, setSelectedBrands] = useState(
-    currentFilters.brands || [],
-  );
-  const [selectedTypes, setSelectedTypes] = useState(
-    currentFilters.types || [],
-  );
-  const [selectedSizes, setSelectedSizes] = useState(
-    currentFilters.sizes || [],
-  );
+  const [selectedBrands, setSelectedBrands] = useState(currentFilters.brands || []);
+  const [selectedTypes, setSelectedTypes] = useState(currentFilters.types || []);
+  const [selectedSizes, setSelectedSizes] = useState(currentFilters.sizes || []);
 
-  const prices = products.map((p) => p.price).filter((p) => typeof p === "number");
+  const prices = products.map((p) => p.price).filter((p) => typeof p === 'number');
   const minPrice = prices.length ? Math.floor(Math.min(...prices)) : 0;
   const maxPrice = prices.length ? Math.ceil(Math.max(...prices)) : 1000;
 
@@ -56,17 +46,17 @@ export default function CatalogSidebar({
     let newTypes = selectedTypes;
     let newSizes = selectedSizes;
 
-    if (filterType === "brand") {
+    if (filterType === 'brand') {
       newBrands = selectedBrands.includes(value)
         ? selectedBrands.filter((item) => item !== value)
         : [...selectedBrands, value];
       setSelectedBrands(newBrands);
-    } else if (filterType === "type") {
+    } else if (filterType === 'type') {
       newTypes = selectedTypes.includes(value)
         ? selectedTypes.filter((item) => item !== value)
         : [...selectedTypes, value];
       setSelectedTypes(newTypes);
-    } else if (filterType === "size") {
+    } else if (filterType === 'size') {
       newSizes = selectedSizes.includes(value)
         ? selectedSizes.filter((item) => item !== value)
         : [...selectedSizes, value];
@@ -86,19 +76,19 @@ export default function CatalogSidebar({
   const getBrands = () => {
     const brands = products
       .map((item) => item.brand)
-      .filter((brand) => brand != null && brand !== ""); 
+      .filter((brand) => brand != null && brand !== '');
     return [...new Set(brands)];
   };
 
   const getCategoryValue = (category) => {
-    if (typeof category === "string") return category;
-    return category?.slug || category?.name || "";
+    if (typeof category === 'string') return category;
+    return category?.slug || category?.name || '';
   };
 
   const getTypes = () => {
     const types = products
       .map((item) => getCategoryValue(item.category))
-      .filter((type) => type != null && type !== ""); 
+      .filter((type) => type != null && type !== '');
     return [...new Set(types)];
   };
 
@@ -114,7 +104,7 @@ export default function CatalogSidebar({
       L: 4,
       XL: 5,
       XXL: 6,
-      "One Size": 99,
+      'One Size': 99,
     };
 
     uniqueSizes.sort((a, b) => {
@@ -144,14 +134,14 @@ export default function CatalogSidebar({
   return (
     <div className={css.catalogSidebar}>
       <Accordion
-        expanded={expandedPanel === "panel1"}
-        onChange={handleChange("panel1")}
+        expanded={expandedPanel === 'panel1'}
+        onChange={handleChange('panel1')}
         className={css.accordion}
       >
         <AccordionSummary
           expandIcon={
             <span className={css.categoryIcon}>
-              {expandedPanel === "panel1" ? (
+              {expandedPanel === 'panel1' ? (
                 <img src={minusIcon} alt="Collapse" />
               ) : (
                 <img src={plusIcon} alt="Expand" />
@@ -173,7 +163,7 @@ export default function CatalogSidebar({
                     className={css.checkbox}
                     id={brand}
                     checked={selectedBrands.includes(brand)}
-                    onChange={() => handleCheckboxChange("brand", brand)}
+                    onChange={() => handleCheckboxChange('brand', brand)}
                   />
                   <span className={css.checkmark}></span>
                   <label htmlFor={brand} className={css.brandsBrandLabel}>
@@ -187,14 +177,14 @@ export default function CatalogSidebar({
       </Accordion>
 
       <Accordion
-        expanded={expandedPanel === "panel2"}
-        onChange={handleChange("panel2")}
+        expanded={expandedPanel === 'panel2'}
+        onChange={handleChange('panel2')}
         className={css.accordion}
       >
         <AccordionSummary
           expandIcon={
             <span className={css.categoryIcon}>
-              {expandedPanel === "panel2" ? (
+              {expandedPanel === 'panel2' ? (
                 <img src={minusIcon} alt="Collapse" />
               ) : (
                 <img src={plusIcon} alt="Expand" />
@@ -216,7 +206,7 @@ export default function CatalogSidebar({
                     className={css.checkbox}
                     id={type}
                     checked={selectedTypes.includes(type)}
-                    onChange={() => handleCheckboxChange("type", type)}
+                    onChange={() => handleCheckboxChange('type', type)}
                   />
                   <span className={css.checkmark}></span>
                   <label htmlFor={type} className={css.typesTypeLabel}>
@@ -230,14 +220,14 @@ export default function CatalogSidebar({
       </Accordion>
 
       <Accordion
-        expanded={expandedPanel === "panel3"}
-        onChange={handleChange("panel3")}
+        expanded={expandedPanel === 'panel3'}
+        onChange={handleChange('panel3')}
         className={css.accordion}
       >
         <AccordionSummary
           expandIcon={
             <span className={css.categoryIcon}>
-              {expandedPanel === "panel3" ? (
+              {expandedPanel === 'panel3' ? (
                 <img src={minusIcon} alt="Collapse" />
               ) : (
                 <img src={plusIcon} alt="Expand" />
@@ -259,7 +249,7 @@ export default function CatalogSidebar({
                     className={css.sizesSize}
                     id={size}
                     checked={selectedSizes.includes(size)}
-                    onChange={() => handleCheckboxChange("size", size)}
+                    onChange={() => handleCheckboxChange('size', size)}
                   />
                   <label htmlFor={size} className={css.sizesSizeLabel}>
                     {size}
@@ -272,14 +262,14 @@ export default function CatalogSidebar({
       </Accordion>
 
       <Accordion
-        expanded={expandedPanel === "panel4"}
-        onChange={handleChange("panel4")}
+        expanded={expandedPanel === 'panel4'}
+        onChange={handleChange('panel4')}
         className={css.accordion}
       >
         <AccordionSummary
           expandIcon={
             <span className={css.categoryIcon}>
-              {expandedPanel === "panel4" ? (
+              {expandedPanel === 'panel4' ? (
                 <img src={minusIcon} alt="Collapse" />
               ) : (
                 <img src={plusIcon} alt="Expand" />

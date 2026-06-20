@@ -1,9 +1,9 @@
-import css from "./CatalogProducts.module.css";
-import { Link } from "react-router-dom";
+import css from './CatalogProducts.module.css';
+import { Link } from 'react-router-dom';
 
 function ProductItem({ images = [], title, price, type, id, _id }) {
   const productId = id ?? _id;
-  const imageSrc = images[0] || "";
+  const imageSrc = images[0] || '';
 
   return (
     <Link to={`/product/${productId}`} className={css.productItem}>
