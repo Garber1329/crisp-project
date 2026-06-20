@@ -37,10 +37,7 @@ export default function Header() {
             <Link to='/shop' onClick={() => setFlex('none')} onMouseEnter={() => setFlex('flex')} className={header['header__link']}>Shop</Link>
             <Link to='/blog' onClick={() => setFlex('none')} onMouseEnter={() => setFlex('flex')} className={header['header__link']}>blog</Link>
             <Link to='/sale' onClick={() => setFlex('none')} onMouseEnter={() => setFlex('flex')} className={header['header__link']}>Sale</Link>
-            <button onClick={() => setFlex('none')} onMouseEnter={() => setFlex('flex')} className={header['header__link']} style={{ width: "110px" }}
-            >
-              contact us
-            </button>
+            <Link to='/' onClick={() => setFlex('none')} onMouseEnter={() => setFlex('flex')} className={header['header__link']}>contact us</Link>
 
             <div className={header['header__box-search']}>
               <input
