@@ -2,7 +2,6 @@ import { lazy } from 'react';
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
 const AddAddress = lazy(() => import('./pages/AddAddress/AddAddress.jsx'));
 const MyOrders = lazy(() => import('./pages/MyOrders/MyOrders.jsx'));
-import './App.css';
 import HomePage from './pages/HomePage/HomePage.jsx';
 const DashbordPage = lazy(() => import('./pages/DashbordPage/DashbordPage.jsx'));
 const CartPage = lazy(() => import('./pages/CartPage/CartPage.jsx'));

@@ -9,9 +9,9 @@ import productsData from '../../data/productsData.json';
 import Header from '/src/Components/Header/Header.jsx';
 import Hero from '../../Components/Hero/Hero';
 import OfferCard from '../../Components/Offercards/Offer-cards.jsx';
-import Brands from '../../Components/Brands/Brands-logo.jsx';
 import ShopFilters from '../../Components/ShopFilters/ShopFilters.jsx';
 import CartPage2 from '../CartPage/CartPage2.jsx';
+import Brands from '../../Components/Brands/Brands.jsx';
 
 const HomePage = () => {
   return (
