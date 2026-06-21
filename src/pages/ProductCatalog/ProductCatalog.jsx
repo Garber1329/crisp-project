@@ -1,15 +1,48 @@
 import css from './productCatalog.module.css';
 // import data from "../../data/productsData.json";
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import Sorting from './Sorting/Sorting';
-import CatalogProducts from './CatalogProducts/CatalogProducts';
-import CatalogSidebar from './CatalogSidebar/CatalogSidebar';
+import { useEffect } from "react";
+import Sorting from "./Sorting/Sorting";
+import CatalogProducts from "./CatalogProducts/CatalogProducts";
+import CatalogSidebar from "./CatalogSidebar/CatalogSidebar";
 
-import { useSearchParams } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchProducts,
+  setFilters,
+  setSortBy,
+  setItemsToShow,
+} from "../../store/slices/productsSlice";
+
+import { useSearchParams } from "react-router-dom";
 
 export default function ProductCatalog() {
+  const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
+
+/*
+  const {
+    items: products,
+    status,
+    error,
+    filters,
+    sortBy,
+    itemsToShow,
+  } = useSelector((state) => state.products);
+
+  const handleSortChange = (newSortValue) => {
+    dispatch(setSortBy(newSortValue));
+    updateSearchParams({ sortBy: newSortValue });
+  };
+
+  const handleShowChange = (newShowValue) => {
+    dispatch(setItemsToShow(newShowValue));
+    updateSearchParams({ itemsToShow: newShowValue });
+  };
+
+  const handleFilterChange = (newFilters) => {
+    dispatch(setFilters(newFilters));
+    updateSearchParams(newFilters);
+  };
 
   const [products, setProducts] = useState([]);
   const [sortBy, setSortBy] = useState(searchParams.get('sortBy') || 'desc');
@@ -23,6 +56,7 @@ export default function ProductCatalog() {
 
     price: searchParams.get('price') ? searchParams.get('price').split(',').map(Number) : [],
   });
+*/
 
   const updateSearchParams = (newQuery) => {
     const newParams = new URLSearchParams(searchParams);
@@ -37,34 +71,38 @@ export default function ProductCatalog() {
   };
 
   useEffect(() => {
-    async function getItems() {
-      try {
-        const response = await axios.get('https://crisp-project-server.onrender.com/products');
-        const fetchedProducts = Array.isArray(response.data)
-          ? response.data
-          : response.data?.data || [];
-        setProducts(fetchedProducts);
-      } catch (error) {
-        console.log(error);
-      }
+    const urlSortBy = searchParams.get("sortBy");
+    const urlItemsToShow = searchParams.get("itemsToShow");
+
+    const urlFilters = {
+      brands: searchParams.get("brands")
+        ? searchParams.get("brands").split(",")
+        : [],
+      types: searchParams.get("types")
+        ? searchParams.get("types").split(",")
+        : [],
+      sizes: searchParams.get("sizes")
+        ? searchParams.get("sizes").split(",")
+        : [],
+      price: searchParams.get("price")
+        ? searchParams.get("price").split(",").map(Number)
+        : [],
+    };
+
+    if (urlSortBy) dispatch(setSortBy(urlSortBy));
+    if (urlItemsToShow) dispatch(setItemsToShow(urlItemsToShow));
+
+    const hasAnyFilters = Object.values(urlFilters).some(
+      (arr) => arr.length > 0,
+    );
+    if (hasAnyFilters) {
+      dispatch(setFilters(urlFilters));
     }
-    getItems();
+
+    if (status === "idle") {
+      dispatch(fetchProducts());
+    }
   }, []);
-
-  const handleSortChange = (newSortValue) => {
-    setSortBy(newSortValue);
-    updateSearchParams({ sortBy: newSortValue });
-  };
-
-  const handleShowChange = (newSortValue) => {
-    setItemsToShow(newSortValue);
-    updateSearchParams({ itemsToShow: newSortValue });
-  };
-
-  const handleFilterChange = (newFilters) => {
-    setFilters(newFilters);
-    updateSearchParams(newFilters);
-  };
 
   const getCategoryValue = (category) => {
     if (typeof category === 'string') return category;
@@ -107,6 +145,14 @@ export default function ProductCatalog() {
   };
 
   const visibleProducts = getProcessedProducts();
+
+  if (status === "loading") {
+    return <div className={css.container}>Loading...</div>;
+  }
+
+  if (status === "failed") {
+    return <div className={css.container}>Error: {error}</div>;
+  }
 
   return (
     <div className={css.container}>
