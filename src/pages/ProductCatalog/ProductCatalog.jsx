@@ -1,3 +1,4 @@
+
 import css from "./productCatalog.module.css";
 // import data from "../../data/productsData.json";
 import { useEffect } from "react";
