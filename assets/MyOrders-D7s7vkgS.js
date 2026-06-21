@@ -1,4 +1,4 @@
-import{y as s,r as c,a as x,j as e}from"./index-B0ObidTM.js";const l=s.div`
+import{y as s,r as c,a as x,j as e}from"./index-DfXWcqP5.js";const l=s.div`
   padding: 20px;
 `,p=s.h2`
   margin-bottom: 30px;
