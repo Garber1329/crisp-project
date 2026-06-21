@@ -1,4 +1,4 @@
-import{y as n,r as x,j as s}from"./index-CQPzC6x6.js";const d=n.div`
+import{y as n,r as x,j as s}from"./index-BmTd3rNN.js";const d=n.div`
   max-width: 800px;
 `,o=n.h2`
   font-size: 24px;
