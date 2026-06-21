@@ -1,89 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
-.like {
-    width: 20px;
-    height: 20px;
-}
-
 header {
     background-color: black;
     height: 115px;
 }
 
-.header__link {
-    font-family: "Oswald", sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    text-transform: uppercase;
-    color: #fff;
-    background-color: #000;
-    border: 0px;
-    padding: 0px 0px 5px;
-    z-index: 20;
-}
-
-.header__link:hover {
-    border-bottom: 2px solid #eb5757;
-}
-
-.header__nav {
+.headerContainer {
     display: flex;
-    align-items: baseline;
-    gap: 28px;
-    position: relative;
-    left: 130px;
-}
-
-.header__search {
-    width: 320px;
-    padding: 5px 8px 5px 24px;
-    background-color: black;
-    border: 0px;
-    color: #fff;
-}
-
-.header__search::placeholder {
-    font-weight: 600;
-    font-size: 14px;
-    text-transform: uppercase;
-    color: #fff;
-}
-
-.header__search:focus::placeholder {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 143%;
-    color: #c4c4c4;
-}
-
-.header__search:focus+img {
-    width: 12px;
-    height: 12px;
-    top: 3px;
-    right: 20px;
-}
-
-.header__search:focus {
-    padding: 5px 8px 5px 28px;
-    border-bottom: 1px solid white;
-    outline: none;
-}
-
-.header__box-search {
-    position: relative;
-}
-
-.header__box-search>img {
-    position: relative;
-    top: 4px;
-    right: 318px;
-    height: 16px;
-    width: 16px;
-}
-
-.header__container {
-    display: flex;
-    align-items: anchor-center;
+    align-items: center;
     justify-content: space-between;
     height: 115px;
     padding: 0px 27px;
@@ -94,91 +18,135 @@ header {
     height: 44px;
 }
 
-.header__acount-box {
+.headerNav {
     display: flex;
-    align-items: anchor-center;
+    align-items: baseline;
+    gap: 28px;
+    position: relative;
+    left: 130px;
+}
+
+.headerLink {
+    font-family: "Oswald", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #000;
+    border: 0px;
+    padding: 0px 0px 5px;
+    z-index: 20;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    position: relative;
+}
+
+.headerLink::after {
+    content: '';
+    position: absolute;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    height: 2px;
+    background-color: #eb5757;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.headerLinkActive::after {
+    transform: scaleX(1);
+}
+
+.headerLink:hover {
+    opacity: 1;
+}
+
+.headerBoxSearch {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 320px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.headerBoxSearch:has(.headerSearch:focus) {
+    border-bottom-color: white;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+}
+
+.headerSearch {
+    width: 100%;
+    padding: 5px 8px 5px 24px;
+    background-color: black;
+    border: 0px;
+    color: rgba(255, 255, 255, 1);
+    font-family: "Oswald";
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 21px;
+    letter-spacing: 0%;
+    text-transform: uppercase;
+    outline: none;
+}
+
+.headerSearch::placeholder {
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #fff;
+    transition: color 0.2s ease, font-weight 0.2s ease;
+}
+
+.headerSearch:focus::placeholder {
+    font-family: "Oswald";
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0%;
+    color: #c4c4c4;
+}
+
+.headerBoxSearch:has(.headerSearch:focus) .searchIcon {
+    opacity: 0.7;
+}
+
+.headerAccountBox {
+    display: flex;
+    align-items: center;
     height: 115px;
     gap: 20px;
-    z-index: 3;
 }
 
-.header__cart-text {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 250%;
-    letter-spacing: 0.01em;
-    color: #fff;
-    height: 22px;
-}
-
-.header__acount-box-link {
+.headerAccountBoxLink {
     display: flex;
     gap: 12px;
     height: 21px;
 }
 
-.header__box-cart {
+.headerBoxCart {
     display: flex;
     flex-direction: column;
 }
 
-p {
-    margin: 0px;
-}
-
-/*модальне вікно*/
-
-.modal-block-text {
-    width: 188px;
-}
-
-.modal-block-text>a {
+.headerCartText {
     font-weight: 400;
-    font-size: 14px;
-    line-height: 214%;
-    color: #3f3f3f;
-    text-decoration: none;
-}
-
-.modal-block-text>h5 {
-    font-weight: 500;
-    font-size: 18px;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    color: #000;
+    font-size: 12px;
+    line-height: 250%;
+    letter-spacing: 0.01em;
+    color: #fff;
+    font-family: 'Oswald';
+    height: 22px;
     margin: 0px;
-    border-bottom: 2px solid black;
-    width: 210px;
-    padding: 0px 0px 4px;
-    margin: 0px 0px 18px;
-}
-
-.modal-window {
-    display: flex;
-    gap: 100px;
-    position: relative;
-    align-items: center;
-    padding: 0px 0px 0px 42px;
-    box-shadow: 10px 10px 24px 0px rgba(0, 0, 0, 0.25);
-    width: 1195px;
-    background-color: white;
-    z-index: 20;
-}
-
-/* full-screen invisible backdrop placed behind modal to block clicks to underlying content */
-.modal-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0);
-    /* keep visually transparent but intercept clicks */
-    z-index: 19;
-}
-
-
-.modal-window>img {
-    position: relative;
-    right: 160px;
-    z-index: -1;
 }
 
 .handbag {
@@ -187,16 +155,81 @@ p {
     height: 20px;
 }
 
+.like {
+    width: 20px;
+    height: 20px;
+    fill: #000;
+    cursor: pointer;
+    transition: fill 0.2s ease;
+}
+
+.likeActive {
+    fill: #ca0505;
+}
+
+.modalWindow {
+    display: flex;
+    gap: 60px;
+    position: absolute;
+    top: 230%;
+    right: 20%;
+    transform: translateX(-50%);
+    align-items: stretch;
+    padding: 24px 0 24px 42px;
+    box-shadow: 10px 10px 24px 0px rgba(0, 0, 0, 0.25);
+    width: 1195px;
+    max-width: calc(100vw - 40px);
+    background-color: white;
+    z-index: 20;
+    overflow: hidden;
+}
+
+.modalWindow>img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 320px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modalBlockText {
+    width: 188px;
+}
+
+.modalBlockText>h5 {
+    color: rgba(0, 0, 0, 1);
+    font-family: "Oswald";
+    font-style: Medium;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 27px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-bottom: 2px solid black;
+    width: 210px;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+
 .modalLinkBox {
     display: flex;
+    gap: 5px;
     flex-direction: column;
+}
 
-    a {
-        background-color: rgba(0, 0, 0, 0);
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 214%;
-        color: #3f3f3f;
-        width: fit-content;
-    }
+.modalLinkBox a {
+    background-color: transparent;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 214%;
+    color: #3f3f3f;
+    font-family: 'Oswald';
+    width: fit-content;
+    text-decoration: none;
+}
+
+p {
+    margin: 0px;
 }

@@ -12,11 +12,11 @@ const ShopItems = ({ shopItems }) => {
   }, []);
 
   return (
-    <div className={clsx(styles.shopItems)}>
+    <div className={clsx(styles.shopItems)} id='shopItems'>
       <AnimatePresence mode="popLayout">
         {shopItems.map((shopItem) => (
           <motion.div
-            key={shopItem._id}
+            key={shopItem.id}
             className={clsx(styles.shopItem)}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -26,15 +26,15 @@ const ShopItems = ({ shopItems }) => {
           >
             <div className={clsx(styles.shopItemImgContent)}>
               <img
-                src={shopItem.image}
-                alt={shopItem.title}
-                className={clsx(styles.shopItemImg, zoomItemId === shopItem._id && styles.zoomed)}
+                src={shopItem.images[0]}
+                alt={shopItem.slug}
+                className={clsx(styles.shopItemImg, zoomItemId === shopItem.id && styles.zoomed)}
               />
               <button
                 className={clsx(styles.shopItemButton)}
-                onClick={() => zoomingHandle(shopItem._id)}
+                onClick={() => zoomingHandle(shopItem.id)}
               >
-                {zoomItemId === shopItem._id ? (
+                {zoomItemId === shopItem.id ? (
                   <>
                     <MdOutlineZoomInMap /> Zoom out
                   </>
@@ -45,7 +45,7 @@ const ShopItems = ({ shopItems }) => {
                 )}
               </button>
             </div>
-            <h5 className={clsx(styles.shopItemType)}>{shopItem.category}</h5>
+            <h5 className={clsx(styles.shopItemType)}>{shopItem.category.name}</h5>
             <h2 className={clsx(styles.shopItemTitle)}>{shopItem.title}</h2>
             {shopItem.discountedPrice ? (
               <div className={clsx(styles.shopItemPrices)}>
@@ -53,7 +53,7 @@ const ShopItems = ({ shopItems }) => {
                 <p className={clsx(styles.shopItemPriceDiscount)}>{shopItem.price} EUR</p>
               </div>
             ) : (
-              <p className={clsx(styles.shopItemPrice)}>{shopItem.price}</p>
+              <p className={clsx(styles.shopItemPrice)}>{shopItem.price} EUR</p>
             )}
           </motion.div>
         ))}

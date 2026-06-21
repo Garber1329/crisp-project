@@ -1,103 +1,174 @@
-import header from './Header.module.css'
-import logo from '../../images/Header/logo.png'
-import dandruff from '../../images/Header/dandruff.png'
-import { memo, useState } from 'react'
-import { PiHandbagBold } from "react-icons/pi";
-import modal from '../../images/Header/women-modal.png'
-import { Link } from 'react-router-dom'
+import header from './Header.module.css';
+import logo from '../../images/Header/logo.png';
+import searchIcon from '../../images/Header/dandruff.png';
+import { memo, useRef, useState } from 'react';
+import { PiHandbagBold } from 'react-icons/pi';
+import modalPreview from '../../images/Header/women-modal.png';
+import { NavLink } from 'react-router-dom';
+import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
 
-const ModalComponent = memo(function ModalComponent() {
+const NAV_LINKS = [
+  { to: '/', label: 'home' },
+  { to: '/catalog', label: 'Catalog' },
+  { to: '/shop', label: 'Electronic shop' },
+  { to: '/blog', label: 'blog' },
+  { to: '/sale', label: 'Sale' },
+  { to: '/contacts', label: 'Contact us' },
+];
+
+const MODAL_CATEGORIES = [
+  {
+    title: 'Account',
+    links: [
+      { to: '/register', label: 'Register' },
+      { to: '/login', label: 'Login' },
+      { to: '/dashboard', label: 'Dashboard' },
+    ],
+  },
+  {
+    title: 'Shopping',
+    links: [
+      { to: '/cart', label: 'Cart' },
+      { to: '/catalog', label: 'Catalog' },
+      { to: '/product/1', label: 'Product' },
+    ],
+  },
+];
+
+const CLOSE_DELAY = 200;
+
+const navLinkClassName = ({ isActive }) =>
+  clsx(header.headerLink, isActive && header.headerLinkActive);
+
+const ModalCategory = memo(function ModalCategory({ title, links, onLinkClick }) {
   return (
-    <div className={header['modal-block-text']}>
-      <h5>Menu Category List</h5>
+    <div className={header.modalBlockText}>
+      <h5>{title}</h5>
       <div className={header.modalLinkBox}>
-        <Link to='/register' className={header['header__link']}>Register</Link>
-        <Link to='/login' className={header['header__link']}>Login</Link>
-        <Link to='/dashboard' className={header['header__link']}>Dashboard</Link>
-        <Link to='/cart' className={header['header__link']}>Cart</Link>
-        <Link to='/catalog' className={header['header__link']}>Catalog</Link>
-        <Link to='/product/1' className={header['header__link']}>Product</Link>
+        {links.map(({ to, label }) => (
+          <NavLink key={to} to={to} className={navLinkClassName} onClick={onLinkClick}>
+            {label}
+          </NavLink>
+        ))}
       </div>
     </div>
-  )
-})
+  );
+});
 
 export default function Header() {
-  const [color, setColor] = useState("#000");
-  const [flex, setFlex] = useState("none");
+  const [isLiked, setIsLiked] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const closeTimerRef = useRef(null);
+
+  const cancelClose = () => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  };
+
+  const openModal = () => {
+    cancelClose();
+    setIsModalOpen(true);
+  };
+
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimerRef.current = setTimeout(() => {
+      setIsModalOpen(false);
+    }, CLOSE_DELAY);
+  };
+
+  const closeModalNow = () => {
+    cancelClose();
+    setIsModalOpen(false);
+  };
 
   return (
-    <>
-      <header>
-        <div className={header['header__container']}>
-          <Link to='/dashboard'><img src={logo} alt="" className={header.logo} /></Link>
+    <header>
+      <div className={header.headerContainer}>
+        <NavLink to="/dashboard">
+          <img src={logo} alt="Logo" className={header.logo} />
+        </NavLink>
 
-          <nav className={header['header__nav']}>
-            <Link to='/' onClick={() => setFlex('none')} onMouseEnter={() => setFlex('flex')} className={header['header__link']}>home</Link>
-            <Link to='/shop' onClick={() => setFlex('none')} onMouseEnter={() => setFlex('flex')} className={header['header__link']}>Shop</Link>
-            <Link to='/blog' onClick={() => setFlex('none')} onMouseEnter={() => setFlex('flex')} className={header['header__link']}>blog</Link>
-            <Link to='/sale' onClick={() => setFlex('none')} onMouseEnter={() => setFlex('flex')} className={header['header__link']}>Sale</Link>
-            <button onClick={() => setFlex('none')} onMouseEnter={() => setFlex('flex')} className={header['header__link']} style={{ width: "110px" }}
+        <nav className={header.headerNav} onMouseLeave={scheduleClose}>
+          {NAV_LINKS.map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              onClick={closeModalNow}
+              onMouseEnter={openModal}
+              className={navLinkClassName}
             >
-              contact us
-            </button>
+              {label}
+            </NavLink>
+          ))}
 
-            <div className={header['header__box-search']}>
-              <input
-                type="text"
-                placeholder="search"
-                className={header['header__search']}
-              />
-              <img src={dandruff} alt="" />
-            </div>
-          </nav>
+          <div className={header.headerBoxSearch} onMouseEnter={cancelClose}>
+            <img src={searchIcon} alt="search-icon" className={header.searchIcon} />
+            <input type="text" placeholder="search" className={header.headerSearch} />
+          </div>
 
-          <div className={header['header__acount-box']}>
-            <div className={header['header__acount-box-link']}>
-              <Link to='/login' className={header['header__link']}>SIGN IN</Link>
-              <Link to='/register' className={header['header__link']}>CREATE AN ACCOUNT</Link>
-            </div>
+          <AnimatePresence>
+            {isModalOpen && (
+              <motion.div
+                className={header.modalWindow}
+                onMouseEnter={cancelClose}
+                onMouseLeave={scheduleClose}
+                onClick={(e) => e.stopPropagation()}
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.18, ease: 'easeOut' }}
+              >
+                {MODAL_CATEGORIES.map((category) => (
+                  <ModalCategory
+                    key={category.title}
+                    title={category.title}
+                    links={category.links}
+                    onLinkClick={closeModalNow}
+                  />
+                ))}
+                <img src={modalPreview} alt="modal-preview" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </nav>
 
-            <svg
-              className={header.like}
-              onClick={() => color === '#000' ? setColor("#ca0505") : setColor("#000")}
-              style={{ fill: color, cursor: "pointer" }}
-              viewBox="0 0 22 21"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.7252 1.19971C17.9598 1.19981 20.6002 3.66229 20.6002 6.896C20.6002 8.84688 19.6741 10.5189 18.3219 12.1099C16.9813 13.6871 15.0857 15.3378 12.9215 17.2251L11.6901 18.3032L10.9 18.9946L10.11 18.3032L8.87854 17.2251C6.71434 15.3378 4.81878 13.6871 3.47815 12.1099C2.12597 10.5189 1.19989 8.84688 1.19983 6.896C1.19983 3.66229 3.84024 1.19981 7.07483 1.19971C8.47459 1.19971 9.82622 1.67813 10.9 2.48291C11.9738 1.67813 13.3255 1.19971 14.7252 1.19971Z"
-                stroke="white"
-                strokeWidth="2.4"
-              />
-            </svg>
+        <div className={header.headerAccountBox}>
+          <div className={header.headerAccountBoxLink}>
+            <NavLink to="/login" className={navLinkClassName}>
+              SIGN IN
+            </NavLink>
+            <NavLink to="/register" className={navLinkClassName}>
+              CREATE AN ACCOUNT
+            </NavLink>
+          </div>
 
-            <Link to='cart'><PiHandbagBold className={header.handbag} /></Link>
+          <svg
+            className={clsx(header.like, isLiked && header.likeActive)}
+            onClick={() => setIsLiked((prev) => !prev)}
+            viewBox="0 0 22 21"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.7252 1.19971C17.9598 1.19981 20.6002 3.66229 20.6002 6.896C20.6002 8.84688 19.6741 10.5189 18.3219 12.1099C16.9813 13.6871 15.0857 15.3378 12.9215 17.2251L11.6901 18.3032L10.9 18.9946L10.11 18.3032L8.87854 17.2251C6.71434 15.3378 4.81878 13.6871 3.47815 12.1099C2.12597 10.5189 1.19989 8.84688 1.19983 6.896C1.19983 3.66229 3.84024 1.19981 7.07483 1.19971C8.47459 1.19971 9.82622 1.67813 10.9 2.48291C11.9738 1.67813 13.3255 1.19971 14.7252 1.19971Z"
+              stroke="white"
+              strokeWidth="2.4"
+            />
+          </svg>
 
-            <div className={header['header__box-cart']}>
-              <p className={header['header__cart-text']}>Shopping Cart</p>
-              <p className={header['header__cart-text']}>{"0,00"} EUR</p>
-            </div>
+          <NavLink to="/cart">
+            <PiHandbagBold className={header.handbag} />
+          </NavLink>
+
+          <div className={header.headerBoxCart}>
+            <p className={header.headerCartText}>Shopping Cart</p>
+            <p className={header.headerCartText}>0,00 EUR</p>
           </div>
         </div>
-
-        <div
-          className={header['modal-backdrop']}
-          onClick={() => setFlex('none')}
-          style={{ display: flex === 'flex' ? 'block' : 'none' }}
-        />
-
-        <div
-          onClick={(e) => e.stopPropagation()}
-          style={{ display: flex }}
-          className={header['modal-window']}
-        >
-          <ModalComponent />
-          <ModalComponent />
-          <ModalComponent />
-          <img src={modal} alt="" />
-        </div>
-      </header>
-    </>
-  )
+      </div>
+    </header>
+  );
 }
