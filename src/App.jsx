@@ -18,6 +18,7 @@ import ShopPage from './pages/ShopPage/ShopPage.jsx'
 import SalePage from './pages/SalePge/SalePage.jsx'
 import CartPage2 from './pages/CartPage/CartPage2.jsx'
 import BlogPages from './pages/BlogPages/BlogPage.jsx'
+import AllBlogPages from './pages/AllBlogPages/AllBlogPages.jsx';
 
 
 function App() {
@@ -35,8 +36,9 @@ function App() {
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path='/sale' element={<SalePage/>}/>
           <Route path='/cart2' element={<CartPage2/>}/>
-          <Route path='/blog' element={<BlogPages/>}/>
+          <Route path='/blog' element={<AllBlogPages/>}/>
           <Route path='/catalog' element={<ProductCatalog/>}/>
+          <Route path='/blogPage' element={<BlogPages/>}/>
         </Route>
       </Routes>
     </>

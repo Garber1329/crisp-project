@@ -13,4 +13,7 @@ export const fetchProducts = createAsyncThunk(
   }
 )
 
+console.log(fetchProducts)
+
 export default fetchProducts
+
