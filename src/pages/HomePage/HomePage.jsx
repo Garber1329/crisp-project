@@ -1,4 +1,4 @@
-import Blog from '../../Components/Blog/Blog';
+// import Blog from '../../Components/Blog/Blog';
 import postsData from '../../data/postsData.json';
 import Footer from '../../Components/Footer/Footer.jsx';
 import '../../Components/ProductCard/ProductCard.css';
@@ -9,11 +9,9 @@ import productsData from '../../data/productsData.json';
 import Header from '/src/Components/Header/Header.jsx';
 import Hero from '../../Components/Hero/Hero';
 import OfferCard from '../../Components/Offercards/Offer-cards.jsx';
-import Brands from '../../Components/Brands/Brands-logo.jsx';
 import ShopFilters from '../../Components/ShopFilters/ShopFilters.jsx';
-import Banner1 from '../../Components/Banners/banner1.jsx';
-import Banner2 from '../../Components/Banners/banner2.jsx';
 import CartPage2 from '../CartPage/CartPage2.jsx';
+import Brands from '../../Components/Brands/Brands.jsx';
 
 const HomePage = () => {
   return (
@@ -22,15 +20,13 @@ const HomePage = () => {
       <Brands />
       <OfferCard />
       <ShopFilters />
-      <Banner1 />
       <ProductCardList title="Featured Items">
         <ProductCardSwiper products={productsData.data} swiperId="featured" />
       </ProductCardList>
       <ProductCardList title="Most Popular">
         <ProductCardSwiper products={productsData.data} swiperId="popular" />
       </ProductCardList>
-      <Banner2 />
-      <Blog data={postsData ? postsData.data : []} />
+      {/* <Blog data={postsData ? postsData.data : []} /> */}
     </>
   );
 };
