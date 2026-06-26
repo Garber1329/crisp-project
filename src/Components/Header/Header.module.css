@@ -120,11 +120,13 @@ header {
     opacity: 0.7;
 }
 
+
 .headerAccountBox {
     display: flex;
     align-items: center;
     height: 115px;
     gap: 20px;
+    z-index: 3;
 }
 
 .headerAccountBoxLink {

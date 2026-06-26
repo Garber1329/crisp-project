@@ -1,10 +1,12 @@
 import register from './Register.module.css'
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { LoginContext } from '../../Context/LoginContext';
 import { Link } from 'react-router-dom';
+import { registerUser } from '../../store/slices/loginSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import logitThunk from '../../store/async/LoginData';
 
 export default function Register() {
-    // const {login, allProjects} = useContext(LoginContext)
     const [formDate, setFormDate] = useState({
         ConfirmPassword: '',
         Email: '',
@@ -13,14 +15,25 @@ export default function Register() {
         Password: '',
         Checked: false
     })
+    const dispatch = useDispatch()
+    const { user, userData, login } = useSelector(state => state.loginSlice)
 
-        const defoltInformation = {
+    console.log(user)
+    console.log(userData)
+    console.log(login)
+
+
+    useEffect(() => {
+        dispatch(logitThunk())
+    }, [dispatch])
+
+    const defoltInformation = {
         ConfirmPassword: '',
-            Email: '',
-            LastName: '',
-            FirstName: '',
-            Password: '',
-            Checked: false
+        Email: '',
+        LastName: '',
+        FirstName: '',
+        Password: '',
+        Checked: false
     }
 
     const changeInformation = (e) => {
@@ -34,6 +47,7 @@ export default function Register() {
 
     const hundelSubmite = (event) => {
         event.preventDefault()
+        dispatch(registerUser(formDate))
 
         setFormDate(defoltInformation)
     }
@@ -80,14 +94,14 @@ export default function Register() {
                                     </div>
                                 </label>
                                 <label className={register['date-email-input-box']}>
-                                    <p className={formDate.ConfirmPassword != formDate.Password || formDate.ConfirmPassword.length < 5  ? register.marker : null}>Confirm Password </p>
+                                    <p className={formDate.ConfirmPassword != formDate.Password || formDate.ConfirmPassword.length < 5 ? register.marker : null}>Confirm Password </p>
                                     <input className={register['password-input']} type="password" name='ConfirmPassword' value={formDate.ConfirmPassword} onChange={changeInformation} />
                                 </label>
                             </form>
                         </div>
                     </div>
                     <div className={register['button-box']}>
-                        <button style={formDate.Password != formDate.ConfirmPassword || formDate.Password.length < 5 || formDate.FirstName.length < 1 || formDate.LastName.length < 1 || formDate.Checked != true || !emailPattern.test(formDate.Email) ? {pointerEvents: 'none'} : {pointerEvents: 'auto'}} className={register.creat} form='accontForm'>create an account</button>
+                        <button style={formDate.Password != formDate.ConfirmPassword || formDate.Password.length < 5 || formDate.FirstName.length < 1 || formDate.LastName.length < 1 || formDate.Checked != true || !emailPattern.test(formDate.Email) ? { pointerEvents: 'none' } : { pointerEvents: 'auto' }} className={register.creat} form='accontForm'>create an account</button>
                         <Link to='/' className={register.back}>Back</Link>
                     </div>
                 </div>
