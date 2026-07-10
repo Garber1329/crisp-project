@@ -1,4 +1,4 @@
-import "./App.css";
+// import "./App.css";
 import { lazy } from 'react';
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
 const AddAddress = lazy(() => import('./pages/AddAddress/AddAddress.jsx'));

@@ -11,7 +11,7 @@ const store = configureStore({
   reducer: {
     example: exampleReducer,
     blogsSlice: blogReducer,
-    loginSlice: loginSlice
+    loginSlice: loginSlice,
     products: productReducer,
     otherProducts: otherProducts,
     filters: filterSlice,
