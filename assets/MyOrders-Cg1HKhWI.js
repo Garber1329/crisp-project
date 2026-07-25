@@ -1,4 +1,4 @@
-import{r as c,a as x,j as e}from"./index-Be-2vSzw.js";import{y as s}from"./styled-components.browser.esm-DQipNAYO.js";const l=s.div`
+import{r as c,a as x,j as e}from"./index-DHLzyRNu.js";import{y as s}from"./styled-components.browser.esm-DNyrEG5U.js";const l=s.div`
   padding: 20px;
 `,p=s.h2`
   margin-bottom: 30px;

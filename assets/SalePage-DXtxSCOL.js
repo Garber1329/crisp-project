@@ -1,1 +1,0 @@
-import{c as o,j as r}from"./index-Be-2vSzw.js";import m from"./ProductPage-Cri4uUhw.js";function c(){const t=o.c(1);let e;return t[0]===Symbol.for("react.memo_cache_sentinel")?(e=r.jsx(r.Fragment,{children:r.jsx(m,{})}),t[0]=e):e=t[0],e}export{c as default};
