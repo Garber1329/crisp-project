@@ -7,6 +7,7 @@ import modalPreview from '../../images/Header/women-modal.png';
 import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import Container from '../Container';
 
 const NAV_LINKS = [
   { to: '/', label: 'home' },
@@ -41,9 +42,9 @@ const navLinkClassName = ({ isActive }) =>
 
 const ModalCategory = memo(function ModalCategory({ title, links, onLinkClick }) {
   return (
-    <div className={header.modalBlockText}>
+    <div className={clsx(header.modalBlockText)}>
       <h5>{title}</h5>
-      <div className={header.modalLinkBox}>
+      <div className={clsx(header.modalLinkBox)}>
         {links.map(({ to, label }) => (
           <NavLink key={to} to={to} className={navLinkClassName} onClick={onLinkClick}>
             {label}
@@ -84,13 +85,13 @@ export default function Header() {
   };
 
   return (
-    <header>
-      <div className={header.headerContainer}>
+    <header className={clsx(header.header)}>
+      <Container className={clsx(header.headerContainer)}>
         <NavLink to="/dashboard">
-          <img src={logo} alt="Logo" className={header.logo} />
+          <img src={logo} alt="Logo" className={clsx(header.logo)} />
         </NavLink>
 
-        <nav className={header.headerNav} onMouseLeave={scheduleClose}>
+        <nav className={clsx(header.headerNav)} onMouseLeave={scheduleClose}>
           {NAV_LINKS.map(({ to, label }) => (
             <NavLink
               key={to}
@@ -103,39 +104,37 @@ export default function Header() {
             </NavLink>
           ))}
 
-          <div className={header.headerBoxSearch} onMouseEnter={cancelClose}>
-            <img src={searchIcon} alt="search-icon" className={header.searchIcon} />
-            <input type="text" placeholder="search" className={header.headerSearch} />
+          <div className={clsx(header.headerBoxSearch)} onMouseEnter={cancelClose}>
+            <img src={searchIcon} alt="search-icon" className={clsx(header.searchIcon)} />
+            <input type="text" placeholder="search" className={clsx(header.headerSearch)} />
           </div>
-
-          <AnimatePresence>
-            {isModalOpen && (
-              <motion.div
-                className={header.modalWindow}
-                onMouseEnter={cancelClose}
-                onMouseLeave={scheduleClose}
-                onClick={(e) => e.stopPropagation()}
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.18, ease: 'easeOut' }}
-              >
-                {MODAL_CATEGORIES.map((category) => (
-                  <ModalCategory
-                    key={category.title}
-                    title={category.title}
-                    links={category.links}
-                    onLinkClick={closeModalNow}
-                  />
-                ))}
-                <img src={modalPreview} alt="modal-preview" />
-              </motion.div>
-            )}
-          </AnimatePresence>
         </nav>
-
-        <div className={header.headerAccountBox}>
-          <div className={header.headerAccountBoxLink}>
+        <AnimatePresence>
+          {isModalOpen && (
+            <motion.div
+              className={clsx(header.modalWindow)}
+              onMouseEnter={cancelClose}
+              onMouseLeave={scheduleClose}
+              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
+            >
+              {MODAL_CATEGORIES.map((category) => (
+                <ModalCategory
+                  key={category.title}
+                  title={category.title}
+                  links={category.links}
+                  onLinkClick={closeModalNow}
+                />
+              ))}
+              <img src={modalPreview} alt="modal-preview" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <div className={clsx(header.headerAccountBox)}>
+          <div className={clsx(header.headerAccountBoxLink)}>
             <NavLink to="/login" className={navLinkClassName}>
               SIGN IN
             </NavLink>
@@ -158,15 +157,15 @@ export default function Header() {
           </svg>
 
           <NavLink to="/cart">
-            <PiHandbagBold className={header.handbag} />
+            <PiHandbagBold className={clsx(header.handbag)} />
           </NavLink>
 
-          <div className={header.headerBoxCart}>
-            <p className={header.headerCartText}>Shopping Cart</p>
-            <p className={header.headerCartText}>0,00 EUR</p>
+          <div className={clsx(header.headerBoxCart)}>
+            <p className={clsx(header.headerCartText)}>Shopping Cart</p>
+            <p className={clsx(header.headerCartText)}>0,00 EUR</p>
           </div>
         </div>
-      </div>
+      </Container>
     </header>
   );
 }
