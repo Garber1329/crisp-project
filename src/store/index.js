@@ -5,6 +5,8 @@ import loginSlice from './slices/loginSlice'
 import productReducer from "./slices/productsSlice";
 import otherProducts from './slices/otherProductsSlice.js';
 import filterSlice from './slices/filterSlice.js';
+import productsSlice from './slices/productsSlice.js';
+import notificationSlice from './slices/notificationSlice.js';
 
 
 const store = configureStore({
@@ -15,6 +17,8 @@ const store = configureStore({
     products: productReducer,
     otherProducts: otherProducts,
     filters: filterSlice,
+    products: productsSlice,
+    notification: notificationSlice,
   },
 });
 

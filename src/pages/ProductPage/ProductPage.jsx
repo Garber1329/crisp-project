@@ -1,139 +1,146 @@
-import { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Thumbs, FreeMode } from "swiper/modules";
-import Coments from '/src/Components/Coments/Coments.jsx'
+import { useEffect, useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Thumbs, FreeMode } from 'swiper/modules';
+import clsx from 'clsx';
+import Coments from '/src/Components/Coments/Coments.jsx';
+import Container from '../../Components/Container.jsx';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
+import Fade from '@mui/material/Fade';
+import { fetchOtherProducts } from '../../store/async/otherProductsFetch.js';
+import { fetchProducts } from '../../store/slices/productsSlice.js';
+import { showNotification, hideNotification } from '../../store/slices/notificationSlice.js';
+import { makeSelectProductById, selectProductsLoadingState } from '../../store/selectors.js';
+import 'swiper/css';
+import 'swiper/css/thumbs';
+import 'swiper/css/free-mode';
+import styles from './productPage.module.css';
+import { IoStar, IoStarOutline, IoHeartSharp } from 'react-icons/io5';
+import { motion, AnimatePresence } from 'framer-motion';
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/thumbs";
-import "swiper/css/free-mode";
+const placeholderImage =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='800' viewBox='0 0 600 800'%3E%3Crect width='600' height='800' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%23999'%3ENo Image%3C/text%3E%3C/svg%3E";
 
-import "./ProductPage.css";
+const DEFAULT_SIZES = ['XS', 'S', 'M', 'L', 'XL'];
 
-// Локальні SVG заглушки
-const placeholderImage = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='800' viewBox='0 0 600 800'%3E%3Crect width='600' height='800' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%23999'%3ENo Image%3C/text%3E%3C/svg%3E";
-
-const errorImage = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='800' viewBox='0 0 600 800'%3E%3Crect width='600' height='800' fill='%23ffeeee'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%23ff4444'%3EError%3C/text%3E%3C/svg%3E";
+const getCategoryValue = (category) => {
+  if (typeof category === 'string') return category;
+  return category?.name || category?.slug || '';
+};
 
 export default function ProductPage() {
-  const getCategoryValue = (category) => {
-    if (typeof category === "string") return category;
-    return category?.slug || category?.name || "";
-  };
+  const { id } = useParams();
+  const dispatch = useDispatch();
 
-  // 1. Розбиваємо state на окремі хуки useState
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const selectProductById = useMemo(makeSelectProductById, []);
+  const rawProduct = useSelector((state) => selectProductById(state, id));
+
+  const { bothLoaded, eitherLoading, hasError, error, baseStatus, otherStatus } = useSelector(
+    selectProductsLoadingState,
+  );
+
+  const notification = useSelector((state) => state.notification);
+
+  const [openSections, setOpenSections] = useState(['productDetails', 'comments']);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  
-  const [productData, setProductData] = useState({
-    _id: null,
-    brand: "",
-    title: "",
-    price: 0,
-    oldPrice: "",
-    discountedPrice: null,
-    description: "",
-    category: "",
-    type: "",
-    stock: 0,
-    size: [],
-    image: "",
-    rating: 0,
-    isNew: false
-  });
-
-  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedSize, setSelectedSize] = useState('');
   const [quantity, setQuantity] = useState(1);
 
-  // Функція для отримання продукту
-  const fetchArticles = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      // Використовуємо fetch замість axios
-      const response = await fetch('https://crisp-project-server.onrender.com/products/40');
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const product = await response.json();
-
-      // Маппінг даних з API на структуру нашого компоненту
-      const mappedProduct = {
-        _id: product._id,
-        brand: product.brand || "FENDI",
-        title: product.title || "Women Black Checked Fit and Flare Dress",
-        price: product.price || 0,
-        oldPrice: product.oldPrice || "",
-        discountedPrice: product.discountedPrice || null,
-        description: product.description || "",
-        category: getCategoryValue(product.category),
-        type: product.type || "",
-        stock: product.stock || 10,
-        size: product.size || ['XS', 'S', 'M', 'L', 'XL'],
-        image: product.image || "",
-        rating: product.rating || 4,
-        isNew: product.isNew || false
-      };
-
-      setProductData(mappedProduct);
-
-      // Обробка зображень
-      let productImages = [];
-      if (mappedProduct.image) {
-        productImages = [mappedProduct.image];
-      }
-      
-      // Додаємо додаткові зображення, якщо вони є
-      if (product.additionalImages && Array.isArray(product.additionalImages)) {
-        productImages = [...productImages, ...product.additionalImages];
-      }
-
-      setImages(productImages.length > 0 ? productImages : [placeholderImage]);
-
-    } catch (err) {
-      setError(err.message);
-      console.error("Error fetching product:", err);
-      setImages([errorImage]);
-    } finally {
-      setLoading(false);
-    }
+  const accordionVariants = {
+    open: { height: 'auto', opacity: 1 },
+    collapsed: { height: 0, opacity: 0 },
   };
 
   useEffect(() => {
-    fetchArticles();
-  }, []);
+    if (otherStatus === 'idle') dispatch(fetchOtherProducts());
+    if (baseStatus === 'idle') dispatch(fetchProducts());
+  }, [otherStatus, baseStatus, dispatch]);
+
+  useEffect(() => {
+    setSelectedSize('');
+    setQuantity(1);
+    dispatch(hideNotification());
+  }, [id, dispatch]);
+
+  const productData = useMemo(() => {
+    if (!rawProduct) return null;
+    return {
+      _id: rawProduct.id ?? rawProduct._id,
+      brand: rawProduct.brand || '',
+      title: rawProduct.title || '',
+      price: Number(rawProduct.price) || 0,
+      oldPrice: rawProduct.oldPrice || '',
+      discountedPrice:
+        rawProduct.discountedPrice != null ? Number(rawProduct.discountedPrice) : null,
+      description: rawProduct.description || '',
+      category: getCategoryValue(rawProduct.category),
+      type: rawProduct.type || '',
+      stock: Number.isFinite(rawProduct.stock) ? rawProduct.stock : 10,
+      size:
+        Array.isArray(rawProduct.size) && rawProduct.size.length ? rawProduct.size : DEFAULT_SIZES,
+      rating: Number(rawProduct.rating) || 0,
+      isNew: Boolean(rawProduct.isNew),
+    };
+  }, [rawProduct]);
+
+  const images = useMemo(() => {
+    if (!rawProduct) return [placeholderImage];
+    return Array.isArray(rawProduct.images) && rawProduct.images.length
+      ? rawProduct.images
+      : [placeholderImage];
+  }, [rawProduct]);
 
   const handleQuantityChange = (type) => {
-    if (type === "increment") {
-      setQuantity(prev => prev + 1);
-    }
-    if (type === "decrement") {
-      setQuantity(prev => prev > 1 ? prev - 1 : 1);
-    }
+    setQuantity((prev) => {
+      if (type === 'increment') {
+        return productData?.stock ? Math.min(prev + 1, productData.stock) : prev + 1;
+      }
+      if (type === 'decrement') {
+        return prev > 1 ? prev - 1 : 1;
+      }
+      return prev;
+    });
+  };
+
+  const toggleSection = (key) => {
+    setOpenSections((prev) =>
+      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
+    );
   };
 
   const handleImageError = (e) => {
     e.target.src = placeholderImage;
   };
 
-  const displayPrice = productData.discountedPrice || productData.price;
+  const displayPrice = productData ? (productData.discountedPrice ?? productData.price) : 0;
   const totalPrice = (displayPrice * quantity).toFixed(2);
 
+  const discountPercent = useMemo(() => {
+    if (!productData?.discountedPrice || !productData?.price) return 0;
+    return Math.round((1 - productData.discountedPrice / productData.price) * 100);
+  }, [productData]);
+
   const handleAddToBag = () => {
-    if (!selectedSize && productData.size && productData.size.length > 0) {
-      alert("Please select size");
+    if (!productData) return;
+
+    if (productData.size?.length && !selectedSize) {
+      dispatch(showNotification({ severity: 'error', message: 'Please select a size' }));
       return;
     }
 
     if (quantity > productData.stock) {
-      alert(`Only ${productData.stock} items available`);
+      dispatch(
+        showNotification({
+          severity: 'error',
+          message: `Only ${productData.stock} items available`,
+        }),
+      );
       return;
     }
+
+    dispatch(showNotification({ severity: 'success', message: 'Added to bag' }));
 
     console.log({
       productId: productData._id,
@@ -142,67 +149,59 @@ export default function ProductPage() {
       quantity,
       price: displayPrice,
       totalPrice,
-      brand: productData.brand
+      brand: productData.brand,
     });
   };
 
   const handleSave = () => {
-    console.log("Saved to wishlist", {
+    if (!productData) return;
+
+    dispatch(showNotification({ severity: 'success', message: 'Saved to wishlist' }));
+
+    console.log('Saved to wishlist', {
       productId: productData._id,
-      title: productData.title
+      title: productData.title,
     });
   };
 
-  const renderSizes = () => {
-    if (!productData.size || !Array.isArray(productData.size)) return null;
-    
-    return productData.size.map((size, index) => (
-      <button
-        key={index}
-        className={`size-btn ${selectedSize === size ? "selected" : ""}`}
-        onClick={() => setSelectedSize(size)}
-      >
-        {size}
-      </button>
-    ));
+  const retry = () => {
+    dispatch(fetchOtherProducts());
+    dispatch(fetchProducts());
   };
 
-  if (loading) {
+  if (!rawProduct && eitherLoading) {
+    return <h2 className="pageLoader">Loading...</h2>;
+  }
+
+  if (!rawProduct && bothLoaded) {
     return (
-      <div className="loading-container">
-        <div className="loading-spinner">Завантаження...</div>
-      </div>
+      <Container className={styles.errorContainer}>
+        <div className={styles.errorMessage}>Товар з id "{id}" не знайдено</div>
+      </Container>
     );
   }
 
-  if (error) {
+  if (!rawProduct && hasError) {
     return (
-      <div className="error-container">
-        <div className="error-message">Помилка: {error}</div>
-        <button onClick={fetchArticles} className="retry-btn">
+      <Container className={styles.errorContainer}>
+        <div className={styles.errorMessage}>
+          Помилка: {error || 'не вдалося завантажити товар'}
+        </div>
+        <button onClick={retry} className={clsx(styles.retryBtn)}>
           Спробувати знову
         </button>
-      </div>
+      </Container>
     );
   }
 
-  return (
-    <div className="product-page">
-      {/* Breadcrumb */}
-      <div className="breadcrumb">
-        <a href="/">Home</a>
-        <span className="separator">/</span>
-        <a href={`/${productData.category || 'category'}`}>
-          {productData.category || 'Category'}
-        </a>
-        <span className="separator">/</span>
-        <span>{productData.type || 'Product'}</span>
-      </div>
+  if (!productData) return null;
 
-      <div className="product-container">
-        {/* Gallery */}
-        <div className="product-gallery-wrapper">
+  return (
+    <Container className={styles.productPage}>
+      <div className={clsx(styles.productContainer)}>
+        <div className={clsx(styles.productGalleryWrapper)}>
           <Swiper
+            key={`thumbs-${productData._id}`}
             onSwiper={setThumbsSwiper}
             direction="vertical"
             spaceBetween={5}
@@ -210,102 +209,120 @@ export default function ProductPage() {
             freeMode={true}
             watchSlidesProgress={true}
             modules={[FreeMode, Thumbs]}
-            className="gallery-thumbs"
+            className={clsx(styles.galleryThumbs)}
           >
             {images.map((img, index) => (
               <SwiperSlide key={index}>
-                <img 
-                  src={img} 
-                  alt={`thumb-${index}`}
-                  onError={handleImageError}
-                />
+                <img src={img} alt={`thumb-${index}`} onError={handleImageError} />
               </SwiperSlide>
             ))}
           </Swiper>
-
           <Swiper
+            key={`main-${productData._id}`}
             spaceBetween={10}
-            navigation={true}
             thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
-            modules={[Navigation, Thumbs]}
-            className="gallery-main"
+            modules={[Thumbs]}
+            className={clsx(styles.galleryMain)}
           >
             {images.map((img, index) => (
               <SwiperSlide key={index}>
-                <img 
-                  src={img} 
-                  alt={`main-${index}`}
-                  onError={handleImageError}
-                />
+                <img src={img} alt={`main-${index}`} onError={handleImageError} />
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
-
-        {/* Info */}
-        <div className="product-info-wrapper">
-          <div className="brand-header">
-            <div className="brand">{productData.brand}</div>
-            {productData.isNew && <span className="new-badge">NEW</span>}
+        <div className={clsx(styles.productInfoWrapper)}>
+          <div className={clsx(styles.breadcrumb)}>
+            <a href="/" className={clsx(styles.breadcrumbItem)}>
+              Home
+            </a>
+            <span className={clsx(styles.separator)}>/</span>
+            <span className={clsx(styles.breadcrumbItem)}>
+              {productData.category || 'Category'}
+            </span>
+            <span className={clsx(styles.separator)}>/</span>
+            <span className={clsx(styles.breadcrumbItem)}>{productData.type || 'Product'}</span>
+          </div>
+          <div className={clsx(styles.brandHeader)}>
+            <div className={clsx(styles.brand)}>{productData.brand}</div>
+            {productData.isNew && <span className={clsx(styles.newBadge)}>NEW</span>}
           </div>
 
-          <h1 className="product-title">{productData.title}</h1>
+          <h1 className={clsx(styles.productTitle)}>{productData.title}</h1>
 
           {productData.rating > 0 && (
-            <div className="rating">
-              {"★".repeat(Math.floor(productData.rating))}
-              {"☆".repeat(5 - Math.floor(productData.rating))}
-              <span>({productData.rating})</span>
+            <div className={clsx(styles.rating)}>
+              {Array.from({ length: 5 }).map((item, index) =>
+                index < Math.floor(productData.rating) ? (
+                  <IoStar key={index} className={clsx(styles.starIcon)} />
+                ) : (
+                  <IoStarOutline key={index} className={clsx(styles.starIcon)} />
+                ),
+              )}
+              <span className={clsx(styles.ratingQuantity)}>({productData.rating})</span>
             </div>
           )}
 
           {productData.description && (
-            <p className="description">{productData.description}</p>
+            <p className={clsx(styles.description)}>{productData.description}</p>
           )}
-
-          {productData.size && productData.size.length > 0 && (
-            <div className="info-section">
-              <h3 className="section-title">SELECT SIZE</h3>
-              <div className="size-grid">
-                {renderSizes()}
+          <div className={clsx(styles.productManagement)}>
+            {productData.size?.length > 0 && (
+              <div className={clsx(styles.infoSection)}>
+                <h3 className={clsx(styles.sectionTitle)}>SELECT SIZE</h3>
+                <div className={clsx(styles.sizeGrid)}>
+                  {productData.size.map((size, index) => (
+                    <button
+                      key={index}
+                      className={clsx(styles.sizeBtn, selectedSize === size && styles.selected)}
+                      onClick={() => {
+                        setSelectedSize(size);
+                        dispatch(hideNotification());
+                      }}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
-
-          <div className="info-section">
-            <h3 className="section-title">QUANTITY</h3>
-            <div className="quantity-control">
-              <button 
-                className="quantity-btn" 
-                onClick={() => handleQuantityChange("decrement")}
-              >
-              −
-              </button>
-              <span className="quantity-value">{quantity}</span>
-              <button 
-                className="quantity-btn" 
-                onClick={() => handleQuantityChange("increment")}
-              >
-              +
-              </button>
-            </div>
-            {productData.stock > 0 && (
-              <div className="stock-info">In stock: {productData.stock}</div>
             )}
-          </div>
 
-          <div className="price-section">
-            <div className="price-label">PRICE TOTAL</div>
-            <div className="price-value">
+            <div className={clsx(styles.infoSection)}>
+              <h3 className={clsx(styles.sectionTitle)}>QUANTITY</h3>
+              <div className={clsx(styles.quantityControl)}>
+                <button
+                  className={clsx(styles.quantityBtn)}
+                  onClick={() => handleQuantityChange('decrement')}
+                >
+                  −
+                </button>
+                <span className={clsx(styles.quantityValue)}>{quantity}</span>
+                <button
+                  className={clsx(styles.quantityBtn)}
+                  onClick={() => handleQuantityChange('increment')}
+                >
+                  +
+                </button>
+              </div>
+              {productData.stock > 0 ? (
+                <div className={clsx(styles.stockInfo)}>In stock: {productData.stock}</div>
+              ) : (
+                <div className={clsx(styles.stockInfo)}>Out of stock</div>
+              )}
+            </div>
+          </div>
+          <div className={clsx(styles.priceSection)}>
+            <div className={clsx(styles.priceLabel)}>PRICE TOTAL</div>
+            <div className={clsx(styles.priceValue)}>
               {productData.discountedPrice ? (
                 <>
-                  <span className="old-price">
+                  <span className={clsx(styles.oldPrice)}>
                     {productData.oldPrice || productData.price} EUR
                   </span>
-                  <span className="current-price">{totalPrice} EUR</span>
-                  <span className="discount-badge">
-                    -{Math.round((1 - productData.discountedPrice / productData.price) * 100)}%
-                  </span>
+                  <span className={clsx(styles.currentPrice)}>{totalPrice} EUR</span>
+                  {discountPercent > 0 && (
+                    <span className={clsx(styles.discountBadge)}>-{discountPercent}%</span>
+                  )}
                 </>
               ) : (
                 <span>{totalPrice} EUR</span>
@@ -313,74 +330,187 @@ export default function ProductPage() {
             </div>
           </div>
 
-          <div className="action-buttons">
-            <button 
-              className="add-to-bag" 
+          <div className={clsx(styles.actionButtons)}>
+            <button
+              className={clsx(styles.addToBag)}
               onClick={handleAddToBag}
               disabled={productData.stock === 0}
             >
-              {productData.stock > 0 ? "ADD TO BAG" : "OUT OF STOCK"}
+              {productData.stock > 0 ? 'ADD TO BAG' : 'OUT OF STOCK'}
             </button>
-            <button className="save-btn" onClick={handleSave}>
-              SAVE
+            <button className={clsx(styles.saveBtn)} onClick={handleSave}>
+              SAVE <IoHeartSharp size={20} />
             </button>
           </div>
         </div>
       </div>
-    
-      <div className="prodact-pages-section2">
-        <div className="accordion" id="accordionExample">
-          <div className="accordion-item">
-            <h2 className="accordion-header">
-              <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+
+      <Snackbar
+        open={notification.open}
+        autoHideDuration={4000}
+        onClose={() => dispatch(hideNotification())}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        TransitionComponent={Fade}
+      >
+        <Alert
+          severity={notification.severity}
+          onClose={() => dispatch(hideNotification())}
+          variant="filled"
+          sx={{ boxShadow: 3 }}
+        >
+          {notification.message}
+        </Alert>
+      </Snackbar>
+      <div className={clsx(styles.productPageExtraInformation)}>
+        <h2 className={clsx(styles.productPageExtraInformationTitle)}>Details</h2>
+        <div className={clsx(styles.accordion)} id="accordionExample">
+          <div className={clsx(styles.accordionItem)}>
+            <h2 className={clsx(styles.accordionHeader)}>
+              <button
+                className={clsx(
+                  styles.accordionButton,
+                  !openSections.includes('productDetails') && styles.collapsed,
+                )}
+                type="button"
+                aria-expanded={openSections.includes('productDetails')}
+                onClick={() => toggleSection('productDetails')}
+              >
                 Product Details
               </button>
             </h2>
-            <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-              <div className="accordion-body">
-                <strong>Product description:</strong> {productData.description || "No description available."}
-              </div>
-            </div>
+            <AnimatePresence initial={false}>
+              {openSections.includes('productDetails') && (
+                <motion.div
+                  key="content"
+                  id="collapseOne"
+                  className={clsx(styles.accordionCollapse)}
+                  style={{ overflow: 'hidden' }}
+                  initial="collapsed"
+                  animate="open"
+                  exit="collapsed"
+                  variants={accordionVariants}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
+                  <div className={clsx(styles.accordionBody)}>
+                    <strong>Product description:</strong>{' '}
+                    {productData.description || 'No description available.'}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-          <div className="accordion-item">
-            <h2 className="accordion-header">
-              <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <div className={clsx(styles.accordionItem)}>
+            <h2 className={clsx(styles.accordionHeader)}>
+              <button
+                className={clsx(
+                  styles.accordionButton,
+                  !openSections.includes('sizeGuide') && styles.collapsed,
+                )}
+                type="button"
+                aria-expanded={openSections.includes('sizeGuide')}
+                onClick={() => toggleSection('sizeGuide')}
+              >
                 Size Guide
               </button>
             </h2>
-            <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-              <div className="accordion-body">
-                Available sizes: {productData.size && Array.isArray(productData.size) ? productData.size.join(', ') : 'Standard sizes apply'}
-              </div>
-            </div>
+            <AnimatePresence initial={false}>
+              {openSections.includes('sizeGuide') && (
+                <motion.div
+                  key="content"
+                  id="collapseTwo"
+                  className={clsx(styles.accordionCollapse)}
+                  style={{ overflow: 'hidden' }}
+                  initial="collapsed"
+                  animate="open"
+                  exit="collapsed"
+                  variants={accordionVariants}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
+                  <div className={clsx(styles.accordionBody)}>
+                    Available sizes:{' '}
+                    {productData.size?.length
+                      ? productData.size.join(', ')
+                      : 'Standard sizes apply'}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-          <div className="accordion-item">
-            <h2 className="accordion-header">
-              <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <div className={clsx(styles.accordionItem)}>
+            <h2 className={clsx(styles.accordionHeader)}>
+              <button
+                className={clsx(
+                  styles.accordionButton,
+                  !openSections.includes('shipping') && styles.collapsed,
+                )}
+                type="button"
+                aria-expanded={openSections.includes('shipping')}
+                onClick={() => toggleSection('shipping')}
+              >
                 Shipping & Returns
               </button>
             </h2>
-            <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-              <div className="accordion-body">
-                Free shipping on orders over 50 EUR. Returns accepted within 30 days.
-              </div>
-            </div>
+            <AnimatePresence initial={false}>
+              {openSections.includes('shipping') && (
+                <motion.div
+                  key="content"
+                  id="collapseThree"
+                  className={clsx(styles.accordionCollapse)}
+                  style={{ overflow: 'hidden' }}
+                  initial="collapsed"
+                  animate="open"
+                  exit="collapsed"
+                  variants={accordionVariants}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
+                  <div className={clsx(styles.accordionBody)}>
+                    Free shipping on orders over 50 EUR. Returns accepted within 30 days.
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-           <div className="accordion-item">
-            <h2 className="accordion-header">
-              <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+          <div className={clsx(styles.accordionItem)}>
+            <h2 className={clsx(styles.accordionHeader)}>
+              <button
+                className={clsx(
+                  styles.accordionButton,
+                  !openSections.includes('comments') && styles.collapsed,
+                )}
+                type="button"
+                aria-expanded={openSections.includes('comments')}
+                onClick={() => toggleSection('comments')}
+              >
                 Comments
               </button>
             </h2>
-            <div id="collapseFour" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-              <div className="accordion-body">
-                <strong>Comments:</strong> 
-                {/* <Coments id={4}/> */}
-              </div>
-            </div>
+            <AnimatePresence initial={false}>
+              {openSections.includes('comments') && (
+                <motion.div
+                  key="content"
+                  id="collapseFour"
+                  className={clsx(styles.accordionCollapse)}
+                  style={{ overflow: 'hidden' }}
+                  initial="collapsed"
+                  animate="open"
+                  exit="collapsed"
+                  variants={accordionVariants}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
+                  <div className={clsx(styles.accordionBody)}>
+                    {/* {productData._id ? (
+                      <Coments id={productData._id} />
+                    ) : (
+                      <span>Comments unavailable.</span>
+                    )} */}
+                    <span>Temporarily not working</span>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 }
