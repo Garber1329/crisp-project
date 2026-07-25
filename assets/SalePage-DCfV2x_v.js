@@ -1,0 +1,1 @@
+import{c as o,j as r}from"./index-CTHRGRVH.js";import m from"./ProductPage-CvZ7MzAL.js";import"./createSimplePaletteValueFilter-DkG7rxZz.js";function i(){const t=o.c(1);let e;return t[0]===Symbol.for("react.memo_cache_sentinel")?(e=r.jsx(r.Fragment,{children:r.jsx(m,{})}),t[0]=e):e=t[0],e}export{i as default};

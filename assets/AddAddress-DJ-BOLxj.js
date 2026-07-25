@@ -1,4 +1,4 @@
-import{r as x,j as s}from"./index-DHLzyRNu.js";import{y as n}from"./styled-components.browser.esm-DNyrEG5U.js";const d=n.div`
+import{r as x,j as s}from"./index-CTHRGRVH.js";import{y as n}from"./styled-components.browser.esm-CdNWHkko.js";const d=n.div`
   max-width: 800px;
 `,o=n.h2`
   font-size: 24px;
