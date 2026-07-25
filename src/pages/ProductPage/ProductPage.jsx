@@ -175,16 +175,16 @@ export default function ProductPage() {
 
   if (!rawProduct && bothLoaded) {
     return (
-      <Container className={styles.errorContainer}>
-        <div className={styles.errorMessage}>Товар з id "{id}" не знайдено</div>
+      <Container className={clsx(styles.errorContainer)}>
+        <div className={clsx(styles.errorMessage)}>Товар з id "{id}" не знайдено</div>
       </Container>
     );
   }
 
   if (!rawProduct && hasError) {
     return (
-      <Container className={styles.errorContainer}>
-        <div className={styles.errorMessage}>
+      <Container className={clsx(styles.errorContainer)}>
+        <div className={clsx(styles.errorMessage)}>
           Помилка: {error || 'не вдалося завантажити товар'}
         </div>
         <button onClick={retry} className={clsx(styles.retryBtn)}>
@@ -197,7 +197,7 @@ export default function ProductPage() {
   if (!productData) return null;
 
   return (
-    <Container className={styles.productPage}>
+    <Container className={clsx(styles.productPage)}>
       <div className={clsx(styles.productContainer)}>
         <div className={clsx(styles.productGalleryWrapper)}>
           <Swiper

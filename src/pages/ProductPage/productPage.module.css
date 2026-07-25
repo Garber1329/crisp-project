@@ -473,3 +473,85 @@
   color: #111;
   font-weight: 700;
 }
+
+.loadingContainer,
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  min-height: 480px;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.loadingSpinner {
+  color: rgba(0, 0, 0, 1);
+  font-family: "Oswald";
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 30px;
+}
+
+.loadingSpinner::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 2px;
+  background: #111;
+  animation: loadingBar 1.1s ease-in-out infinite;
+}
+
+@keyframes loadingBar {
+  0% {
+    width: 12px;
+    opacity: 0.3;
+  }
+  50% {
+    width: 36px;
+    opacity: 1;
+  }
+  100% {
+    width: 12px;
+    opacity: 0.3;
+  }
+}
+
+.errorMessage {
+  color: rgba(63, 63, 63, 1);
+  font-family: "Oswald";
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0%;
+  max-width: 420px;
+  line-height: 1.6;
+}
+
+.retryBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 1);
+  font-family: "Oswald";
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 15px 40px;
+  text-transform: uppercase;
+  background-color: rgba(0, 0, 0, 1);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.retryBtn:hover {
+  background-color: rgba(235, 87, 87, 1);
+}
