@@ -1,14 +1,23 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styles from './loginPage.module.css';
 import clsx from 'clsx';
 import Container from '../Container';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import logitThunk from '../../store/async/LoginData';
+import { singUpUser } from '../../store/slices/loginSlice';
 
 const LoginMain = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [agree, setAgree] = useState(false);
   const [errors, setErrors] = useState({});
+  const {user, userData, login} = useSelector(state => state.loginSlice)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(logitThunk())
+  }, [dispatch])
 
   const handleChange = useCallback((event) => {
     const { name, type, checked, value } = event.target;
@@ -40,7 +49,8 @@ const LoginMain = () => {
       setErrors(errors);
       if (Object.keys(errors).length === 0) {
         console.log('Form submitted:', { email, password, agree });
-        localStorage.setItem('userInfoAccount', JSON.stringify(email))
+        dispatch(singUpUser({email, password}))
+
         setEmail('');
         setPassword('');
         setAgree(false);

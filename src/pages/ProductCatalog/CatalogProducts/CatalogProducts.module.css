@@ -9,6 +9,12 @@
 .productItem {
   display: flex;
   flex-direction: column;
+
+  transition: transform 0.3s ease;
+}
+
+.productItem:hover {
+  transform: translateY(-3px) scale(1.01);
 }
 .productItem__photo {
   width: 354px;

@@ -1,17 +1,25 @@
 import { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import blog from './BlogPages.module.css'
 import adverstising from '/src/images/BlogPage/adverstising.png'
 import adverstising2 from '/src/images/BlogPage/adverstising2.png'
 import shopOption from '/src/data/productsData.json'
-import bd from '/src/data/bd.json'
-import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import fetchBlog from '../../store/async/blogDataThunk'
+import { filterInfo } from '../../store/slices/blogSlice'
 
 export default function BlogPages({ clouses = 'dress' }) {
-    const [blogData, setBlogData] = useState()
     const [blogSearch, setBlogSearch] = useState()
     const [searchParams, setSerchParams] = useSearchParams()
     const [productData, setProductData] = useState([])
+    const dispatch = useDispatch()
+    const { blogDataFetch, filterBlogResult } = useSelector(state => state.blogsSlice)
+
+    console.log(blogDataFetch)
+
+    useEffect(() => {
+        dispatch(fetchBlog())
+    }, [dispatch])
 
     const searchValue = () => {
         if (searchParams.get('name')) {
@@ -24,21 +32,16 @@ export default function BlogPages({ clouses = 'dress' }) {
 
     useEffect(() => {
         searchValue()
-        const data = bd.filter(e => e.type === blogSearch)
-        const shopOptions = shopOption.data.slice(0, 4)
-
-        setProductData(shopOptions)
-        if (data.length) {
-            setBlogData(data)
-        } else {
-            setBlogData(bd.filter(e => e.type === 'dress'))
+        if (blogDataFetch.length) {
+            dispatch(filterInfo(blogSearch))
         }
-    }, [blogSearch])
 
-    console.log(productData)
+        setProductData(shopOption.data.slice(0, 4))
+    }, [blogSearch, blogDataFetch])
+
     return (
         <>
-            {blogData && <>
+            {filterBlogResult.length && <>
                 <section className={blog.blogSection}>
                     <div className={blog.linkBlog}>
                         <a href="">Home</a>
@@ -52,13 +55,13 @@ export default function BlogPages({ clouses = 'dress' }) {
                 <section className={blog.blogSectionContent}>
                     <div className={blog.blogContent}>
                         <div className={blog.contentTitle}>
-                            <h1 className={blog.title}>{blogData[0].title}</h1>
-                            <p>{blogData[0].firstDescription}</p>
+                            <h1 className={blog.title}>{filterBlogResult[0].title}</h1>
+                            <p>{filterBlogResult[0].firstDescription}</p>
                         </div>
-                        <img src={blogData[0].imageUrl} alt="" />
+                        <img src={filterBlogResult[0].imageUrl} alt="" />
                         <div className={blog.contentTitle}>
-                            <h1 className={blog.title}>{blogData[0].title}</h1>
-                            <p>{blogData[0].secondDescription}</p>
+                            <h1 className={blog.title}>{filterBlogResult[0].title}</h1>
+                            <p>{filterBlogResult[0].secondDescription}</p>
                         </div>
                     </div>
                     <div className={blog.adverstisingBox}>

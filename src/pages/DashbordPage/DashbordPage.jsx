@@ -88,7 +88,7 @@ class DashbordPage extends Component {
     if (this.state.mode === "account") {
       return <EditAccount />
     }
-    if (this.state.mode === "wishlist") {
+    if (this.state.activeSection === "wishlist") {
       return <MyWishlist />
     }
 

@@ -4,6 +4,7 @@
   width: 100%;
   overflow: hidden;
 }
+
 .content {
   display: flex;
   flex-direction: column;
@@ -11,6 +12,7 @@
   width: 100%;
   min-width: 0;
 }
+
 .BlogCard {
   background: #fff;
   padding: 24px;
@@ -19,6 +21,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .title {
   color: #000000;
   font-family: "Oswald";
@@ -27,6 +30,7 @@
   line-height: 68px;
   text-align: left;
 }
+
 .article {
   background-color: #ffffff;
   height: 420px;
@@ -36,11 +40,13 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
 .top {
   display: flex;
   flex-direction: column;
   gap: 21px;
 }
+
 .subArticle {
   color: #bdbdbd;
   font-family: "Oswald";
@@ -51,11 +57,13 @@
   text-align: left;
   text-transform: uppercase;
 }
+
 .main {
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
+
 .articleTitle {
   color: #000000;
   font-family: "Oswald";
@@ -64,6 +72,7 @@
   line-height: 39px;
   text-align: left;
 }
+
 .articleText {
   color: #000000;
   font-family: "Roboto Light";
@@ -74,15 +83,18 @@
   letter-spacing: 1%;
   text-align: left;
 }
+
 .articleFooter {
   display: flex;
   flex-direction: column;
 }
+
 .hr {
   height: 2.5px;
   width: 100%;
   background-color: #000000;
 }
+
 .date {
   color: #4f4f4f;
   font-family: "Oswald";
