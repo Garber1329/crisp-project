@@ -13,7 +13,6 @@ const NAV_LINKS = [
   { to: '/catalog', label: 'Catalog' },
   { to: '/shop', label: 'Electronic shop' },
   { to: '/blog', label: 'blog' },
-  { to: '/sale', label: 'Sale' },
   { to: '/contacts', label: 'Contact us' },
 ];
 
@@ -31,7 +30,6 @@ const MODAL_CATEGORIES = [
     links: [
       { to: '/cart', label: 'Cart' },
       { to: '/catalog', label: 'Catalog' },
-      { to: '/product/1', label: 'Product' },
     ],
   },
 ];

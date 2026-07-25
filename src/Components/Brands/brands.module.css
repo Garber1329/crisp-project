@@ -25,12 +25,6 @@
     padding-right: 100px;
 }
 
-.brandsIcons {
-    display: flex;
-    align-items: center;
-    gap: 35px;
-}
-
 .brand {
     display: flex;
     align-items: center;
